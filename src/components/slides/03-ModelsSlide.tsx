@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ModelCard from '../cards/ModelCard';
 import CardsLayout from '../layouts/CardsLayout';
 

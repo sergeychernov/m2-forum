@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
 import QRCard from '../cards/QRCard';
 

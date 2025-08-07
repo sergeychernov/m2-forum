@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ToolCard from '../cards/ToolCard';
 import CardsLayout from '../layouts/CardsLayout';
 
