@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './TaskCard.module.css';
+import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 
 interface TaskCardProps {
   title: string;
@@ -7,8 +8,11 @@ interface TaskCardProps {
   tool: string;
   rating: 'conditional' | 'satisfactory' | 'excellent';
   icon: string;
-  animate?: boolean;
-  animationDelay?: string;
+  animationType?: AnimationType;
+  animationIndex?: number;
+  animationDelay?: number;
+  isActive?: boolean;
+  isVisited?: boolean;
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({
@@ -17,25 +21,32 @@ const TaskCard: React.FC<TaskCardProps> = ({
   tool,
   rating,
   icon,
-  animate = false,
-  animationDelay = '0ms'
+  animationType = 'none',
+  animationIndex = 0,
+  animationDelay = 300,
+  isActive = true,
+  isVisited = false
 }) => {
+  const { animationClasses } = useCardAnimation({
+    isActive,
+    isVisited,
+    animationType,
+    delay: animationDelay,
+    index: animationIndex
+  });
+
   return (
-    <div
-      className={`${styles.taskCard} ${animate ? styles.animate : ''} ${styles[rating]}`}
-      style={{ animationDelay }}
-      tabIndex={0}
-    >
+    <div className={`${styles.taskCard} ${styles[rating]} ${animationClasses}`}>
       <div className={`${styles.taskBorderLeft} ${styles[`border${rating.charAt(0).toUpperCase() + rating.slice(1)}`]}`}></div>
       
       <div className={styles.taskContent}>
-        <h4 className={styles.taskTitle}>{title}</h4>
+        <h3 className={styles.taskTitle}>{title}</h3>
         <p className={styles.taskDescription}>{description}</p>
-      </div>
-      
-      <div className={styles.taskFooter}>
-        <span className={styles.taskTool}>{tool}</span>
-        <div className={styles.taskIcon}>{icon}</div>
+        
+        <div className={styles.taskFooter}>
+          <span className={styles.taskTool}>{tool}</span>
+          <span className={styles.taskIcon}>{icon}</span>
+        </div>
       </div>
     </div>
   );

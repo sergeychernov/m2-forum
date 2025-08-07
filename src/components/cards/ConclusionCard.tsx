@@ -1,63 +1,64 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ConclusionCard.module.css';
+import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 
 interface ConclusionCardProps {
   text: string;
   hasChart?: boolean;
   index: number;
-  isVisible?: boolean;
   chart?: React.ReactNode;
-  animate?: boolean;
-  animationDelay?: string;
+  animationType?: AnimationType;
+  animationIndex?: number;
+  animationDelay?: number;
+  isActive?: boolean;
+  isVisited?: boolean;
 }
 
 const ConclusionCard: React.FC<ConclusionCardProps> = ({ 
   text, 
   hasChart = false, 
   index, 
-  isVisible = true,
   chart,
-  animate = false,
-  animationDelay = '0ms'
+  animationType = 'none',
+  animationIndex = 0,
+  animationDelay = 300,
+  isActive = true,
+  isVisited = false
 }) => {
   const [showExplosion, setShowExplosion] = useState(false);
   const [showLightning, setShowLightning] = useState(false);
-  const [animateCard, setAnimateCard] = useState(false);
+  
+  const { shouldAnimate, animationClasses } = useCardAnimation({
+    isActive,
+    isVisited,
+    animationType,
+    delay: animationDelay,
+    index: animationIndex
+  });
 
   useEffect(() => {
-    if (animate) {
-      // Используем animationDelay из пропсов
-      const delay = parseInt(animationDelay) || 0;
-      
-      // Сначала показываем молнию
+    if (shouldAnimate && animationType === 'explosion') {
+      // Специальные эффекты только для explosion анимации
       const lightningTimer = setTimeout(() => {
         setShowLightning(true);
-      }, delay);
+      }, 100);
 
-      // Затем взрыв
       const explosionTimer = setTimeout(() => {
         setShowExplosion(true);
-      }, delay + 100);
+      }, 200);
 
-      // И наконец карточку
-      const cardTimer = setTimeout(() => {
-        setAnimateCard(true);
-      }, delay + 300);
-
-      // Убираем эффекты через некоторое время
       const cleanupTimer = setTimeout(() => {
         setShowExplosion(false);
         setShowLightning(false);
-      }, delay + 1500);
+      }, 1500);
 
       return () => {
         clearTimeout(lightningTimer);
         clearTimeout(explosionTimer);
-        clearTimeout(cardTimer);
         clearTimeout(cleanupTimer);
       };
     }
-  }, [animate, animationDelay]);
+  }, [shouldAnimate, animationType]);
 
   const generateLightningPath = () => {
     const paths = [
@@ -95,8 +96,8 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
 
   return (
     <div className={styles.cardContainer}>
-      {/* Молния */}
-      {showLightning && (
+      {/* Молния - только для explosion анимации */}
+      {showLightning && animationType === 'explosion' && (
         <div className={styles.lightningContainer}>
           <svg className={styles.lightning} viewBox="0 0 100 100">
             <defs>
@@ -120,8 +121,8 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
         </div>
       )}
 
-      {/* Взрыв */}
-      {showExplosion && (
+      {/* Взрыв - только для explosion анимации */}
+      {showExplosion && animationType === 'explosion' && (
         <div className={styles.explosionContainer}>
           <div className={styles.explosionCore} />
           <div className={styles.explosionRing} />
@@ -132,12 +133,9 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
 
       {/* Карточка */}
       <div
-        className={`${styles.conclusionCard} ${animateCard ? styles.animate : ''} ${
+        className={`${styles.conclusionCard} ${animationClasses} ${
           index % 2 === 0 ? styles.fromRight : styles.fromLeft
         }`}
-        style={{
-          animationDelay: animationDelay
-        }}
         tabIndex={0}
       >
         <div className={`${styles.conclusionBorderLeft} ${styles.blue}`}></div>

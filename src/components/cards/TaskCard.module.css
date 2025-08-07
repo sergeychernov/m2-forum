@@ -42,12 +42,7 @@
   height: auto;
   min-height: 220px;
   width: 100%;
-  opacity: 0;
-  transform: translateX(-50px) translateY(20px) scale(0.8);
-}
-
-.taskCard.animate {
-  animation: slideInRotate 0.6s ease-out forwards;
+  /* Убираем старые анимационные стили */
 }
 
 .taskCard:hover {
@@ -89,6 +84,15 @@
   animation: goldShimmer 3s ease-in-out infinite;
 }
 
+@keyframes goldShimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 .taskContent {
   flex: 1;
   display: flex;
@@ -116,7 +120,6 @@
   line-height: 1.4;
   transition: color 0.3s ease;
   margin-bottom: var(--space-16);
-  /* Убираем ограничения на текст - показываем весь контент */
   overflow: visible;
   display: block;
   word-wrap: break-word;
@@ -145,7 +148,6 @@
   padding: var(--space-2) var(--space-6);
   border-radius: var(--radius-base);
   transition: all 0.3s ease;
-  /* Убираем ограничения на ширину tool */
   max-width: none;
   overflow: visible;
   text-overflow: unset;
@@ -167,6 +169,15 @@
 
 .taskCard:hover .taskIcon {
   animation: iconBounce 0.4s ease-in-out;
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }
 
 /* Специальные стили для разных рейтингов */

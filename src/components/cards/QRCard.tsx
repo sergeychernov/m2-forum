@@ -1,69 +1,70 @@
 import React, { useEffect, useRef } from 'react';
 import QRCode from 'qrcode';
 import styles from './QRCard.module.css';
+import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 
 interface QRCardProps {
   title: string;
   description: string;
   url: string;
   icon: string;
-  animate?: boolean;
-  animationDelay?: string;
+  animationType?: AnimationType;
+  animationIndex?: number;
+  animationDelay?: number;
+  isActive?: boolean;
+  isVisited?: boolean;
 }
 
 const QRCard: React.FC<QRCardProps> = ({ 
   title, 
   description, 
   url, 
-  icon, 
-  animate = false,
-  animationDelay = '0ms'
+  icon,
+  animationType = 'none',
+  animationIndex = 0,
+  animationDelay = 300,
+  isActive = true,
+  isVisited = false
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  
+  const { animationClasses } = useCardAnimation({
+    isActive,
+    isVisited,
+    animationType,
+    delay: animationDelay,
+    index: animationIndex
+  });
 
   useEffect(() => {
-    const generateQR = async () => {
-      if (canvasRef.current) {
-        try {
-          await QRCode.toCanvas(canvasRef.current, url, {
-            width: 200,
-            margin: 2,
-            color: {
-              dark: '#000000',
-              light: '#FFFFFF'
-            },
-            errorCorrectionLevel: 'M'
-          });
-        } catch (error) {
-          console.error('Error generating QR code:', error);
+    if (canvasRef.current) {
+      QRCode.toCanvas(canvasRef.current, url, {
+        width: 120,
+        margin: 1,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF'
         }
-      }
-    };
-
-    generateQR();
+      });
+    }
   }, [url]);
 
   return (
-    <div 
-      className={`${styles.qrCard} ${animate ? styles.animate : ''}`}
-      style={{ animationDelay }}
-    >
+    <div className={`${styles.qrCard} ${animationClasses}`}>
       <div className={styles.qrCodeWrapper}>
-        <canvas 
-          ref={canvasRef}
-          className={styles.qrCode}
-        />
+        <canvas ref={canvasRef} className={styles.qrCode} />
       </div>
+      
       <div className={styles.qrInfo}>
         <h3>{icon} {title}</h3>
         <p className={styles.qrDescription}>{description}</p>
         <a 
           href={url} 
           target="_blank" 
-          rel="noopener noreferrer"
+          rel="noopener noreferrer" 
           className={styles.qrLink}
         >
-          {url.replace(/^https?:\/\//, '')}
+          {url}
         </a>
       </div>
     </div>

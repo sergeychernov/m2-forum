@@ -1,0 +1,194 @@
+/* ===== СИСТЕМА АНИМАЦИЙ ===== */
+
+/* Базовые состояния */
+.animate-none {
+  opacity: 1;
+  transform: none;
+}
+
+.animate-initial {
+  opacity: 0;
+  transform: translateX(-50px) translateY(20px) scale(0.8);
+}
+
+/* ===== BUBBLING АНИМАЦИЯ (оригинальная из ToolCard - простое всплытие) ===== */
+@keyframes bubbling {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-bubbling {
+  animation: bubbling 0.6s ease-out forwards;
+}
+
+/* ===== GRASSHOPPER АНИМАЦИЯ (бывший bubbling - bounce эффект) ===== */
+@keyframes grasshopper {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(0.3) rotate(-5deg);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translateY(-15px) scale(1.1) rotate(3deg);
+  }
+  60% {
+    transform: translateY(8px) scale(0.95) rotate(-2deg);
+  }
+  80% {
+    transform: translateY(-4px) scale(1.02) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+.animate-grasshopper {
+  animation: grasshopper 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* ===== PENDULUM АНИМАЦИЯ (бывший grasshopper - маятниковое движение) ===== */
+@keyframes pendulum {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px) translateY(40px) scale(0.7) rotate(-15deg);
+  }
+  25% {
+    opacity: 0.4;
+    transform: translateX(-20px) translateY(-25px) scale(1.1) rotate(10deg);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateX(15px) translateY(20px) scale(0.9) rotate(-8deg);
+  }
+  75% {
+    opacity: 0.9;
+    transform: translateX(-5px) translateY(-8px) scale(1.03) rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+.animate-pendulum {
+  animation: pendulum 1.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* ===== APPEARANCE АНИМАЦИЯ (оригинальная slideInRotate из TaskCard) ===== */
+@keyframes appearance {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px) translateY(20px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+.animate-appearance {
+  /* Начальное состояние - карточки находятся в стартовой позиции анимации */
+  opacity: 0;
+  transform: translateX(-50px) translateY(20px) scale(0.8);
+  animation: appearance 0.6s ease-out forwards;
+}
+
+/* ===== EXPLOSION АНИМАЦИЯ ===== */
+@keyframes explosion {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.8) rotateX(-15deg);
+    filter: blur(10px);
+  }
+  30% {
+    opacity: 0.3;
+    transform: translateY(20px) scale(0.9) rotateX(-5deg);
+    filter: blur(5px);
+  }
+  60% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(1.05) rotateX(2deg);
+    filter: blur(2px);
+  }
+  80% {
+    opacity: 0.9;
+    transform: translateY(5px) scale(0.98) rotateX(-1deg);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+.animate-explosion {
+  animation: explosion 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* ===== GHOST АНИМАЦИЯ ===== */
+@keyframes ghost {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.8);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-ghost {
+  animation: ghost 0.8s ease-out forwards;
+}
+
+/* ===== ЗАДЕРЖКИ АНИМАЦИИ ===== */
+.animate-delay-0 { animation-delay: 0ms; }
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+.animate-delay-600 { animation-delay: 600ms; }
+.animate-delay-700 { animation-delay: 700ms; }
+.animate-delay-800 { animation-delay: 800ms; }
+.animate-delay-900 { animation-delay: 900ms; }
+.animate-delay-1000 { animation-delay: 1000ms; }
+
+/* ===== ДОПОЛНИТЕЛЬНЫЕ ЭФФЕКТЫ ===== */
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.animate-icon-pulse {
+  animation: iconPulse 0.6s ease-in-out;
+}
+
+.animate-icon-bounce {
+  animation: iconBounce 0.4s ease-in-out;
+}

@@ -1,5 +1,6 @@
 import React, { ReactNode, cloneElement, isValidElement } from 'react';
 import styles from './CardsLayout.module.css';
+import { AnimationType } from '../../hooks/useCardAnimation';
 
 type SpacingSize = 'none' | 'small' | 'medium' | 'large';
 type ColsCount = '1' | '2' | '3' | '4' | 'auto';
@@ -15,8 +16,10 @@ interface CardsLayoutProps {
   footerNote?: string;
   className?: string;
   scrollable?: boolean;
-  animate?: boolean;
+  animationType?: AnimationType;
   animationDelay?: number;
+  isActive?: boolean;
+  isVisited?: boolean;
 }
 
 const CardsLayout: React.FC<CardsLayoutProps> = ({
@@ -29,8 +32,10 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
   footerNote,
   className = '',
   scrollable = false,
-  animate = false,
-  animationDelay = 200
+  animationType = 'none',
+  animationDelay = 300,
+  isActive = true,
+  isVisited = false
 }) => {
   const containerClasses = [
     styles.slideContent,
@@ -50,8 +55,11 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
       
       return cloneElement(child, {
         ...childProps,
-        animate: animate,
-        animationDelay: `${index * animationDelay}ms`
+        animationType,
+        animationIndex: index,
+        animationDelay,
+        isActive,
+        isVisited
       } as any);
     }
     return child;

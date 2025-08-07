@@ -8,8 +8,6 @@ interface SlideProps {
 }
 
 const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
-  const [animateCards, setAnimateCards] = useState(false);
-
   const cursorToolFeatures = [
     { icon: '📁', text: 'Ссылки на файлы и участки кода' },
     { icon: '🖼️', text: 'Прикрепление изображений и схем' },
@@ -25,17 +23,6 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     { icon: '📋', text: 'Структура задач (issue → PR)' },
   ];
 
-  useEffect(() => {
-    if (isActive && !isVisited) {
-      const timer = setTimeout(() => {
-        setAnimateCards(true);
-      }, 300);
-      return () => clearTimeout(timer);
-    } else if (isVisited) {
-      setAnimateCards(true);
-    }
-  }, [isActive, isVisited]);
-
   return (
     <CardsLayout 
       title="Обзор инструментов" 
@@ -43,8 +30,10 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       horizontalGap="medium" 
       verticalGap="medium" 
       contentWidth="medium"
-      animate={animateCards}
+      animationType="bubbling"
       animationDelay={200}
+      isActive={isActive}
+      isVisited={isVisited}
     >
       <ToolCard
         title="Gemini Plugin, Cursor и Trae.ai"

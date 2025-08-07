@@ -8,8 +8,6 @@ interface SlideProps {
 }
 
 const ModelsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
-  const [animateCards, setAnimateCards] = useState(false);
-
   const models = [
     { icon: '🤖', name: 'GPT', description: 'Модель от OpenAI' },
     { icon: '💎', name: 'Gemini', description: 'Модель от Google' },
@@ -19,17 +17,6 @@ const ModelsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     { icon: '⚡', name: 'Grok', description: 'Модель от xAI' },
   ];
 
-  useEffect(() => {
-    if (isActive && !isVisited) {
-      const timer = setTimeout(() => {
-        setAnimateCards(true);
-      }, 300);
-      return () => clearTimeout(timer);
-    } else if (isVisited) {
-      setAnimateCards(true);
-    }
-  }, [isActive, isVisited]);
-
   return (
     <CardsLayout 
       title="Протестированные модели" 
@@ -37,8 +24,10 @@ const ModelsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       horizontalGap="large" 
       verticalGap="medium"
       contentWidth="narrow"
-      animate={animateCards}
+      animationType="grasshopper"
       animationDelay={150}
+      isActive={isActive}
+      isVisited={isVisited}
     >
       {models.map((model) => (
         <ModelCard

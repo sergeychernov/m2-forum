@@ -8,8 +8,6 @@ interface SlideProps {
 }
 
 const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
-  const [animateCards, setAnimateCards] = useState(false);
-
   const conclusions = [
     {
       text: 'AI инструменты значительно повышают продуктивность в большинстве задач. В нашей команде AI как новый сотрудник — потеряв одного старшего разработчика, производительность осталась прежней',
@@ -36,17 +34,6 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       hasChart: false
     }
   ];
-
-  useEffect(() => {
-    if (isActive && !isVisited) {
-      const timer = setTimeout(() => {
-        setAnimateCards(true);
-      }, 500);
-      return () => clearTimeout(timer);
-    } else if (isVisited) {
-      setAnimateCards(true);
-    }
-  }, [isActive, isVisited]);
 
   const PerformanceChart = () => (
     <div style={{ padding: 'var(--space-16)' }}>
@@ -118,8 +105,10 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       verticalGap="medium" 
       contentWidth="wide"
       scrollable={true}
-      animate={animateCards}
+      animationType="explosion"
       animationDelay={250}
+      isActive={isActive}
+      isVisited={isVisited}
     >
       {conclusions.map((conclusion, index) => (
         <ConclusionCard

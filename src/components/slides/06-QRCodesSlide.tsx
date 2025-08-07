@@ -8,19 +8,6 @@ interface SlideProps {
 }
 
 const QRCodesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
-  const [animateCards, setAnimateCards] = useState(false);
-
-  useEffect(() => {
-    if (isActive && !isVisited) {
-      const timer = setTimeout(() => {
-        setAnimateCards(true);
-      }, 300);
-      return () => clearTimeout(timer);
-    } else if (isVisited) {
-      setAnimateCards(true);
-    }
-  }, [isActive, isVisited]);
-
   return (
     <CardsLayout 
       title="Ссылки для быстрого доступа" 
@@ -29,20 +16,22 @@ const QRCodesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       verticalGap="medium" 
       contentWidth="medium"
       footerNote="Отсканируйте QR-код камерой телефона для быстрого перехода"
-      animate={animateCards}
+      animationType="ghost"
       animationDelay={200}
+      isActive={isActive}
+      isVisited={isVisited}
     >
       <QRCard
         title="GitHub Repository"
         description="Исходный код презентации"
-        url="https://github.com/sergeychernov/vibecoding-presentation"
+        url="https://github.com/sergeychernov/m2-forum"
         icon="📁"
       />
       
       <QRCard
         title="Презентация"
         description="Онлайн версия презентации"
-        url="https://sergeychernov.github.io/vibecoding-presentation/"
+        url="https://sergeychernov.github.io/m2-forum/"
         icon="🎯"
       />
     </CardsLayout>

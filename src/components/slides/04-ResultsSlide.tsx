@@ -8,8 +8,6 @@ interface SlideProps {
 }
 
 const ResultsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
-  const [animateCards, setAnimateCards] = useState(false);
-
   const tasks = [
     {
       title: 'e2e тесты',
@@ -104,17 +102,6 @@ const ResultsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     }
   ];
 
-  useEffect(() => {
-    if (isActive && !isVisited) {
-      const timer = setTimeout(() => {
-        setAnimateCards(true);
-      }, 300);
-      return () => clearTimeout(timer);
-    } else if (isVisited) {
-      setAnimateCards(true);
-    }
-  }, [isActive, isVisited]);
-
   return (
     <CardsLayout 
       title="Результаты по задачам" 
@@ -123,8 +110,10 @@ const ResultsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       verticalGap="small" 
       contentWidth="full"
       scrollable={true}
-      animate={animateCards}
+      animationType="appearance"
       animationDelay={100}
+      isActive={isActive}
+      isVisited={isVisited}
     >
       {tasks.map((task) => (
         <TaskCard
