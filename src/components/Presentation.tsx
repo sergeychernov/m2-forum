@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Presentation.module.css';
-import TitleSlide from './slides/TitleSlide';
-import ToolsOverviewSlide from './slides/ToolsOverviewSlide';
-import ModelsSlide from './slides/ModelsSlide';
-import ResultsSlide from './slides/ResultsSlide';
-import ConclusionsSlide from './slides/ConclusionsSlide';
-import QRCodesSlide from './slides/QRCodesSlide';
+import TitleSlide from './slides/01-TitleSlide';
+import ToolsOverviewSlide from './slides/02-ToolsOverviewSlide';
+import ModelsSlide from './slides/03-ModelsSlide';
+import ResultsSlide from './slides/04-ResultsSlide';
+import ConclusionsSlide from './slides/05-ConclusionsSlide';
+import QRCodesSlide from './slides/06-QRCodesSlide';
 
 const Presentation: React.FC = () => {
   const { slideNumber } = useParams<{ slideNumber?: string }>();

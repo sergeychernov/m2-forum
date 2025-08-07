@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Slide.module.css';
+import styles from '../layouts/CardsLayout.module.css';
 import titleStyles from './TitleSlide.module.css';
 
 interface SlideProps {
