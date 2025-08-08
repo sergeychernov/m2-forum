@@ -100,7 +100,8 @@
   opacity: 0;
   transform: translateX(100%);
   transition: all 0.6s var(--ease-standard);
-  padding: var(--space-32);
+  padding: 0; /* Убираем padding, так как он теперь в самих слайдах */
+  overflow-y: auto; /* Добавляем возможность скролла для слайдов */
 }
 
 .slide.active {
@@ -114,4 +115,22 @@
 
 .slide.next {
   transform: translateX(100%);
+}
+
+/* Адаптивность для навигации на мобильных */
+@media (max-width: 768px) {
+  .navigation {
+    bottom: 20px;
+    padding: var(--space-8) var(--space-16);
+    gap: var(--space-16);
+  }
+  
+  .navBtn {
+    padding: var(--space-6) var(--space-12);
+    font-size: var(--font-size-xs);
+  }
+  
+  .slideCounter {
+    font-size: var(--font-size-xs);
+  }
 }

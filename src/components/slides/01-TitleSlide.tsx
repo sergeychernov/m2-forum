@@ -42,10 +42,17 @@ const TitleSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           </div>
         ) : (
           <div className={titleStyles.memeContainer}>
-            <div className={titleStyles.memeImage}>🤖</div>
-            <div className={titleStyles.memeText}>
-              <div>Когда AI делает твою работу</div>
-              <div>за 5 минут вместо 5 часов</div>
+            <div className={titleStyles.memeImages}>
+              <img 
+                src={`${process.env.PUBLIC_URL}/01/meme01.png`}
+                alt="AI мем 1" 
+                className={titleStyles.memeImage}
+              />
+              <img 
+                src={`${process.env.PUBLIC_URL}/01/meme02.png`}
+                alt="AI мем 2" 
+                className={titleStyles.memeImage}
+              />
             </div>
           </div>
         )}
