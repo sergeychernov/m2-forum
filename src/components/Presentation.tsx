@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Presentation.module.css';
 import TitleSlide from './slides/01-TitleSlide';
 import ToolsOverviewSlide from './slides/02-ToolsOverviewSlide';
-import ModelsSlide from './slides/03-ModelsSlide';
+import IBDecisionSlide from './slides/03-IBDecisionSlide';
 import ResultsSlide from './slides/04-ResultsSlide';
 import ConclusionsSlide from './slides/05-ConclusionsSlide';
 import QRCodesSlide from './slides/06-QRCodesSlide';
@@ -21,7 +21,7 @@ const Presentation: React.FC = () => {
   const slides = [
     { id: 1, component: TitleSlide },
     { id: 2, component: ToolsOverviewSlide },
-    { id: 3, component: ModelsSlide },
+    { id: 3, component: IBDecisionSlide },
     { id: 4, component: ResultsSlide },
     { id: 5, component: ConclusionsSlide },
     { id: 6, component: QRCodesSlide },

@@ -7,19 +7,17 @@ interface SlideProps {
   isVisited: boolean;
 }
 
-const ModelsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
+const IBDecisionSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   const models = [
-    { icon: '🤖', name: 'GPT', description: 'Модель от OpenAI' },
-    { icon: '💎', name: 'Gemini', description: 'Модель от Google' },
-    { icon: '🎭', name: 'Claude', description: 'Модель от Anthropic' },
-    { icon: '🌙', name: 'Kimi', description: 'Модель от Moonshot AI' },
-    { icon: '🔍', name: 'DeepSeek', description: 'Модель от DeepSeek' },
-    { icon: '⚡', name: 'Grok', description: 'Модель от xAI' },
-  ];
+    { icon: '⚡', name: 'Cursor', description: 'У него есть Team тариф' },
+    { icon: '🔒', name: 'Gemini plugin', description: 'Трудно оплачивать, нельзя переключать модели' },
+    { icon: '🔄', name: 'Trae.ai', description: 'Функционально копирует Cursor, но нет Team тарифа' },
+   ];
 
   return (
     <CardsLayout 
-      title="Протестированные модели" 
+      title="Мы с безопасниками посовещались..." 
+      subtitle='и Артем Олифиренко решил. Что будем использовать Cursor.'
       cols="3" 
       horizontalGap="large" 
       verticalGap="medium"
@@ -41,4 +39,4 @@ const ModelsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   );
 };
 
-export default ModelsSlide;
+export default IBDecisionSlide;
