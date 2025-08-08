@@ -8,6 +8,7 @@ type ContentWidth = 'narrow' | 'medium' | 'wide' | 'full';
 
 interface CardsLayoutProps {
   title: string;
+  subtitle?: string;
   children: ReactNode;
   cols?: ColsCount;
   horizontalGap?: SpacingSize;
@@ -24,6 +25,7 @@ interface CardsLayoutProps {
 
 const CardsLayout: React.FC<CardsLayoutProps> = ({
   title,
+  subtitle,
   children,
   cols = 'auto',
   horizontalGap = 'medium',
@@ -68,6 +70,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
   const content = (
     <>
       <h2 className={styles.title}>{title}</h2>
+      {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
       <div className={styles.cardsContainer}>
         {animatedChildren}
         {footerNote && (
@@ -83,6 +86,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
     return (
       <div className={containerClasses}>
         <h2 className={styles.title}>{title}</h2>
+        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         <div className={styles.scrollableWrapper}>
           <div className={styles.scrollableContent}>
             <div className={styles.cardsContainer}>
