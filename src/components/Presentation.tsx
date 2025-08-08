@@ -22,6 +22,20 @@ const Presentation: React.FC = () => {
     { id: 1, component: TitleSlide },
     { id: 2, component: ToolsOverviewSlide },
     { id: 3, component: IBDecisionSlide },
+    // Разбор логов и ошибок Sergey
+    // обновление библиотек Sergey
+    // e2e Nastya
+    // unit Nastya
+    // github pipeline Sergey
+    // прототип продукта Sergey
+    // ревью кода Nastya
+    // фикс багов Nastya
+    // npm библиотека Nastya
+    // дока Sergey
+    // перевод доки Sergey
+    // бд Nastya
+    // регулярки Nastya
+    // презентация Sergey
     { id: 4, component: ResultsSlide },
     { id: 5, component: ConclusionsSlide },
     { id: 6, component: QRCodesSlide },
