@@ -1,5 +1,5 @@
 import React from 'react';
-import ToolCard from '../cards/ToolCard';
+import FeaturesListCard from '../cards/FeaturesListCard';
 import CardsLayout from '../layouts/CardsLayout';
 
 interface SlideProps {
@@ -36,7 +36,7 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       isActive={isActive}
       isVisited={isVisited}
     >
-      <ToolCard
+      <FeaturesListCard
         title="Gemini Plugin, Cursor и Trae.ai"
         category="Продвинутые IDE с автодополнением кода и встроенным AI-ассистентом"
         features={cursorToolFeatures}
@@ -46,7 +46,7 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         }}
       />
       
-      <ToolCard
+      <FeaturesListCard
         title="Codex"
         category="Интегрируется с GitHub-репозиторием: любая задача = Pull Request"
         features={codexToolFeatures}
