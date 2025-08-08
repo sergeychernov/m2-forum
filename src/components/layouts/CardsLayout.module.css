@@ -102,6 +102,84 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
+/* Columns Ratio Configuration for Desktop */
+@media (min-width: 901px) {
+  /* 2 Columns Ratios */
+  .ratio-2-1-1 .cardsContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .ratio-2-2-3 .cardsContainer {
+    grid-template-columns: 2fr 3fr;
+  }
+  
+  .ratio-2-3-2 .cardsContainer {
+    grid-template-columns: 3fr 2fr;
+  }
+  
+  .ratio-2-3-5 .cardsContainer {
+    grid-template-columns: 3fr 5fr;
+  }
+  
+  .ratio-2-5-3 .cardsContainer {
+    grid-template-columns: 5fr 3fr;
+  }
+
+  /* 3 Columns Ratios */
+  .ratio-3-1-1-1 .cardsContainer {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  .ratio-3-1-2-1 .cardsContainer {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+  
+  .ratio-3-2-1-1 .cardsContainer {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+  
+  .ratio-3-1-1-2 .cardsContainer {
+    grid-template-columns: 1fr 1fr 2fr;
+  }
+  
+  .ratio-3-2-3-2 .cardsContainer {
+    grid-template-columns: 2fr 3fr 2fr;
+  }
+  
+  .ratio-3-1-3-1 .cardsContainer {
+    grid-template-columns: 1fr 3fr 1fr;
+  }
+
+  /* 4 Columns Ratios */
+  .ratio-4-1-1-1-1 .cardsContainer {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  
+  .ratio-4-1-2-1-1 .cardsContainer {
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+  }
+  
+  .ratio-4-1-1-2-1 .cardsContainer {
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+  }
+  
+  .ratio-4-1-1-1-2 .cardsContainer {
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+  }
+  
+  .ratio-4-2-1-1-1 .cardsContainer {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+  
+  .ratio-4-1-2-2-1 .cardsContainer {
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+  }
+  
+  .ratio-4-2-1-1-2 .cardsContainer {
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+  }
+}
+
 /* Horizontal Gap */
 .h-gap-none .cardsContainer {
   column-gap: 0;
@@ -179,6 +257,34 @@
     grid-template-columns: repeat(2, 1fr);
   }
   
+  /* На мобильных устройствах все соотношения сбрасываются к равным колонкам */
+  .ratio-2-1-1 .cardsContainer,
+  .ratio-2-2-3 .cardsContainer,
+  .ratio-2-3-2 .cardsContainer,
+  .ratio-2-3-5 .cardsContainer,
+  .ratio-2-5-3 .cardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .ratio-3-1-1-1 .cardsContainer,
+  .ratio-3-1-2-1 .cardsContainer,
+  .ratio-3-2-1-1 .cardsContainer,
+  .ratio-3-1-1-2 .cardsContainer,
+  .ratio-3-2-3-2 .cardsContainer,
+  .ratio-3-1-3-1 .cardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .ratio-4-1-1-1-1 .cardsContainer,
+  .ratio-4-1-2-1-1 .cardsContainer,
+  .ratio-4-1-1-2-1 .cardsContainer,
+  .ratio-4-1-1-1-2 .cardsContainer,
+  .ratio-4-2-1-1-1 .cardsContainer,
+  .ratio-4-1-2-2-1 .cardsContainer,
+  .ratio-4-2-1-1-2 .cardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
   .h-gap-large .cardsContainer {
     column-gap: var(--space-20);
   }
@@ -211,6 +317,28 @@
   }
   
   .cols-auto .cardsContainer {
+    grid-template-columns: 1fr;
+  }
+  
+  /* На очень узких экранах все становится одной колонкой */
+  .ratio-2-1-1 .cardsContainer,
+  .ratio-2-2-3 .cardsContainer,
+  .ratio-2-3-2 .cardsContainer,
+  .ratio-2-3-5 .cardsContainer,
+  .ratio-2-5-3 .cardsContainer,
+  .ratio-3-1-1-1 .cardsContainer,
+  .ratio-3-1-2-1 .cardsContainer,
+  .ratio-3-2-1-1 .cardsContainer,
+  .ratio-3-1-1-2 .cardsContainer,
+  .ratio-3-2-3-2 .cardsContainer,
+  .ratio-3-1-3-1 .cardsContainer,
+  .ratio-4-1-1-1-1 .cardsContainer,
+  .ratio-4-1-2-1-1 .cardsContainer,
+  .ratio-4-1-1-2-1 .cardsContainer,
+  .ratio-4-1-1-1-2 .cardsContainer,
+  .ratio-4-2-1-1-1 .cardsContainer,
+  .ratio-4-1-2-2-1 .cardsContainer,
+  .ratio-4-2-1-1-2 .cardsContainer {
     grid-template-columns: 1fr;
   }
   
