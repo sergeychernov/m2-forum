@@ -4,114 +4,226 @@
   align-items: center;
   justify-content: center;
   min-height: 60vh;
+  gap: var(--space-32);
 }
 
 .subtitle {
   font-size: var(--font-size-xl);
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-32);
   font-weight: var(--font-weight-medium);
+  text-align: center;
 }
 
-.repositoryLink {
-  margin-bottom: var(--space-24);
+/* Контейнер для часов/мема */
+.clockContainer {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  user-select: none;
 }
 
-.repoLink {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-8);
-  padding: var(--space-12) var(--space-20);
-  background: var(--color-primary);
-  color: white;
-  text-decoration: none;
-  border-radius: var(--border-radius-md);
-  font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-md);
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.clockContainer:hover {
+  transform: scale(1.05);
 }
 
-.repoLink:hover {
-  background: var(--color-primary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.repoLink:active {
-  background: var(--color-primary-active);
-  transform: translateY(0);
-}
-
-.versionInfo {
+/* Анимированные часы */
+.animatedClock {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
-  padding: var(--space-16);
-  background: var(--color-background-secondary);
-  border-radius: var(--border-radius-md);
-  border: 1px solid var(--color-border);
-  min-width: 300px;
-}
-
-.versionItem {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: var(--space-16);
 }
 
-.versionLabel {
+.clockFace {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border: 8px solid var(--color-primary);
+  border-radius: 50%;
+  background: var(--color-background);
+  box-shadow: 
+    0 0 20px rgba(var(--color-primary-rgb), 0.3),
+    inset 0 0 20px rgba(var(--color-primary-rgb), 0.1);
+  animation: clockGlow 3s ease-in-out infinite alternate;
+}
+
+.clockNumbers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.clockNumbers span {
+  position: absolute;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  transform: translate(-50%, -50%);
+}
+
+.number12 { top: 15px; left: 50%; }
+.number3 { top: 50%; right: 15px; }
+.number6 { bottom: 15px; left: 50%; }
+.number9 { top: 50%; left: 15px; }
+
+.clockHands {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+/* Убираем часовую стрелку */
+.hourHand {
+  display: none;
+}
+
+.minuteHand {
+  position: absolute;
+  width: 3px;
+  height: 70px;
+  background: var(--color-primary);
+  border-radius: 1.5px;
+  left: -1.5px;
+  top: -70px;
+  transform-origin: 1.5px 70px;
+  transform: rotate(90deg);
+  animation: minuteRotation 60s linear infinite;
+}
+
+.secondHand {
+  position: absolute;
+  width: 1px;
+  height: 80px;
+  background: #ff4444;
+  left: -0.5px;
+  top: -80px;
+  transform-origin: 0.5px 80px;
+  transform: rotate(0deg);
+  animation: secondRotation 1s linear infinite;
+}
+
+.clockCenter {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  left: -6px;
+  top: -6px;
+  box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5);
+}
+
+.clockLabel {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  text-align: center;
+  animation: labelPulse 2s ease-in-out infinite;
+}
+
+/* Мем контейнер */
+.memeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+  animation: memeAppear 0.5s ease-out;
+}
+
+.memeImage {
+  font-size: 120px;
+  animation: memeFloat 2s ease-in-out infinite;
+}
+
+.memeText {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.memeText div:first-child {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Компактная информация об авторстве */
+.authorshipInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
+  background: var(--color-background-secondary);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--border-radius-full);
+  border: 1px solid var(--color-border);
+}
+
+.authorLink {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color 0.2s ease;
+}
+
+.authorLink:hover {
+  color: var(--color-primary-hover);
+}
+
+.separator {
+  color: var(--color-text-tertiary);
   font-weight: var(--font-weight-medium);
 }
 
-.versionValue {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-semibold);
+.versionText, .buildText {
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  background: var(--color-background-tertiary);
-  padding: var(--space-4) var(--space-8);
-  border-radius: var(--border-radius-sm);
-  border: 1px solid var(--color-border);
-}
-
-.buildDate {
-  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
-  opacity: 0.8;
 }
 
-.titleDecoration {
-  display: flex;
-  gap: var(--space-12);
-  margin-top: var(--space-32);
+/* Анимации */
+@keyframes clockGlow {
+  0% { box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3), inset 0 0 20px rgba(var(--color-primary-rgb), 0.1); }
+  100% { box-shadow: 0 0 30px rgba(var(--color-primary-rgb), 0.5), inset 0 0 30px rgba(var(--color-primary-rgb), 0.2); }
 }
 
+@keyframes minuteRotation {
+  from { transform: rotate(90deg); }
+  to { transform: rotate(-270deg); }
+}
+
+@keyframes secondRotation {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes labelPulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes memeAppear {
+  from { opacity: 0; transform: scale(0.8) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes memeFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Удаляем старые стили */
+.repositoryLink,
+.repoLink,
+.versionInfo,
+.versionItem,
+.versionLabel,
+.versionValue,
+.buildDate,
+.titleDecoration,
 .decorationCircle {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  animation: pulse 2s infinite;
-}
-
-.decorationCircle:nth-child(2) {
-  animation-delay: 0.3s;
-}
-
-.decorationCircle:nth-child(3) {
-  animation-delay: 0.6s;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
+  display: none;
 }
