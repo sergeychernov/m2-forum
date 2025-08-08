@@ -68,7 +68,7 @@ const TitleSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           📁 sergeychernov/m2-forum
         </a>
         <span className={titleStyles.separator}>•</span>
-        <span className={titleStyles.versionText}>v{buildVersion}</span>
+        <span className={titleStyles.versionText}>{buildVersion}</span>
         <span className={titleStyles.separator}>•</span>
         <span className={titleStyles.buildText}>#{buildNumber}</span>
       </div>
