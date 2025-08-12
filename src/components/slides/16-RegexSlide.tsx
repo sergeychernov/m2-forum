@@ -2,6 +2,7 @@ import React from 'react';
 import Img from '../../assets/img/regex-example.png';
 import CardsLayout from '../layouts/CardsLayout';
 import { PointsList } from '../blocks/PointsList';
+import BlockLayout from "../layouts/BlockLayout";
 
 interface SlideProps {
     isActive: boolean;
@@ -18,19 +19,17 @@ const RegexSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     ];
 
     return (
-        <CardsLayout
+        <BlockLayout
             title="Регулярные выражения и не только"
             subtitle='ИИ помогает с редко используемыми задачами, когда легко ошибиться или забыть синтаксис'
+            layoutType="grid"
             cols="2"
             colsRatio="2:3"
-            horizontalGap="medium"
-            verticalGap="medium"
             contentWidth="medium"
             contentAlign="center"
-            animationType="bubbling"
+            animationType={isActive ? 'fade' : 'none'}
             animationDelay={200}
             isActive={isActive}
-            isVisited={isVisited}
         >
             <PointsList items={features} />
             <img
@@ -44,7 +43,7 @@ const RegexSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
                 }}
                 src={Img}
             />
-        </CardsLayout>
+        </BlockLayout>
     );
 };
 

@@ -127,7 +127,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
 
   if (scrollable) {
     return (
-      <div className={containerClasses}>
+        <div className={`${containerClasses}`}>
         <h2 className={styles.title}>{title}</h2>
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         <div className={styles.scrollableWrapper}>

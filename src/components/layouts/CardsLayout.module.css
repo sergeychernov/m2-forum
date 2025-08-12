@@ -370,3 +370,11 @@
     margin-bottom: var(--space-20);
   }
 }
+
+.appearanceAnimation > * {
+  animation: fadeIn 0.3s ease-in-out;
+  animation-fill-mode: both;
+}
+
+.appearanceAnimation > *:nth-child(1) { animation-delay: 0.1s; }
+.appearanceAnimation > *:nth-child(2) { animation-delay: 0.2s; }

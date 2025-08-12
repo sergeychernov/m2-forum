@@ -1,47 +1,55 @@
 import React from 'react';
-import Img from '../../assets/img/end-to-end-images.jpeg'
-import CardsLayout from '../layouts/CardsLayout';
+import Img from '../../assets/img/end-to-end-images.jpeg';
+import BlockLayout from '../layouts/BlockLayout';
 import ModelCard from "../cards/ModelCard";
 
 interface SlideProps {
     isActive: boolean;
-    isVisited: boolean;
+    isVisited?: boolean;
 }
 
-const E2eTestsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
+const E2eTestsSlide: React.FC<SlideProps> = ({ isActive }) => {
     const cards = [
         { icon: '🔥', name: 'Достоинства', description: 'Сокращает время написания тестов, так как избавляет от рутинных операций' },
         { icon: '😩', name: 'Недостатки', description: 'Нет возможности автогенерации e2e-тестов' },
     ];
 
     return (
-        <CardsLayout
+        <BlockLayout
             title="Написание e2e-тестов"
-            subtitle='Была задача переписать e2e-тесты c Codecept на Playwright'
+            subtitle="Была задача переписать e2e-тесты c Codecept на Playwright"
+            layoutType="grid"
             cols="2"
-            colsRatio="2:3"
-            horizontalGap="medium"
-            verticalGap="medium"
+            colsRatio="1:1"
             contentWidth="medium"
             contentAlign="center"
-            animationType="bubbling"
-            animationDelay={200}
-            isActive={isActive}
-            isVisited={isVisited}
+            gap="large"
+            animationType={isActive ? 'slide' : 'none'}
+            animationDelay={150}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 {cards.map((card) => (
                     <ModelCard
-                        size="medium"
                         key={card.name}
+                        size="large"
                         icon={card.icon}
                         name={card.name}
                         description={card.description}
                     />
                 ))}
             </div>
-            <img alt="robot reading book" style={{width: '80%', height: '70%'}} src={Img}/>
-        </CardsLayout>
+
+                <img
+                    alt="robot reading book"
+                    style={{
+                        width: '80%',
+                        height: 'auto',
+                        maxHeight: '400px',
+                        borderRadius: '8px'
+                    }}
+                    src={Img}
+                />
+        </BlockLayout>
     );
 };
 
