@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './FeaturesListCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
+import cn from 'classnames';
 
 interface Feature {
   icon: string;
@@ -9,10 +10,10 @@ interface Feature {
 
 interface FeaturesListCardProps {
   title: string;
-  category: string;
+  category?: string;
   features: Feature[];
   note?: {
-    type: 'note' | 'warning';
+    type: 'note' | 'warning' | 'advantage';
     text: string;
   };
   animationType?: AnimationType;
@@ -57,7 +58,7 @@ const FeaturesListCard: React.FC<FeaturesListCardProps> = ({
           ))}
         </div>
         {note && (
-          <div className={note.type === 'note' ? styles.featuresNote : styles.featuresWarning}>
+          <div className={cn(styles.features, styles[`features-${note.type}`])}>
             {note.text}
           </div>
         )}

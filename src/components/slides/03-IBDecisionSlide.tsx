@@ -29,6 +29,7 @@ const IBDecisionSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     >
       {models.map((model) => (
         <ModelCard
+          size="medium"
           key={model.name}
           icon={model.icon}
           name={model.name}

@@ -4,15 +4,18 @@ import styles from './Presentation.module.css';
 import TitleSlide from './slides/01-TitleSlide';
 import ToolsOverviewSlide from './slides/02-ToolsOverviewSlide';
 import IBDecisionSlide from './slides/03-IBDecisionSlide';
-import ResultsSlide from './slides/04-ResultsSlide';
-import ConclusionsSlide from './slides/05-ConclusionsSlide';
-import QRCodesSlide from './slides/06-QRCodesSlide';
+import ResultsSlide from './slides/18-ResultsSlide';
+import ConclusionsSlide from './slides/19-ConclusionsSlide';
+import QRCodesSlide from './slides/20-QRCodesSlide';
+import E2eTestsSlide from "./slides/06-E2eTestsSlide";
+import CodeReviewSlide from "./slides/10-CodeReviewSlide";
+import RegexSlide from "./slides/16-RegexSlide";
 
 const Presentation: React.FC = () => {
   const { slideNumber } = useParams<{ slideNumber?: string }>();
   const navigate = useNavigate();
   
-  const totalSlides = 6;
+  const totalSlides = 9;
   const [visitedSlides, setVisitedSlides] = useState(new Set([1]));
 
   // Определяем текущий слайд из URL или устанавливаем 1 по умолчанию
@@ -22,23 +25,23 @@ const Presentation: React.FC = () => {
     { id: 1, component: TitleSlide },
     { id: 2, component: ToolsOverviewSlide },
     { id: 3, component: IBDecisionSlide },
-    // Разбор логов и ошибок Sergey
-    // обновление библиотек Sergey
-    // e2e Nastya
-    // unit Nastya
-    // github pipeline Sergey
-    // прототип продукта Sergey
-    // ревью кода Nastya
-    // фикс багов Nastya
-    // npm библиотека Nastya
-    // дока Sergey
-    // перевод доки Sergey
-    // бд Nastya
-    // регулярки Nastya
-    // презентация Sergey
-    { id: 4, component: ResultsSlide },
-    { id: 5, component: ConclusionsSlide },
-    { id: 6, component: QRCodesSlide },
+    // 4 Разбор логов и ошибок Sergey
+    // 5 обновление библиотек Sergey
+    { id: 4, component: E2eTestsSlide },
+    // 7 юнит тесты Nastya
+    // 8 github pipeline Sergey
+    // 9 прототип продукта Sergey
+    { id: 5, component: CodeReviewSlide },
+    // 11 фикс багов Nastya
+    // 12 npm библиотека Nastya
+    // 13 дока Sergey
+    // 14 перевод доки Sergey
+    // 15 бд Nastya
+    { id: 6, component: RegexSlide },
+    // 17 презентация Sergey
+    { id: 7, component: ResultsSlide },
+    { id: 8, component: ConclusionsSlide },
+    { id: 9, component: QRCodesSlide },
   ];
 
   const updateURL = useCallback((slideNum: number) => {

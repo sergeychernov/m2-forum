@@ -7,6 +7,7 @@
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   opacity: 0;
   transform: translateY(60px) scale(0.8);
+  height: 100%;
 }
 
 .featuresGroup.animate {
@@ -75,40 +76,45 @@
   flex-shrink: 0;
 }
 
-.featuresNote {
+.features {
+  border-radius: var(--radius-base);
+  padding: var(--space-12);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  position: relative;
+  color: var(--color-text);
+}
+
+.features::before {
+  position: absolute;
+  left: var(--space-12);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.features-note {
   background: rgba(var(--color-teal-500-rgb), 0.1);
   border: 1px solid rgba(var(--color-teal-500-rgb), 0.2);
-  border-radius: var(--radius-base);
-  padding: var(--space-12);
-  font-size: var(--font-size-sm);
-  color: var(--color-text);
-  text-align: center;
-  position: relative;
 }
 
-.featuresNote::before {
+.features-note::before {
   content: "💡";
-  position: absolute;
-  left: var(--space-12);
-  top: 50%;
-  transform: translateY(-50%);
 }
 
-.featuresWarning {
+.features-warning {
   background: rgba(var(--color-orange-500-rgb), 0.1);
   border: 1px solid rgba(var(--color-orange-500-rgb), 0.2);
-  border-radius: var(--radius-base);
-  padding: var(--space-12);
-  font-size: var(--font-size-sm);
-  color: var(--color-text);
-  text-align: center;
-  position: relative;
 }
 
-.featuresWarning::before {
+.feature-warning::before {
   content: "⚠️";
-  position: absolute;
-  left: var(--space-12);
-  top: 50%;
-  transform: translateY(-50%);
+}
+
+.features-advantage {
+  background: rgba(var(--color-green-500-rgb), 0.1);
+  border: 1px solid rgba(var(--color-green-500-rgb), 0.2);
+}
+
+.features-advantage::before {
+  content: "✅️";
 }

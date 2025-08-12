@@ -5,6 +5,7 @@ import { AnimationType } from '../../hooks/useCardAnimation';
 type SpacingSize = 'none' | 'small' | 'medium' | 'large';
 type ColsCount = '1' | '2' | '3' | '4' | 'auto';
 type ContentWidth = 'narrow' | 'medium' | 'wide' | 'full';
+type ContentAlign = 'top' | 'center' | 'bottom';
 
 // Объединенный тип для всех возможных соотношений
 type ColsRatio = 
@@ -22,6 +23,7 @@ interface CardsLayoutProps {
   horizontalGap?: SpacingSize;
   verticalGap?: SpacingSize;
   contentWidth?: ContentWidth;
+  contentAlign?: ContentAlign;
   footerNote?: string;
   className?: string;
   scrollable?: boolean;
@@ -40,6 +42,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
   horizontalGap = 'medium',
   verticalGap = 'medium',
   contentWidth = 'wide',
+  contentAlign = 'top',
   footerNote,
   className = '',
   scrollable = false,
@@ -84,6 +87,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
     styles[`h-gap-${horizontalGap}`],
     styles[`v-gap-${verticalGap}`],
     styles[`content-${contentWidth}`],
+    styles[`align-${contentAlign}`],
     scrollable ? styles.scrollableSlide : '',
     className
   ].filter(Boolean).join(' ');

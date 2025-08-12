@@ -41,7 +41,7 @@
 .cardsContainer {
   display: grid;
   width: 100%;
-  align-items: start;
+  align-items: stretch;
   justify-content: center;
   justify-items: center;
 }
@@ -78,6 +78,18 @@
 .content-full .cardsContainer {
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.align-top .cardsContainer {
+  align-items: start;
+}
+
+.align-center .cardsContainer {
+  align-items: center;
+}
+
+.align-bottom .cardsContainer {
+  align-items: end;
 }
 
 /* Columns Configuration */
