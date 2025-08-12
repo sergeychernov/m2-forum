@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/m2-forum/static/css/main.b2082f87.css",
+    "main.js": "/m2-forum/static/js/main.c1e1c227.js",
+    "static/js/453.1309c437.chunk.js": "/m2-forum/static/js/453.1309c437.chunk.js",
+    "static/media/regex-example.png": "/m2-forum/static/media/regex-example.bbed4cd459da6b1ac01b.png",
+    "static/media/end-to-end-images.jpeg": "/m2-forum/static/media/end-to-end-images.b99ad8103754034190fc.jpeg",
+    "index.html": "/m2-forum/index.html",
+    "main.b2082f87.css.map": "/m2-forum/static/css/main.b2082f87.css.map",
+    "main.c1e1c227.js.map": "/m2-forum/static/js/main.c1e1c227.js.map",
+    "453.1309c437.chunk.js.map": "/m2-forum/static/js/453.1309c437.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b2082f87.css",
+    "static/js/main.c1e1c227.js"
+  ]
+}
