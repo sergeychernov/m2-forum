@@ -63,10 +63,10 @@
   transform: translate(-50%, -50%);
 }
 
-.number12 { top: 15px; left: 50%; }
-.number3 { top: 50%; right: 15px; }
-.number6 { bottom: 15px; left: 50%; }
-.number9 { top: 50%; left: 15px; }
+.number12 { top: 24px; left: 50%; }
+.number3 { top: 50%; right: 12px; }
+.number6 { bottom: 0px; left: 50%; }
+.number9 { top: 50%; left: 24px; }
 
 .clockHands {
   position: absolute;
