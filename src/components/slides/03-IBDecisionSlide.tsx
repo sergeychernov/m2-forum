@@ -1,6 +1,7 @@
 import React from 'react';
 import ModelCard from '../cards/ModelCard';
 import CardsLayout from '../layouts/CardsLayout';
+import SlideWrapper from "../blocks/SlideWrapper";
 
 interface SlideProps {
   isActive: boolean;
@@ -15,28 +16,31 @@ const IBDecisionSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
    ];
 
   return (
-    <CardsLayout 
-      title="Мы с безопасниками посовещались..." 
-      subtitle='и Артем Олифиренко решил. Что будем использовать Cursor.'
-      cols="3" 
-      horizontalGap="large" 
-      verticalGap="medium"
-      contentWidth="narrow"
-      animationType="grasshopper"
-      animationDelay={150}
-      isActive={isActive}
-      isVisited={isVisited}
-    >
-      {models.map((model) => (
-        <ModelCard
-          size="medium"
-          key={model.name}
-          icon={model.icon}
-          name={model.name}
-          description={model.description}
-        />
-      ))}
-    </CardsLayout>
+      <SlideWrapper
+          title="Мы с безопасниками посовещались..."
+          subtitle='и Артем Олифиренко решил. Что будем использовать Cursor.'
+      >
+        <CardsLayout
+            cols="3"
+            horizontalGap="large"
+            verticalGap="medium"
+            animationType="grasshopper"
+            contentWidth="narrow"
+            animationDelay={150}
+            isActive={isActive}
+            isVisited={isVisited}
+        >
+          {models.map((model) => (
+              <ModelCard
+                  size="medium"
+                  key={model.name}
+                  icon={model.icon}
+                  name={model.name}
+                  description={model.description}
+              />
+          ))}
+        </CardsLayout>
+      </SlideWrapper>
   );
 };
 

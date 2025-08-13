@@ -1,6 +1,7 @@
 import React from 'react';
-import CardsLayout from '../layouts/CardsLayout';
 import FeaturesListCard from "../cards/FeaturesListCard";
+import SlideWrapper from "../blocks/SlideWrapper";
+import CardsLayout from "../layouts/CardsLayout";
 
 interface SlideProps {
     isActive: boolean;
@@ -22,31 +23,33 @@ const CodeReviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     ];
 
     return (
-        <CardsLayout
+        <SlideWrapper
             title="Code Review"
             subtitle='Не заменит ревью от разработчиков, но облегчит им работу, благодаря первичному ревью от ИИ'
-            cols="2"
-            colsRatio="1:1"
-            horizontalGap="medium"
-            verticalGap="medium"
-            contentWidth="medium"
-            animationType="bubbling"
-            animationDelay={200}
-            isActive={isActive}
-            isVisited={isVisited}
         >
-            <FeaturesListCard
-                title="Достоинства"
-                category="ИИ может быстро проанализировать пулл-реквест и исправить базовые проблемы"
-                features={pros}
-            />
+            <CardsLayout
+                colsRatio="1:1"
+                horizontalGap="medium"
+                verticalGap="medium"
+                contentWidth="medium"
+                animationType="bubbling"
+                animationDelay={200}
+                isActive={isActive}
+                isVisited={isVisited}
+            >
+                <FeaturesListCard
+                    title="Достоинства"
+                    category="ИИ может быстро проанализировать пулл-реквест и исправить базовые проблемы"
+                    features={pros}
+                />
 
-            <FeaturesListCard
-                title="Недостатки"
-                category="Более сложные моменты все равно требуют ревью от разработчика"
-                features={cons}
-            />
-        </CardsLayout>
+                <FeaturesListCard
+                    title="Недостатки"
+                    category="Более сложные моменты все равно требуют ревью от разработчика"
+                    features={cons}
+                />
+            </CardsLayout>
+        </SlideWrapper>
     );
 };
 

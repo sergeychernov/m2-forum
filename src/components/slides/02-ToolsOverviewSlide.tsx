@@ -1,3 +1,4 @@
+import SlideWrapper from '../blocks/SlideWrapper';
 import React from 'react';
 import FeaturesListCard from '../cards/FeaturesListCard';
 import CardsLayout from '../layouts/CardsLayout';
@@ -24,9 +25,11 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   ];
 
   return (
-    <CardsLayout 
-      title="Обзор инструментов" 
-      subtitle='3 месяца назад мы начали постепенно пробовать внедрять vibecoding в нашу работу, хотя изначально мы даже не слышали об этом термине'
+      <SlideWrapper
+          title="Обзор инструментов"
+          subtitle='3 месяца назад мы начали постепенно пробовать внедрять vibecoding в нашу работу, хотя изначально мы даже не слышали об этом термине'
+      >
+    <CardsLayout
       cols="2" 
       colsRatio="3:2"
       horizontalGap="medium" 
@@ -57,6 +60,7 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         }}
       />
     </CardsLayout>
+      </SlideWrapper>
   );
 };
 

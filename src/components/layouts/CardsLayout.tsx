@@ -15,8 +15,6 @@ type ColsRatio =
   | '1:1:1:1' | '1:2:1:1' | '1:1:2:1' | '1:1:1:2' | '2:1:1:1' | '1:2:2:1' | '2:1:1:2'; // для 4 колонок
 
 interface CardsLayoutProps {
-  title: string;
-  subtitle?: string;
   children: ReactNode;
   cols?: ColsCount;
   colsRatio?: ColsRatio;
@@ -24,9 +22,7 @@ interface CardsLayoutProps {
   verticalGap?: SpacingSize;
   contentWidth?: ContentWidth;
   contentAlign?: ContentAlign;
-  footerNote?: string;
   className?: string;
-  scrollable?: boolean;
   animationType?: AnimationType;
   animationDelay?: number;
   isActive?: boolean;
@@ -34,8 +30,6 @@ interface CardsLayoutProps {
 }
 
 const CardsLayout: React.FC<CardsLayoutProps> = ({
-  title,
-  subtitle,
   children,
   cols = 'auto',
   colsRatio,
@@ -43,9 +37,7 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
   verticalGap = 'medium',
   contentWidth = 'wide',
   contentAlign = 'top',
-  footerNote,
   className = '',
-  scrollable = false,
   animationType = 'none',
   animationDelay = 300,
   isActive = true,
@@ -88,14 +80,11 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
     styles[`v-gap-${verticalGap}`],
     styles[`content-${contentWidth}`],
     styles[`align-${contentAlign}`],
-    scrollable ? styles.scrollableSlide : '',
     className
   ].filter(Boolean).join(' ');
 
-  // Клонируем дочерние элементы и добавляем анимацию
   const animatedChildren = React.Children.map(children, (child, index) => {
     if (isValidElement(child)) {
-      // Проверяем, что props является объектом
       const childProps = child.props && typeof child.props === 'object' ? child.props : {};
       
       return cloneElement(child, {
@@ -110,45 +99,11 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
     return child;
   });
 
-  const content = (
-    <>
-      <h2 className={styles.title}>{title}</h2>
-      {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-      <div className={styles.cardsContainer}>
-        {animatedChildren}
-        {footerNote && (
-          <div className={styles.footerNote}>
-            <p>{footerNote}</p>
-          </div>
-        )}
-      </div>
-    </>
-  );
-
-  if (scrollable) {
-    return (
-        <div className={`${containerClasses}`}>
-        <h2 className={styles.title}>{title}</h2>
-        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-        <div className={styles.scrollableWrapper}>
-          <div className={styles.scrollableContent}>
-            <div className={styles.cardsContainer}>
-              {animatedChildren}
-              {footerNote && (
-                <div className={styles.footerNote}>
-                  <p>{footerNote}</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={containerClasses}>
-      {content}
+      <div className={styles.cardsContainer}>
+        {animatedChildren}
+      </div>
     </div>
   );
 };

@@ -1,33 +1,38 @@
 import React from 'react';
 import Img from '../../assets/img/end-to-end-images.jpeg';
-import BlockLayout from '../layouts/BlockLayout';
 import ModelCard from "../cards/ModelCard";
+import ThreeCardsLayout from "../layouts/ThreeCardsLayout";
+import SlideWrapper from "../blocks/SlideWrapper";
 
 interface SlideProps {
     isActive: boolean;
     isVisited?: boolean;
 }
 
-const E2eTestsSlide: React.FC<SlideProps> = ({ isActive }) => {
+const E2eTestsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     const cards = [
         { icon: '🔥', name: 'Достоинства', description: 'Сокращает время написания тестов, так как избавляет от рутинных операций' },
         { icon: '😩', name: 'Недостатки', description: 'Нет возможности автогенерации e2e-тестов' },
     ];
 
     return (
-        <BlockLayout
+        <SlideWrapper
             title="Написание e2e-тестов"
             subtitle="Была задача переписать e2e-тесты c Codecept на Playwright"
-            layoutType="grid"
-            cols="2"
-            colsRatio="1:1"
-            contentWidth="medium"
-            contentAlign="center"
-            gap="large"
-            animationType={isActive ? 'slide' : 'none'}
-            animationDelay={150}
         >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <ThreeCardsLayout
+                colsRatio="2x2:3"
+                horizontalGap="large"
+                verticalGap="medium"
+                contentWidth="narrow"
+                contentAlign="center"
+                animation={{
+                    animationType: "grasshopper",
+                    animationDelay: 150,
+                    isActive,
+                    isVisited
+                }}
+            >
                 {cards.map((card) => (
                     <ModelCard
                         key={card.name}
@@ -37,19 +42,18 @@ const E2eTestsSlide: React.FC<SlideProps> = ({ isActive }) => {
                         description={card.description}
                     />
                 ))}
-            </div>
-
                 <img
                     alt="robot reading book"
                     style={{
-                        width: '80%',
+                        width: '100%',
                         height: 'auto',
                         maxHeight: '400px',
                         borderRadius: '8px'
                     }}
                     src={Img}
                 />
-        </BlockLayout>
+            </ThreeCardsLayout>
+        </SlideWrapper>
     );
 };
 

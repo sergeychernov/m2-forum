@@ -1,6 +1,7 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
 import ConclusionCard from '../cards/ConclusionCard';
+import SlideWrapper from "../blocks/SlideWrapper";
 
 interface SlideProps {
   isActive: boolean;
@@ -98,28 +99,32 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   );
 
   return (
-    <CardsLayout 
-      title="Выводы и перспективы" 
-      cols="2" 
-      horizontalGap="medium" 
-      verticalGap="medium" 
-      contentWidth="wide"
-      scrollable={true}
-      animationType="explosion"
-      animationDelay={250}
-      isActive={isActive}
-      isVisited={isVisited}
-    >
-      {conclusions.map((conclusion, index) => (
-        <ConclusionCard
-          key={index}
-          text={conclusion.text}
-          hasChart={conclusion.hasChart}
-          index={index}
-          chart={conclusion.hasChart ? <PerformanceChart /> : undefined}
-        />
-      ))}
-    </CardsLayout>
+      <SlideWrapper
+          title="Выводы и перспективы"
+          scrollable={true}
+      >
+        <CardsLayout
+            cols="2"
+            horizontalGap="medium"
+            verticalGap="medium"
+            contentWidth="wide"
+            animationType="explosion"
+            animationDelay={250}
+            isActive={isActive}
+            isVisited={isVisited}
+        >
+          {conclusions.map((conclusion, index) => (
+              <ConclusionCard
+                  key={index}
+                  text={conclusion.text}
+                  hasChart={conclusion.hasChart}
+                  index={index}
+                  chart={conclusion.hasChart ? <PerformanceChart /> : undefined}
+              />
+          ))}
+        </CardsLayout>
+
+      </SlideWrapper>
   );
 };
 
