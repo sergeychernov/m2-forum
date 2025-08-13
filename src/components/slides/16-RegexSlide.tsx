@@ -1,6 +1,6 @@
 import React from 'react';
-import { PointsList } from '../blocks/PointsList';
-import SlideWrapper from "../blocks/SlideWrapper";
+import { PointsList } from '../cards/PointsList';
+import SlideWrapper from "../SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
 import Img from '../../assets/img/regex-example.png';
 

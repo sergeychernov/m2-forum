@@ -1,7 +1,7 @@
 import React from 'react';
 import ModelCard from '../cards/ModelCard';
 import CardsLayout from '../layouts/CardsLayout';
-import SlideWrapper from "../blocks/SlideWrapper";
+import SlideWrapper from "../SlideWrapper";
 
 interface SlideProps {
   isActive: boolean;

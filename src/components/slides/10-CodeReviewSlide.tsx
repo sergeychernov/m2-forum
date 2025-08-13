@@ -1,6 +1,6 @@
 import React from 'react';
 import FeaturesListCard from "../cards/FeaturesListCard";
-import SlideWrapper from "../blocks/SlideWrapper";
+import SlideWrapper from "../SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
 
 interface SlideProps {
