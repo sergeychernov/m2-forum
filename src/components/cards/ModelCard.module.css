@@ -38,8 +38,19 @@
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   box-shadow: var(--shadow-sm);
   width: 100%;
+  height: 100%;
+}
+
+.small {
   max-width: 200px;
-  /* Убираем старые анимационные стили */
+}
+
+.medium {
+  max-width: 300px;
+}
+
+.large {
+  max-width: 400px;
 }
 
 .modelCard:hover {
@@ -87,7 +98,7 @@
 }
 
 .modelCard p {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   margin: 0;
   transition: color 0.3s ease;

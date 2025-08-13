@@ -1,6 +1,7 @@
 import React from 'react';
 import TaskCard from '../cards/TaskCard';
 import CardsLayout from '../layouts/CardsLayout';
+import SlideWrapper from "../SlideWrapper";
 
 interface SlideProps {
   isActive: boolean;
@@ -103,29 +104,32 @@ const ResultsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   ];
 
   return (
-    <CardsLayout 
-      title="Результаты по задачам" 
-      cols="4" 
-      horizontalGap="small" 
-      verticalGap="small" 
-      contentWidth="full"
-      scrollable={true}
-      animationType="appearance"
-      animationDelay={100}
-      isActive={isActive}
-      isVisited={isVisited}
-    >
-      {tasks.map((task) => (
-        <TaskCard
-          key={task.title}
-          title={task.title}
-          description={task.description}
-          tool={task.tool}
-          rating={task.rating}
-          icon={task.icon}
-        />
-      ))}
-    </CardsLayout>
+      <SlideWrapper
+          title="Результаты по задачам"
+          scrollable={true}
+      >
+        <CardsLayout
+            cols="4"
+            horizontalGap="small"
+            verticalGap="small"
+            contentWidth="full"
+            animationType="appearance"
+            animationDelay={100}
+            isActive={isActive}
+            isVisited={isVisited}
+        >
+          {tasks.map((task) => (
+              <TaskCard
+                  key={task.title}
+                  title={task.title}
+                  description={task.description}
+                  tool={task.tool}
+                  rating={task.rating}
+                  icon={task.icon}
+              />
+          ))}
+        </CardsLayout>
+      </SlideWrapper>
   );
 };
 

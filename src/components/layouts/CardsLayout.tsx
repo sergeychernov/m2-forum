@@ -5,6 +5,7 @@ import { AnimationType } from '../../hooks/useCardAnimation';
 type SpacingSize = 'none' | 'small' | 'medium' | 'large';
 type ColsCount = '1' | '2' | '3' | '4' | 'auto';
 type ContentWidth = 'narrow' | 'medium' | 'wide' | 'full';
+type ContentAlign = 'top' | 'center' | 'bottom';
 
 // Объединенный тип для всех возможных соотношений
 type ColsRatio = 
@@ -14,17 +15,14 @@ type ColsRatio =
   | '1:1:1:1' | '1:2:1:1' | '1:1:2:1' | '1:1:1:2' | '2:1:1:1' | '1:2:2:1' | '2:1:1:2'; // для 4 колонок
 
 interface CardsLayoutProps {
-  title: string;
-  subtitle?: string;
   children: ReactNode;
   cols?: ColsCount;
   colsRatio?: ColsRatio;
   horizontalGap?: SpacingSize;
   verticalGap?: SpacingSize;
   contentWidth?: ContentWidth;
-  footerNote?: string;
+  contentAlign?: ContentAlign;
   className?: string;
-  scrollable?: boolean;
   animationType?: AnimationType;
   animationDelay?: number;
   isActive?: boolean;
@@ -32,17 +30,14 @@ interface CardsLayoutProps {
 }
 
 const CardsLayout: React.FC<CardsLayoutProps> = ({
-  title,
-  subtitle,
   children,
   cols = 'auto',
   colsRatio,
   horizontalGap = 'medium',
   verticalGap = 'medium',
   contentWidth = 'wide',
-  footerNote,
+  contentAlign = 'top',
   className = '',
-  scrollable = false,
   animationType = 'none',
   animationDelay = 300,
   isActive = true,
@@ -84,14 +79,12 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
     styles[`h-gap-${horizontalGap}`],
     styles[`v-gap-${verticalGap}`],
     styles[`content-${contentWidth}`],
-    scrollable ? styles.scrollableSlide : '',
+    styles[`align-${contentAlign}`],
     className
   ].filter(Boolean).join(' ');
 
-  // Клонируем дочерние элементы и добавляем анимацию
   const animatedChildren = React.Children.map(children, (child, index) => {
     if (isValidElement(child)) {
-      // Проверяем, что props является объектом
       const childProps = child.props && typeof child.props === 'object' ? child.props : {};
       
       return cloneElement(child, {
@@ -106,45 +99,11 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
     return child;
   });
 
-  const content = (
-    <>
-      <h2 className={styles.title}>{title}</h2>
-      {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-      <div className={styles.cardsContainer}>
-        {animatedChildren}
-        {footerNote && (
-          <div className={styles.footerNote}>
-            <p>{footerNote}</p>
-          </div>
-        )}
-      </div>
-    </>
-  );
-
-  if (scrollable) {
-    return (
-      <div className={containerClasses}>
-        <h2 className={styles.title}>{title}</h2>
-        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-        <div className={styles.scrollableWrapper}>
-          <div className={styles.scrollableContent}>
-            <div className={styles.cardsContainer}>
-              {animatedChildren}
-              {footerNote && (
-                <div className={styles.footerNote}>
-                  <p>{footerNote}</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className={containerClasses}>
-      {content}
+      <div className={styles.cardsContainer}>
+        {animatedChildren}
+      </div>
     </div>
   );
 };

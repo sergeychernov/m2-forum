@@ -1,10 +1,12 @@
 import React from 'react';
 import styles from './ModelCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
+import cn from "classnames";
 
 interface ModelCardProps {
   icon: string;
   name: string;
+  size?: 'small' | 'medium' | 'large';
   description: string;
   animationType?: AnimationType;
   animationIndex?: number;
@@ -15,7 +17,8 @@ interface ModelCardProps {
 
 const ModelCard: React.FC<ModelCardProps> = ({ 
   icon, 
-  name, 
+  name,
+  size = 'small',
   description,
   animationType = 'none',
   animationIndex = 0,
@@ -32,7 +35,7 @@ const ModelCard: React.FC<ModelCardProps> = ({
   });
 
   return (
-    <div className={`${styles.modelCard} ${animationClasses}`}>
+      <div className={cn(styles.modelCard, styles[size], animationClasses)}>
       <div className={styles.modelIcon}>{icon}</div>
       <h3>{name}</h3>
       <p>{description}</p>

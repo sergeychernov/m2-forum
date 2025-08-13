@@ -1,5 +1,8 @@
 import React from 'react';
-import CardsLayout from '../layouts/CardsLayout';
+import { PointsList } from '../cards/PointsList';
+import SlideWrapper from "../SlideWrapper";
+import CardsLayout from "../layouts/CardsLayout";
+import Img from '../../assets/img/regex-example.png';
 
 interface SlideProps {
   isActive: boolean;
@@ -7,25 +10,44 @@ interface SlideProps {
 }
 
 const RegexSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
-  return (
-    <CardsLayout 
-      title="Регулярные выражения" 
-      subtitle="Nastya"
-      cols="1" 
-      horizontalGap="large" 
-      verticalGap="medium"
-      contentWidth="narrow"
-      animationType="appearance"
-      animationDelay={150}
-      isActive={isActive}
-      isVisited={isVisited}
-    >
-      <div style={{ textAlign: 'center', padding: '2rem' }}>
-        <h3>🔤 Обработка текста</h3>
-        <p>Создание и отладка сложных регулярных выражений для парсинга данных</p>
-      </div>
-    </CardsLayout>
-  );
+    const features = [
+        'Валидация сложных данных (телефоны, email, пароли)',
+        'Парсинг и форматирование дат/времени',
+        'Обработка и фильтрация JSON-ответов API',
+        'Рефакторинг и оптимизация существующего кода',
+        'Генерация тестовых данных и моков'
+    ];
+
+    return (
+        <SlideWrapper
+            title="Регулярные выражения и не только"
+            subtitle='ИИ помогает с редко используемыми задачами, когда легко ошибиться или забыть синтаксис'
+        >
+            <CardsLayout
+                colsRatio="2:3"
+                horizontalGap="medium"
+                verticalGap="medium"
+                contentWidth="medium"
+                animationType="bubbling"
+                animationDelay={200}
+                isActive={isActive}
+                isVisited={isVisited}
+            >
+                <PointsList items={features} />
+                <img
+                    alt="ИИ помогает в разработке пример регулярки"
+                    style={{
+                        width: '100%',
+                        height: 'auto',
+                        maxHeight: '400px',
+                        objectFit: 'contain',
+                        borderRadius: '8px'
+                    }}
+                    src={Img}
+                />
+            </CardsLayout>
+        </SlideWrapper>
+    );
 };
 
 export default RegexSlide;

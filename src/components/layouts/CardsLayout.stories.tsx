@@ -251,8 +251,6 @@ export const DynamicCards: Story = {
   args: {
     cardType: 'FeaturesListCard',
     cardCount: 3,
-    title: 'Динамический выбор карточек',
-    subtitle: 'Выберите тип и количество карточек в Controls',
     cols: '3',
     horizontalGap: 'medium',
     verticalGap: 'medium',

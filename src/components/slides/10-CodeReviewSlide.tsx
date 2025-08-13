@@ -1,5 +1,7 @@
 import React from 'react';
-import CardsLayout from '../layouts/CardsLayout';
+import FeaturesListCard from "../cards/FeaturesListCard";
+import SlideWrapper from "../SlideWrapper";
+import CardsLayout from "../layouts/CardsLayout";
 
 interface SlideProps {
   isActive: boolean;
@@ -7,25 +9,48 @@ interface SlideProps {
 }
 
 const CodeReviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
-  return (
-    <CardsLayout 
-      title="Ревью кода" 
-      subtitle="Nastya"
-      cols="1" 
-      horizontalGap="large" 
-      verticalGap="medium"
-      contentWidth="narrow"
-      animationType="appearance"
-      animationDelay={150}
-      isActive={isActive}
-      isVisited={isVisited}
-    >
-      <div style={{ textAlign: 'center', padding: '2rem' }}>
-        <h3>👀 Анализ качества кода</h3>
-        <p>AI-ассистированное ревью для выявления потенциальных проблем и улучшений</p>
-      </div>
-    </CardsLayout>
-  );
+    const pros = [
+        { icon: '📦', text: 'Неиспользуемые импорты' },
+        { icon: '🗑️', text: 'Неиспользуемые переменные и фрагменты кода' },
+        { icon: '🔄', text: 'Повторяющаяся логика' },
+        { icon: '🧩', text: 'Слишком сложные конструкции' },
+    ];
+
+    const cons = [
+        { icon: '🤖', text: 'Не понимает бизнес-логику' },
+        { icon: '👥', text: 'Не учитывает договоренности команды' },
+        { icon: '🏗️', text: 'Предлагает нереалистичные решения' },
+    ];
+
+    return (
+        <SlideWrapper
+            title="Code Review"
+            subtitle='Не заменит ревью от разработчиков, но облегчит им работу, благодаря первичному ревью от ИИ'
+        >
+            <CardsLayout
+                colsRatio="1:1"
+                horizontalGap="medium"
+                verticalGap="medium"
+                contentWidth="medium"
+                animationType="bubbling"
+                animationDelay={200}
+                isActive={isActive}
+                isVisited={isVisited}
+            >
+                <FeaturesListCard
+                    title="Достоинства"
+                    category="ИИ может быстро проанализировать пулл-реквест и исправить базовые проблемы"
+                    features={pros}
+                />
+
+                <FeaturesListCard
+                    title="Недостатки"
+                    category="Более сложные моменты все равно требуют ревью от разработчика"
+                    features={cons}
+                />
+            </CardsLayout>
+        </SlideWrapper>
+    );
 };
 
 export default CodeReviewSlide;
