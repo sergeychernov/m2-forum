@@ -25,42 +25,42 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   ];
 
   return (
-      <SlideWrapper
-          title="Обзор инструментов"
-          subtitle='3 месяца назад мы начали постепенно пробовать внедрять vibecoding в нашу работу, хотя изначально мы даже не слышали об этом термине'
-      >
-    <CardsLayout
-      cols="2" 
-      colsRatio="3:2"
-      horizontalGap="medium" 
-      verticalGap="medium" 
-      contentWidth="medium"
-      animationType="bubbling"
-      animationDelay={200}
-      isActive={isActive}
-      isVisited={isVisited}
+    <SlideWrapper
+        title="Обзор инструментов"
+        subtitle='3 месяца назад мы начали постепенно пробовать внедрять vibecoding в нашу работу, хотя изначально мы даже не слышали об этом термине'
     >
-      <FeaturesListCard
-        title="Gemini Plugin, Cursor и Trae.ai"
-        category="Продвинутые IDE с автодополнением кода и встроенным AI-ассистентом"
-        features={cursorToolFeatures}
-        note={{
-          type: 'note',
-          text: 'Отличие Gemini Plugin: работает только с Google моделью и требует Google Cloud'
-        }}
-      />
-      
-      <FeaturesListCard
-        title="Codex"
-        category="Интегрируется с GitHub-репозиторием: любая задача = Pull Request"
-        features={codexToolFeatures}
-        note={{
-          type: 'warning',
-          text: 'Ограничение: технология еще сырая — требует доработки для продакшн-среды'
-        }}
-      />
-    </CardsLayout>
-      </SlideWrapper>
+      <CardsLayout
+        cols="2"
+        colsRatio="3:2"
+        horizontalGap="medium"
+        verticalGap="medium"
+        contentWidth="medium"
+        animationType="bubbling"
+        animationDelay={200}
+        isActive={isActive}
+        isVisited={isVisited}
+      >
+        <FeaturesListCard
+          title="Gemini Plugin, Cursor и Trae.ai"
+          category="Продвинутые IDE с автодополнением кода и встроенным AI-ассистентом"
+          features={cursorToolFeatures}
+          note={{
+            type: 'note',
+            text: 'Отличие Gemini Plugin: работает только с Google моделью и требует Google Cloud'
+          }}
+        />
+
+        <FeaturesListCard
+          title="Codex"
+          category="Интегрируется с GitHub-репозиторием: любая задача = Pull Request"
+          features={codexToolFeatures}
+          note={{
+            type: 'warning',
+            text: 'Ограничение: технология еще сырая — требует доработки для продакшн-среды'
+          }}
+        />
+      </CardsLayout>
+    </SlideWrapper>
   );
 };
 

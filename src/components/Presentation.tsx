@@ -7,7 +7,7 @@ import IBDecisionSlide from './slides/03-IBDecisionSlide';
 // Импорты новых слайдов
 import LogAnalysisSlide from './slides/04-LogAnalysisSlide';
 import LibraryUpdatesSlide from './slides/05-LibraryUpdatesSlide';
-import E2ETestingSlide from './slides/06-E2ETestingSlide';
+import E2ETestingSlide from './slides/06-E2eTestsSlide';
 import UnitTestingSlide from './slides/07-UnitTestingSlide';
 import GithubPipelineSlide from './slides/08-GithubPipelineSlide';
 import ProductPrototypeSlide from './slides/09-ProductPrototypeSlide';

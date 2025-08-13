@@ -2,6 +2,7 @@ import React from 'react';
 import { PointsList } from '../blocks/PointsList';
 import SlideWrapper from "../blocks/SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
+import Img from '../../assets/img/regex-example.png';
 
 interface SlideProps {
   isActive: boolean;
@@ -42,7 +43,7 @@ const RegexSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
                         objectFit: 'contain',
                         borderRadius: '8px'
                     }}
-                    src="/public/img/regex-example.png"
+                    src={Img}
                 />
             </CardsLayout>
         </SlideWrapper>
