@@ -8,6 +8,7 @@ interface SlideWrapperProps {
     footerNote?: string;
     className?: string;
     scrollable?: boolean;
+    sign?: string;
 }
 
 const SlideWrapper: React.FC<SlideWrapperProps> = ({
@@ -17,6 +18,7 @@ const SlideWrapper: React.FC<SlideWrapperProps> = ({
                                                      footerNote,
                                                      className = '',
                                                      scrollable = false,
+                                                     sign,
                                                  }) => {
 
     const containerClasses = [
@@ -33,6 +35,11 @@ const SlideWrapper: React.FC<SlideWrapperProps> = ({
             {footerNote && (
                 <div className={styles.footerNote}>
                     <p>{footerNote}</p>
+                </div>
+            )}
+            {sign && (
+                <div className={styles.speakerSign}>
+                    {sign}
                 </div>
             )}
         </>
@@ -53,6 +60,11 @@ const SlideWrapper: React.FC<SlideWrapperProps> = ({
                         )}
                     </div>
                 </div>
+                {sign && (
+                    <div className={styles.speakerSign}>
+                        {sign}
+                    </div>
+                )}
             </div>
         );
     }

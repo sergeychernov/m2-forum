@@ -83,6 +83,18 @@
     }
 }
 
+.speakerSign {
+    position: fixed;
+    bottom: var(--space-16);
+    right: var(--space-16);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    opacity: 0.3;
+    font-weight: var(--font-weight-light);
+    pointer-events: none;
+    z-index: 1000;
+}
+
 @media (max-width: 600px) {
     .title {
         font-size: 1.75rem;
@@ -91,5 +103,11 @@
     .subtitle {
         font-size: var(--font-size-md);
         margin-bottom: var(--space-20);
+    }
+    
+    .speakerSign {
+        bottom: var(--space-12);
+        right: var(--space-12);
+        font-size: 10px;
     }
 }

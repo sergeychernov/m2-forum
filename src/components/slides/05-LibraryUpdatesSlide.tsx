@@ -11,7 +11,8 @@ const LibraryUpdatesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
       <SlideWrapper
           title="Обновление библиотек"
-          subtitle="Sergey"
+      subtitle="Sergey"
+      sign='Ч'
       >
         <CardsLayout
             cols="1"

@@ -19,6 +19,7 @@ const E2eTestsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         <SlideWrapper
             title="Написание e2e-тестов"
             subtitle="Была задача переписать e2e-тесты c Codecept на Playwright"
+            sign='С'
         >
             <ThreeCardsLayout
                 colsRatio="2x2:3"
