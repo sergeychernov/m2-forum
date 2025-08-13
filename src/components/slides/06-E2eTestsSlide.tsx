@@ -1,5 +1,4 @@
 import React from 'react';
-import Img from '../../assets/img/end-to-end-images.jpeg';
 import ModelCard from "../cards/ModelCard";
 import ThreeCardsLayout from "../layouts/ThreeCardsLayout";
 import SlideWrapper from "../blocks/SlideWrapper";
@@ -50,7 +49,7 @@ const E2eTestsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
                         maxHeight: '400px',
                         borderRadius: '8px'
                     }}
-                    src={Img}
+                    src="/public/img/end-to-end-images.jpeg"
                 />
             </ThreeCardsLayout>
         </SlideWrapper>

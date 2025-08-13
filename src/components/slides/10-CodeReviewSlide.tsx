@@ -4,8 +4,8 @@ import SlideWrapper from "../blocks/SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
 
 interface SlideProps {
-    isActive: boolean;
-    isVisited: boolean;
+  isActive: boolean;
+  isVisited: boolean;
 }
 
 const CodeReviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
