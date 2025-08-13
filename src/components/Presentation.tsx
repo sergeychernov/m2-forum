@@ -4,15 +4,30 @@ import styles from './Presentation.module.css';
 import TitleSlide from './slides/01-TitleSlide';
 import ToolsOverviewSlide from './slides/02-ToolsOverviewSlide';
 import IBDecisionSlide from './slides/03-IBDecisionSlide';
-import ResultsSlide from './slides/04-ResultsSlide';
-import ConclusionsSlide from './slides/05-ConclusionsSlide';
-import QRCodesSlide from './slides/06-QRCodesSlide';
+// Импорты новых слайдов
+import LogAnalysisSlide from './slides/04-LogAnalysisSlide';
+import LibraryUpdatesSlide from './slides/05-LibraryUpdatesSlide';
+import E2ETestingSlide from './slides/06-E2ETestingSlide';
+import UnitTestingSlide from './slides/07-UnitTestingSlide';
+import GithubPipelineSlide from './slides/08-GithubPipelineSlide';
+import ProductPrototypeSlide from './slides/09-ProductPrototypeSlide';
+import CodeReviewSlide from './slides/10-CodeReviewSlide';
+import BugFixingSlide from './slides/11-BugFixingSlide';
+import NpmLibrarySlide from './slides/12-NpmLibrarySlide';
+import DocumentationSlide from './slides/13-DocumentationSlide';
+import DocTranslationSlide from './slides/14-DocTranslationSlide';
+import DatabaseSlide from './slides/15-DatabaseSlide';
+import RegexSlide from './slides/16-RegexSlide';
+import PresentationSlide from './slides/17-PresentationSlide';
+import ResultsSlide from './slides/18-ResultsSlide';
+import ConclusionsSlide from './slides/19-ConclusionsSlide';
+import QRCodesSlide from './slides/20-QRCodesSlide';
 
 const Presentation: React.FC = () => {
   const { slideNumber } = useParams<{ slideNumber?: string }>();
   const navigate = useNavigate();
   
-  const totalSlides = 6;
+  const totalSlides = 20;
   const [visitedSlides, setVisitedSlides] = useState(new Set([1]));
 
   // Определяем текущий слайд из URL или устанавливаем 1 по умолчанию
@@ -22,23 +37,23 @@ const Presentation: React.FC = () => {
     { id: 1, component: TitleSlide },
     { id: 2, component: ToolsOverviewSlide },
     { id: 3, component: IBDecisionSlide },
-    // Разбор логов и ошибок Sergey
-    // обновление библиотек Sergey
-    // e2e Nastya
-    // unit Nastya
-    // github pipeline Sergey
-    // прототип продукта Sergey
-    // ревью кода Nastya
-    // фикс багов Nastya
-    // npm библиотека Nastya
-    // дока Sergey
-    // перевод доки Sergey
-    // бд Nastya
-    // регулярки Nastya
-    // презентация Sergey
-    { id: 4, component: ResultsSlide },
-    { id: 5, component: ConclusionsSlide },
-    { id: 6, component: QRCodesSlide },
+    { id: 4, component: LogAnalysisSlide },
+    { id: 5, component: LibraryUpdatesSlide },
+    { id: 6, component: E2ETestingSlide },
+    { id: 7, component: UnitTestingSlide },
+    { id: 8, component: GithubPipelineSlide },
+    { id: 9, component: ProductPrototypeSlide },
+    { id: 10, component: CodeReviewSlide },
+    { id: 11, component: BugFixingSlide },
+    { id: 12, component: NpmLibrarySlide },
+    { id: 13, component: DocumentationSlide },
+    { id: 14, component: DocTranslationSlide },
+    { id: 15, component: DatabaseSlide },
+    { id: 16, component: RegexSlide },
+    { id: 17, component: PresentationSlide },
+    { id: 18, component: ResultsSlide },
+    { id: 19, component: ConclusionsSlide },
+    { id: 20, component: QRCodesSlide },
   ];
 
   const updateURL = useCallback((slideNum: number) => {
