@@ -6,6 +6,7 @@ import ToolsOverviewSlide from './slides/02-ToolsOverviewSlide';
 import IBDecisionSlide from './slides/03-IBDecisionSlide';
 // Импорты новых слайдов
 import LogAnalysisSlide from './slides/04-LogAnalysisSlide';
+import TelegramBotSlide from './slides/04a-TelegramBotSlide';
 import LibraryUpdatesSlide from './slides/05-LibraryUpdatesSlide';
 import E2ETestingSlide from './slides/06-E2eTestsSlide';
 import UnitTestingSlide from './slides/07-UnitTestingSlide';
@@ -27,7 +28,7 @@ const Presentation: React.FC = () => {
   const { slideNumber } = useParams<{ slideNumber?: string }>();
   const navigate = useNavigate();
   
-  const totalSlides = 20;
+  const totalSlides = 21;
   const [visitedSlides, setVisitedSlides] = useState(new Set([1]));
 
   // Определяем текущий слайд из URL или устанавливаем 1 по умолчанию
@@ -38,22 +39,23 @@ const Presentation: React.FC = () => {
     { id: 2, component: ToolsOverviewSlide },
     { id: 3, component: IBDecisionSlide },
     { id: 4, component: LogAnalysisSlide },
-    { id: 5, component: LibraryUpdatesSlide },
-    { id: 6, component: E2ETestingSlide },
-    { id: 7, component: UnitTestingSlide },
-    { id: 8, component: GithubPipelineSlide },
-    { id: 9, component: ProductPrototypeSlide },
-    { id: 10, component: CodeReviewSlide },
-    { id: 11, component: BugFixingSlide },
-    { id: 12, component: NpmLibrarySlide },
-    { id: 13, component: DocumentationSlide },
-    { id: 14, component: DocTranslationSlide },
-    { id: 15, component: DatabaseSlide },
-    { id: 16, component: RegexSlide },
-    { id: 17, component: PresentationSlide },
-    { id: 18, component: ResultsSlide },
-    { id: 19, component: ConclusionsSlide },
-    { id: 20, component: QRCodesSlide },
+    { id: 5, component: TelegramBotSlide },
+    { id: 6, component: LibraryUpdatesSlide },
+    { id: 7, component: E2ETestingSlide },
+    { id: 8, component: UnitTestingSlide },
+    { id: 9, component: GithubPipelineSlide },
+    { id: 10, component: ProductPrototypeSlide },
+    { id: 11, component: CodeReviewSlide },
+    { id: 12, component: BugFixingSlide },
+    { id: 13, component: NpmLibrarySlide },
+    { id: 14, component: DocumentationSlide },
+    { id: 15, component: DocTranslationSlide },
+    { id: 16, component: DatabaseSlide },
+    { id: 17, component: RegexSlide },
+    { id: 18, component: PresentationSlide },
+    { id: 19, component: ResultsSlide },
+    { id: 20, component: ConclusionsSlide },
+    { id: 21, component: QRCodesSlide },
   ];
 
   const updateURL = useCallback((slideNum: number) => {

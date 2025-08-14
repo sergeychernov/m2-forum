@@ -5,7 +5,7 @@ import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 
 interface QRCardProps {
   title: string;
-  description: string;
+  description?: string;
   url: string;
   icon: string;
   animationType?: AnimationType;
@@ -57,7 +57,7 @@ const QRCard: React.FC<QRCardProps> = ({
 
       <div className={styles.qrInfo}>
         <h3>{icon} {title}</h3>
-        <p className={styles.qrDescription}>{description}</p>
+        {description && <p className={styles.qrDescription}>{description}</p>}
         <a
           href={url}
           target="_blank"
