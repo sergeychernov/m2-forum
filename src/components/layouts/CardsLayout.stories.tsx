@@ -1,19 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CardsLayout from './CardsLayout';
-import FeaturesListCard from '../cards/FeaturesListCard';
-import ModelCard from '../cards/ModelCard';
-import TaskCard from '../cards/TaskCard';
-import QRCard from '../cards/QRCard';
 import ConclusionCard from '../cards/ConclusionCard';
+import FeaturesListCard from '../cards/FeaturesListCard';
+import ImageCard from '../cards/ImageCard';
+import ModelCard from '../cards/ModelCard';
+import PointsList from '../cards/PointsList';
+import QRCard from '../cards/QRCard';
+import TaskCard from '../cards/TaskCard';
 import ToolCard from '../cards/ToolCard';
 
 // Типы карточек
 const CARD_TYPES = {
-  FeaturesListCard: 'FeaturesListCard',
-  ModelCard: 'ModelCard', 
-  TaskCard: 'TaskCard',
-  QRCard: 'QRCard',
   ConclusionCard: 'ConclusionCard',
+  FeaturesListCard: 'FeaturesListCard',
+  ImageCard: 'ImageCard',
+  ModelCard: 'ModelCard',
+  PointsList: 'PointsList',
+  QRCard: 'QRCard',
+  TaskCard: 'TaskCard',
   ToolCard: 'ToolCard'
 } as const;
 
@@ -96,12 +100,55 @@ const sampleTools = [
   },
 ];
 
+const sampleImages = [
+  {
+    src: '/img/end-to-end-images.jpeg',
+    alt: 'E2E testing illustration',
+    maxHeight: '300px'
+  },
+  {
+    src: '/img/regex-example.png',
+    alt: 'Regex example',
+    maxHeight: '250px'
+  },
+];
+
+const samplePointsLists = [
+  {
+    items: [
+      'Быстрая разработка',
+      'Точные результаты',
+      'Высокая производительность'
+    ],
+    bulletColor: '#1890ff'
+  },
+  {
+    items: [
+      'Простота использования',
+      'Гибкость настроек',
+      'Отличная документация'
+    ],
+    bulletColor: '#52c41a'
+  },
+];
+
 // Функция для рендеринга карточек по типу
 const renderCards = (cardType: CardType, count: number) => {
   const cards = [];
   
   for (let i = 0; i < count; i++) {
     switch (cardType) {
+      case 'ConclusionCard':
+        const conclusionData = sampleConclusions[i % sampleConclusions.length];
+        cards.push(
+          <ConclusionCard
+            key={`conclusion-${i}`}
+            text={conclusionData.text}
+            index={conclusionData.index}
+          />
+        );
+        break;
+        
       case 'FeaturesListCard':
         const featureData = sampleTools[i % sampleTools.length];
         cards.push(
@@ -111,6 +158,18 @@ const renderCards = (cardType: CardType, count: number) => {
             category={featureData.category}
             features={featureData.features}
             note={featureData.note}
+          />
+        );
+        break;
+        
+      case 'ImageCard':
+        const imageData = sampleImages[i % sampleImages.length];
+        cards.push(
+          <ImageCard
+            key={`image-${i}`}
+            src={imageData.src}
+            alt={imageData.alt}
+            maxHeight={imageData.maxHeight}
           />
         );
         break;
@@ -127,16 +186,13 @@ const renderCards = (cardType: CardType, count: number) => {
         );
         break;
         
-      case 'TaskCard':
-        const taskData = sampleTasks[i % sampleTasks.length];
+      case 'PointsList':
+        const pointsData = samplePointsLists[i % samplePointsLists.length];
         cards.push(
-          <TaskCard
-            key={`task-${i}`}
-            title={taskData.title}
-            description={taskData.description}
-            tool={taskData.tool}
-            rating={taskData.rating}
-            icon={taskData.icon}
+          <PointsList
+            key={`points-${i}`}
+            items={pointsData.items}
+            bulletColor={pointsData.bulletColor}
           />
         );
         break;
@@ -154,13 +210,16 @@ const renderCards = (cardType: CardType, count: number) => {
         );
         break;
         
-      case 'ConclusionCard':
-        const conclusionData = sampleConclusions[i % sampleConclusions.length];
+      case 'TaskCard':
+        const taskData = sampleTasks[i % sampleTasks.length];
         cards.push(
-          <ConclusionCard
-            key={`conclusion-${i}`}
-            text={conclusionData.text}
-            index={conclusionData.index}
+          <TaskCard
+            key={`task-${i}`}
+            title={taskData.title}
+            description={taskData.description}
+            tool={taskData.tool}
+            rating={taskData.rating}
+            icon={taskData.icon}
           />
         );
         break;

@@ -23,3 +23,5 @@ export const PointsList: React.FC<PointsListProps> = ({ items, bulletColor = '#1
         </div>
     );
 };
+
+export default PointsList;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../layouts/CardsLayout.module.css';
 import titleStyles from './TitleSlide.module.css';
+import ImageCard from '../cards/ImageCard';
 
 interface SlideProps {
   isActive: boolean;
@@ -43,15 +44,21 @@ const TitleSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         ) : (
           <div className={titleStyles.memeContainer}>
             <div className={titleStyles.memeImages}>
-              <img 
+              <ImageCard
                 src={`${process.env.PUBLIC_URL}/01/meme01.png`}
-                alt="AI мем 1" 
+                alt="AI мем 1"
                 className={titleStyles.memeImage}
+                objectFit="contain"
+                maxHeight="40vh"
+                animationType="none"
               />
-              <img 
+              <ImageCard
                 src={`${process.env.PUBLIC_URL}/01/meme02.png`}
-                alt="AI мем 2" 
+                alt="AI мем 2"
                 className={titleStyles.memeImage}
+                objectFit="contain"
+                maxHeight="40vh"
+                animationType="none"
               />
             </div>
           </div>

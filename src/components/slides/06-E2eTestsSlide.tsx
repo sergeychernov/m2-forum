@@ -1,6 +1,6 @@
 import React from 'react';
-import Img from '../../assets/img/end-to-end-images.jpeg';
 import ModelCard from "../cards/ModelCard";
+import ImageCard from "../cards/ImageCard";
 import ThreeCardsLayout from "../layouts/ThreeCardsLayout";
 import SlideWrapper from "../SlideWrapper";
 
@@ -43,15 +43,11 @@ const E2eTestsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
                         description={card.description}
                     />
                 ))}
-                <img
+                <ImageCard
+                    src={`${process.env.PUBLIC_URL}/img/end-to-end-images.jpeg`}
                     alt="robot reading book"
-                    style={{
-                        width: '100%',
-                        height: 'auto',
-                        maxHeight: '400px',
-                        borderRadius: '8px'
-                    }}
-                    src={Img}
+                    maxHeight="400px"
+                    // Анимационные пропсы будут переданы автоматически через cloneElement
                 />
             </ThreeCardsLayout>
         </SlideWrapper>

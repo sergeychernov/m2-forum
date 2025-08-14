@@ -1,8 +1,8 @@
 import React from 'react';
 import { PointsList } from '../cards/PointsList';
+import ImageCard from '../cards/ImageCard';
 import SlideWrapper from "../SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
-import Img from '../../assets/img/regex-example.png';
 
 interface SlideProps {
   isActive: boolean;
@@ -34,16 +34,11 @@ const RegexSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
                 isVisited={isVisited}
             >
                 <PointsList items={features} />
-                <img
+                <ImageCard
+                    src={`${process.env.PUBLIC_URL}/img/regex-example.png`}
                     alt="ИИ помогает в разработке пример регулярки"
-                    style={{
-                        width: '100%',
-                        height: 'auto',
-                        maxHeight: '400px',
-                        objectFit: 'contain',
-                        borderRadius: '8px'
-                    }}
-                    src={Img}
+                    maxHeight="400px"
+                    objectFit="contain"
                 />
             </CardsLayout>
         </SlideWrapper>
