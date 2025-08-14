@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CardsLayout from './CardsLayout';
+import ThreeCardsLayout from './ThreeCardsLayout';
+import SlideWrapper from '../SlideWrapper';
 import ConclusionCard from '../cards/ConclusionCard';
 import FeaturesListCard from '../cards/FeaturesListCard';
 import ImageCard from '../cards/ImageCard';
@@ -7,7 +9,16 @@ import ModelCard from '../cards/ModelCard';
 import PointsList from '../cards/PointsList';
 import QRCard from '../cards/QRCard';
 import TaskCard from '../cards/TaskCard';
-import ToolCard from '../cards/ToolCard';
+// Удалить импорт
+// import ToolCard from '../cards/ToolCard';
+
+// Типы лейаутов
+const LAYOUT_TYPES = {
+  CardsLayout: 'CardsLayout',
+  ThreeCardsLayout: 'ThreeCardsLayout'
+} as const;
+
+type LayoutType = keyof typeof LAYOUT_TYPES;
 
 // Типы карточек
 const CARD_TYPES = {
@@ -17,16 +28,40 @@ const CARD_TYPES = {
   ModelCard: 'ModelCard',
   PointsList: 'PointsList',
   QRCard: 'QRCard',
-  TaskCard: 'TaskCard',
-  ToolCard: 'ToolCard'
+  TaskCard: 'TaskCard'
+  // ToolCard: 'ToolCard' - удалить эту строку
 } as const;
 
 type CardType = keyof typeof CARD_TYPES;
 
-// Добавьте тип для props
-type CardsLayoutProps = React.ComponentProps<typeof CardsLayout> & {
+// Импортируем типы из компонентов
+type CardsLayoutProps = React.ComponentProps<typeof CardsLayout>;
+type ThreeCardsLayoutProps = React.ComponentProps<typeof ThreeCardsLayout>;
+
+// Типы для ThreeCardsLayout
+type ThreeColsRatio = '1x2:1' | '2x2:3' | '3x2:2' | '3x2:5' | '5x2:3' | '1:1x2' | '2:3x2' | '3:2x2' | '3:5x2' | '5:3x2';
+
+// Исправленный тип для props
+type LayoutProps = {
+  layoutType: LayoutType;
   cardType: CardType;
   cardCount: number;
+  // Общие пропсы
+  horizontalGap?: 'none' | 'small' | 'medium' | 'large';
+  verticalGap?: 'none' | 'small' | 'medium' | 'large';
+  contentWidth?: 'narrow' | 'medium' | 'wide' | 'full';
+  contentAlign?: 'top' | 'center' | 'bottom';
+  className?: string;
+  // Пропсы для CardsLayout - используем правильный тип
+  cols?: '1' | '2' | '3' | '4' | 'auto';
+  colsRatio?: CardsLayoutProps['colsRatio']; // Используем тип из CardsLayout
+  // Пропсы для ThreeCardsLayout
+  threeColsRatio?: ThreeColsRatio;
+  // Анимационные пропсы
+  animationType?: 'none' | 'bubbling' | 'grasshopper' | 'pendulum' | 'appearance' | 'explosion' | 'ghost';
+  animationDelay?: number;
+  isActive?: boolean;
+  isVisited?: boolean;
 };
 
 // Примеры данных для каждого типа карточек
@@ -133,7 +168,16 @@ const samplePointsLists = [
 ];
 
 // Функция для рендеринга карточек по типу
-const renderCards = (cardType: CardType, count: number) => {
+const renderCards = (
+  cardType: CardType, 
+  count: number, 
+  animationProps?: {
+    animationType?: 'none' | 'bubbling' | 'grasshopper' | 'pendulum' | 'appearance' | 'explosion' | 'ghost';
+    animationDelay?: number;
+    isActive?: boolean;
+    isVisited?: boolean;
+  }
+) => {
   const cards = [];
   
   for (let i = 0; i < count; i++) {
@@ -158,6 +202,11 @@ const renderCards = (cardType: CardType, count: number) => {
             category={featureData.category}
             features={featureData.features}
             note={featureData.note}
+            animationType={animationProps?.animationType}
+            animationIndex={i}
+            animationDelay={animationProps?.animationDelay}
+            isActive={animationProps?.isActive}
+            isVisited={animationProps?.isVisited}
           />
         );
         break;
@@ -186,6 +235,20 @@ const renderCards = (cardType: CardType, count: number) => {
         );
         break;
         
+      case 'TaskCard':
+        const taskData = sampleTasks[i % sampleTasks.length];
+        cards.push(
+          <TaskCard
+            key={`task-${i}`}
+            title={taskData.title}
+            description={taskData.description}
+            tool={taskData.tool}
+            rating={taskData.rating}
+            icon={taskData.icon}
+          />
+        );
+        break;
+        
       case 'PointsList':
         const pointsData = samplePointsLists[i % samplePointsLists.length];
         cards.push(
@@ -193,6 +256,11 @@ const renderCards = (cardType: CardType, count: number) => {
             key={`points-${i}`}
             items={pointsData.items}
             bulletColor={pointsData.bulletColor}
+            animationType={animationProps?.animationType}
+            animationIndex={i}
+            animationDelay={animationProps?.animationDelay}
+            isActive={animationProps?.isActive}
+            isVisited={animationProps?.isVisited}
           />
         );
         break;
@@ -210,33 +278,6 @@ const renderCards = (cardType: CardType, count: number) => {
         );
         break;
         
-      case 'TaskCard':
-        const taskData = sampleTasks[i % sampleTasks.length];
-        cards.push(
-          <TaskCard
-            key={`task-${i}`}
-            title={taskData.title}
-            description={taskData.description}
-            tool={taskData.tool}
-            rating={taskData.rating}
-            icon={taskData.icon}
-          />
-        );
-        break;
-        
-      case 'ToolCard':
-        const toolData = sampleTools[i % sampleTools.length];
-        cards.push(
-          <ToolCard
-            key={`tool-${i}`}
-            title={toolData.title}
-            category={toolData.category}
-            features={toolData.features}
-            note={toolData.note}
-          />
-        );
-        break;
-        
       default:
         break;
     }
@@ -245,13 +286,18 @@ const renderCards = (cardType: CardType, count: number) => {
   return cards;
 };
 
-const meta: Meta<CardsLayoutProps> = {
+const meta: Meta<LayoutProps> = {
   title: 'Layouts/CardsLayout',
   component: CardsLayout,
   parameters: {
     layout: 'fullscreen',
   },
   argTypes: {
+    layoutType: {
+      control: { type: 'select' },
+      options: Object.keys(LAYOUT_TYPES),
+      description: 'Тип лейаута для отображения',
+    },
     cardType: {
       control: { type: 'select' },
       options: Object.keys(CARD_TYPES),
@@ -261,9 +307,11 @@ const meta: Meta<CardsLayoutProps> = {
       control: { type: 'range', min: 1, max: 12, step: 1 },
       description: 'Количество карточек',
     },
+    // CardsLayout props
     cols: {
       control: { type: 'select' },
       options: ['1', '2', '3', '4', 'auto'],
+      if: { arg: 'layoutType', eq: 'CardsLayout' },
     },
     colsRatio: {
       control: { type: 'select' },
@@ -273,6 +321,14 @@ const meta: Meta<CardsLayoutProps> = {
         '1:1:1', '1:2:1', '2:1:1', '1:1:2', '2:3:2', '1:3:1',
         '1:1:1:1', '1:2:1:1', '1:1:2:1', '1:1:1:2', '2:1:1:1', '1:2:2:1', '2:1:1:2'
       ],
+      if: { arg: 'layoutType', eq: 'CardsLayout' },
+    },
+    // ThreeCardsLayout props
+    threeColsRatio: {
+      control: { type: 'select' },
+      options: ['1x2:1', '2x2:3', '3x2:2', '3x2:5', '5x2:3', '1:1x2', '2:3x2', '3:2x2', '3:5x2', '5:3x2'],
+      if: { arg: 'layoutType', eq: 'ThreeCardsLayout' },
+      description: 'Соотношение колонок для ThreeCardsLayout',
     },
     horizontalGap: {
       control: { type: 'select' },
@@ -303,14 +359,19 @@ const meta: Meta<CardsLayoutProps> = {
 };
 
 export default meta;
-type Story = StoryObj<CardsLayoutProps>;
+type Story = StoryObj<LayoutProps>;
 
-// Единственная история с динамическим выбором карточек
+// Единственная история с динамическим выбором лейаутов и карточек
 export const DynamicCards: Story = {
+  parameters: {
+    layout: 'fullscreen',
+  },
   args: {
+    layoutType: 'CardsLayout',
     cardType: 'FeaturesListCard',
     cardCount: 3,
     cols: '3',
+    threeColsRatio: '2x2:3',
     horizontalGap: 'medium',
     verticalGap: 'medium',
     contentWidth: 'wide',
@@ -320,11 +381,56 @@ export const DynamicCards: Story = {
     isVisited: false,
   },
   render: (args) => {
-    const { cardType, cardCount, ...layoutProps } = args;
+    const { layoutType, cardType, cardCount, threeColsRatio, ...commonProps } = args;
+    const cards = renderCards(cardType, cardCount, {
+      animationType: commonProps.animationType,
+      animationDelay: commonProps.animationDelay,
+      isActive: commonProps.isActive,
+      isVisited: commonProps.isVisited
+    });
+    
+    const layoutTitle = layoutType === 'ThreeCardsLayout' ? 'Three Cards Layout' : 'Cards Layout';
+    const subtitle = `${cardType} × ${cardCount} | ${commonProps.animationType} animation`;
+  
+    if (layoutType === 'ThreeCardsLayout') {
+      return (
+        <SlideWrapper
+          title={layoutTitle}
+          subtitle={subtitle}
+          sign="Storybook Demo"
+        >
+          <ThreeCardsLayout
+            colsRatio={threeColsRatio}
+            horizontalGap={commonProps.horizontalGap}
+            verticalGap={commonProps.verticalGap}
+            contentWidth={commonProps.contentWidth}
+            contentAlign={commonProps.contentAlign}
+            className={commonProps.className}
+            animation={{
+              animationType: commonProps.animationType,
+              animationDelay: commonProps.animationDelay,
+              isActive: commonProps.isActive,
+              isVisited: commonProps.isVisited
+            }}
+          >
+            {cards}
+          </ThreeCardsLayout>
+        </SlideWrapper>
+      );
+    }
+  
     return (
-      <CardsLayout {...layoutProps}>
-        {renderCards(cardType, cardCount)}
-      </CardsLayout>
+      <div style={{ height: '100vh', overflowY: 'auto' }}>
+        <SlideWrapper
+          title={layoutTitle}
+          subtitle={subtitle}
+          sign="Storybook Demo"
+        >
+          <CardsLayout {...commonProps}>
+            {cards}
+          </CardsLayout>
+        </SlideWrapper>
+      </div>
     );
   },
 };
