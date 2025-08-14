@@ -13,8 +13,7 @@ const LibraryUpdatesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   const oldWayFeatures = [
     { icon: '📚', text: 'Искали в документации аналоги функций' },
     { icon: '✍️', text: 'Переписывали код вручную' },
-    { icon: '🐛', text: 'Ловили и исправляли десятки ошибок' },
-    { icon: '⏰', text: 'Потратили бы дни (или недели) на тесты и рефакторинг' }
+    { icon: '🐛', text: 'Ловили и исправляли десятки ошибок' }
   ];
 
   const newWayFeatures = [
@@ -27,12 +26,12 @@ const LibraryUpdatesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
     <SlideWrapper
       title="Обновление и миграция библиотек"
-      subtitle="Telegraf. Проблема: библиотека перестала активно поддерживаться. Решение: выбрали grammY как современную и активно развивающуюся альтернативу."
+      subtitle="Telegraf  перестала активно поддерживаться. Выбрали grammY как современную и активно развивающуюся альтернативу."
       sign='Ч'
     >
       <CardsLayout
-        cols="3"
-        colsRatio="1:1:1"
+        cols="2"
+        colsRatio="1:1"
         horizontalGap="large"
         verticalGap="medium"
         contentWidth="wide"
@@ -45,7 +44,11 @@ const LibraryUpdatesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           <FeaturesListCard
             title="Как это было раньше"
             category="Ручная миграция"
-            features={oldWayFeatures}
+          features={oldWayFeatures}
+          note={{
+              type: 'warning',
+              text: 'AI значительно ускоряет процесс миграции между библиотеками'
+            }}
             animationType="appearance"
             animationIndex={1}
             animationDelay={300}
@@ -67,19 +70,6 @@ const LibraryUpdatesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             isActive={isActive}
             isVisited={isVisited}
           />
-        
-        
-        <QRCard
-          title="Пример проекта"
-          description="Telegram-бот с интеграцией YandexGPT на grammY"
-          url="https://github.com/sergeychernov/m2-bot-example"
-          icon="🤖"
-          animationType="appearance"
-          animationIndex={3}
-          animationDelay={600}
-          isActive={isActive}
-          isVisited={isVisited}
-        />
       </CardsLayout>
     </SlideWrapper>
   );
