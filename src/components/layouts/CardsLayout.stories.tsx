@@ -6,6 +6,7 @@ import ConclusionCard from '../cards/ConclusionCard';
 import FeaturesListCard from '../cards/FeaturesListCard';
 import ImageCard from '../cards/ImageCard';
 import ModelCard from '../cards/ModelCard';
+import PointsCard from '../cards/PointsCard';
 import PointsList from '../cards/PointsList';
 import QRCard from '../cards/QRCard';
 import TaskCard from '../cards/TaskCard';
@@ -26,6 +27,7 @@ const CARD_TYPES = {
   FeaturesListCard: 'FeaturesListCard',
   ImageCard: 'ImageCard',
   ModelCard: 'ModelCard',
+  PointsCard: 'PointsCard',
   PointsList: 'PointsList',
   QRCard: 'QRCard',
   TaskCard: 'TaskCard'
@@ -74,7 +76,37 @@ const sampleFeatures = [
 const sampleModels = [
   { icon: '⚡', name: 'Cursor', description: 'У него есть Team тариф' },
   { icon: '🔒', name: 'Gemini plugin', description: 'Трудно оплачивать' },
-  { icon: '🔄', name: 'Trae.ai', description: 'Функциональная копия Cursor' },
+  { icon: '��', name: 'Trae.ai', description: 'Функциональная копия Cursor' },
+];
+
+const samplePointsCards = [
+  {
+    description: "Проблемы с зависимостями",
+    points: [
+      "Конфликты версий пакетов",
+      "Устаревшие зависимости",
+      "Проблемы с peer dependencies",
+      "Циклические зависимости"
+    ]
+  },
+  {
+    description: "Проблемы с конфигурацией",
+    points: [
+      "Webpack/Vite конфигурация",
+      "Babel/TypeScript настройки",
+      "ESLint/Prettier конфликты",
+      "Environment variables"
+    ]
+  },
+  {
+    description: "Асинхронные ошибки",
+    points: [
+      "Race conditions",
+      "Memory leaks в useEffect",
+      "Проблемы с Promise.all/Promise.race",
+      "Неправильная обработка async/await"
+    ]
+  }
 ];
 
 const sampleTasks = [
@@ -169,8 +201,8 @@ const samplePointsLists = [
 
 // Функция для рендеринга карточек по типу
 const renderCards = (
-  cardType: CardType, 
-  count: number, 
+  cardType: CardType,
+  count: number,
   animationProps?: {
     animationType?: 'none' | 'bubbling' | 'grasshopper' | 'pendulum' | 'appearance' | 'explosion' | 'ghost';
     animationDelay?: number;
@@ -234,7 +266,21 @@ const renderCards = (
           />
         );
         break;
-        
+
+      case 'PointsCard':
+        const pointsCardData = samplePointsCards[i % samplePointsCards.length];
+        cards.push(
+            <PointsCard
+                key={`pointscard-${i}`}
+                description={pointsCardData.description}
+                points={pointsCardData.points}
+                size="medium"
+                bulletColor="#1890ff"
+            />
+        );
+        break;
+
+
       case 'TaskCard':
         const taskData = sampleTasks[i % sampleTasks.length];
         cards.push(
@@ -248,7 +294,7 @@ const renderCards = (
           />
         );
         break;
-        
+
       case 'PointsList':
         const pointsData = samplePointsLists[i % samplePointsLists.length];
         cards.push(
@@ -277,7 +323,7 @@ const renderCards = (
           />
         );
         break;
-        
+
       default:
         break;
     }
@@ -388,10 +434,10 @@ export const DynamicCards: Story = {
       isActive: commonProps.isActive,
       isVisited: commonProps.isVisited
     });
-    
+
     const layoutTitle = layoutType === 'ThreeCardsLayout' ? 'Three Cards Layout' : 'Cards Layout';
     const subtitle = `${cardType} × ${cardCount} | ${commonProps.animationType} animation`;
-  
+
     if (layoutType === 'ThreeCardsLayout') {
       return (
         <SlideWrapper
@@ -418,7 +464,7 @@ export const DynamicCards: Story = {
         </SlideWrapper>
       );
     }
-  
+
     return (
       <div style={{ height: '100vh', overflowY: 'auto' }}>
         <SlideWrapper

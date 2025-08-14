@@ -47,7 +47,6 @@ const E2eTestsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
                     src={`${process.env.PUBLIC_URL}/img/end-to-end-images.jpeg`}
                     alt="robot reading book"
                     maxHeight="400px"
-                    // Анимационные пропсы будут переданы автоматически через cloneElement
                 />
             </ThreeCardsLayout>
         </SlideWrapper>

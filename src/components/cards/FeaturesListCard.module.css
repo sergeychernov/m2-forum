@@ -77,19 +77,15 @@
 }
 
 .features {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
   border-radius: var(--radius-base);
   padding: var(--space-12);
   font-size: var(--font-size-sm);
   text-align: center;
   position: relative;
   color: var(--color-text);
-}
-
-.features::before {
-  position: absolute;
-  left: var(--space-12);
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .features-note {
@@ -106,7 +102,7 @@
   border: 1px solid rgba(var(--color-orange-500-rgb), 0.2);
 }
 
-.feature-warning::before {
+.features-warning::before {
   content: "⚠️";
 }
 
