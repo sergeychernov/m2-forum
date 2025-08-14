@@ -5,7 +5,7 @@ import cn from "classnames";
 
 interface ModelCardProps {
   icon: string;
-  name: string;
+  name?: string;
   size?: 'small' | 'medium' | 'large';
   description: string;
   animationType?: AnimationType;

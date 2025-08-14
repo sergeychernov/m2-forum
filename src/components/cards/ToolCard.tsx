@@ -12,7 +12,7 @@ interface ToolCardProps {
   category: string;
   features: Feature[];
   note?: {
-    type: 'note' | 'warning';
+    type: 'note' | 'warning' | 'advantage';
     text: string;
   };
   animationType?: AnimationType;

@@ -4,6 +4,7 @@ import ConclusionCard from '../cards/ConclusionCard';
 import FeaturesListCard from '../cards/FeaturesListCard';
 import ImageCard from '../cards/ImageCard';
 import ModelCard from '../cards/ModelCard';
+import PointsCard from '../cards/PointsCard';
 import PointsList from '../cards/PointsList';
 import QRCard from '../cards/QRCard';
 import TaskCard from '../cards/TaskCard';
@@ -15,6 +16,7 @@ const CARD_TYPES = {
   FeaturesListCard: 'FeaturesListCard',
   ImageCard: 'ImageCard',
   ModelCard: 'ModelCard',
+  PointsCard: 'PointsCard',
   PointsList: 'PointsList',
   QRCard: 'QRCard',
   TaskCard: 'TaskCard',
@@ -39,7 +41,37 @@ const sampleFeatures = [
 const sampleModels = [
   { icon: '⚡', name: 'Cursor', description: 'У него есть Team тариф' },
   { icon: '🔒', name: 'Gemini plugin', description: 'Трудно оплачивать' },
-  { icon: '🔄', name: 'Trae.ai', description: 'Функциональная копия Cursor' },
+  { icon: '��', name: 'Trae.ai', description: 'Функциональная копия Cursor' },
+];
+
+const samplePointsCards = [
+  {
+    description: "Проблемы с зависимостями",
+    points: [
+      "Конфликты версий пакетов",
+      "Устаревшие зависимости",
+      "Проблемы с peer dependencies",
+      "Циклические зависимости"
+    ]
+  },
+  {
+    description: "Проблемы с конфигурацией",
+    points: [
+      "Webpack/Vite конфигурация",
+      "Babel/TypeScript настройки",
+      "ESLint/Prettier конфликты",
+      "Environment variables"
+    ]
+  },
+  {
+    description: "Асинхронные ошибки",
+    points: [
+      "Race conditions",
+      "Memory leaks в useEffect",
+      "Проблемы с Promise.all/Promise.race",
+      "Неправильная обработка async/await"
+    ]
+  }
 ];
 
 const sampleTasks = [
@@ -135,113 +167,126 @@ const samplePointsLists = [
 // Функция для рендеринга карточек по типу
 const renderCards = (cardType: CardType, count: number) => {
   const cards = [];
-  
+
   for (let i = 0; i < count; i++) {
     switch (cardType) {
       case 'ConclusionCard':
         const conclusionData = sampleConclusions[i % sampleConclusions.length];
         cards.push(
-          <ConclusionCard
-            key={`conclusion-${i}`}
-            text={conclusionData.text}
-            index={conclusionData.index}
-          />
+            <ConclusionCard
+                key={`conclusion-${i}`}
+                text={conclusionData.text}
+                index={conclusionData.index}
+            />
         );
         break;
-        
+
       case 'FeaturesListCard':
         const featureData = sampleTools[i % sampleTools.length];
         cards.push(
-          <FeaturesListCard
-            key={`features-${i}`}
-            title={featureData.title}
-            category={featureData.category}
-            features={featureData.features}
-            note={featureData.note}
-          />
+            <FeaturesListCard
+                key={`features-${i}`}
+                title={featureData.title}
+                category={featureData.category}
+                features={featureData.features}
+                note={featureData.note}
+            />
         );
         break;
-        
+
       case 'ImageCard':
         const imageData = sampleImages[i % sampleImages.length];
         cards.push(
-          <ImageCard
-            key={`image-${i}`}
-            src={imageData.src}
-            alt={imageData.alt}
-            maxHeight={imageData.maxHeight}
-          />
+            <ImageCard
+                key={`image-${i}`}
+                src={imageData.src}
+                alt={imageData.alt}
+                maxHeight={imageData.maxHeight}
+            />
         );
         break;
-        
+
       case 'ModelCard':
         const modelData = sampleModels[i % sampleModels.length];
         cards.push(
-          <ModelCard
-            key={`model-${i}`}
-            icon={modelData.icon}
-            name={modelData.name}
-            description={modelData.description}
-          />
+            <ModelCard
+                key={`model-${i}`}
+                icon={modelData.icon}
+                name={modelData.name}
+                description={modelData.description}
+            />
         );
         break;
-        
+
+      case 'PointsCard':
+        const pointsCardData = samplePointsCards[i % samplePointsCards.length];
+        cards.push(
+            <PointsCard
+                key={`pointscard-${i}`}
+                description={pointsCardData.description}
+                points={pointsCardData.points}
+                size="medium"
+                bulletColor="#1890ff"
+            />
+        );
+        break;
+
       case 'PointsList':
         const pointsData = samplePointsLists[i % samplePointsLists.length];
         cards.push(
-          <PointsList
-            key={`points-${i}`}
-            items={pointsData.items}
-            bulletColor={pointsData.bulletColor}
-          />
+            <PointsList
+                key={`points-${i}`}
+                items={pointsData.items}
+                bulletColor={pointsData.bulletColor}
+            />
         );
         break;
-        
+
       case 'QRCard':
         const qrData = sampleQRCards[i % sampleQRCards.length];
         cards.push(
-          <QRCard
-            key={`qr-${i}`}
-            title={qrData.title}
-            url={qrData.url}
-            description={qrData.description}
-            icon={qrData.icon}
-          />
+            <QRCard
+                key={`qr-${i}`}
+                title={qrData.title}
+                url={qrData.url}
+                description={qrData.description}
+                icon={qrData.icon}
+            />
         );
         break;
-        
+
       case 'TaskCard':
         const taskData = sampleTasks[i % sampleTasks.length];
         cards.push(
-          <TaskCard
-            key={`task-${i}`}
-            title={taskData.title}
-            description={taskData.description}
-            tool={taskData.tool}
-            rating={taskData.rating}
-            icon={taskData.icon}
-          />
+            <TaskCard
+                key={`task-${i}`}
+                title={taskData.title}
+                description={taskData.description}
+                tool={taskData.tool}
+                rating={taskData.rating}
+                icon={taskData.icon}
+            />
         );
         break;
-        
+
       case 'ToolCard':
         const toolData = sampleTools[i % sampleTools.length];
         cards.push(
-          <ToolCard
-            key={`tool-${i}`}
-            title={toolData.title}
-            category={toolData.category}
-            features={toolData.features}
-            note={toolData.note}
-          />
+            <ToolCard
+                key={`tool-${i}`}
+                title={toolData.title}
+                category={toolData.category}
+                features={toolData.features}
+                note={toolData.note}
+            />
         );
         break;
-        
+
       default:
         break;
     }
   }
-  
+
   return cards;
 };
 
@@ -308,7 +353,7 @@ type Story = StoryObj<CardsLayoutProps>;
 // Единственная история с динамическим выбором карточек
 export const DynamicCards: Story = {
   args: {
-    cardType: 'FeaturesListCard',
+    cardType: 'PointsCard',
     cardCount: 3,
     cols: '3',
     horizontalGap: 'medium',
@@ -322,9 +367,9 @@ export const DynamicCards: Story = {
   render: (args) => {
     const { cardType, cardCount, ...layoutProps } = args;
     return (
-      <CardsLayout {...layoutProps}>
-        {renderCards(cardType, cardCount)}
-      </CardsLayout>
+        <CardsLayout {...layoutProps}>
+          {renderCards(cardType, cardCount)}
+        </CardsLayout>
     );
   },
 };

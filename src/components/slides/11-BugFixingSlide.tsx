@@ -1,6 +1,7 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
 import SlideWrapper from "../SlideWrapper";
+import PointsCard from "../cards/PointsCard";
 
 interface SlideProps {
   isActive: boolean;
@@ -8,13 +9,44 @@ interface SlideProps {
 }
 
 const BugFixingSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
+  const cards = [
+    {
+      description: "Проблемы с зависимостями",
+      points: [
+        "Конфликты версий пакетов",
+        "Устаревшие зависимости",
+        "Проблемы с peer dependencies",
+        "Циклические зависимости"
+      ]
+    },
+    {
+      description: "Проблемы с конфигурацией",
+      points: [
+        "Webpack/Vite конфигурация",
+        "Babel/TypeScript настройки",
+        "ESLint/Prettier конфликты",
+        "Environment variables"
+      ]
+    },
+    {
+      description: "Асинхронные ошибки",
+      points: [
+        "Race conditions",
+        "Memory leaks в useEffect",
+        "Проблемы с Promise.all/Promise.race",
+        "Неправильная обработка async/await"
+      ]
+    }
+  ];
+
   return (
       <SlideWrapper
-          title="Фикс багов"
-          subtitle="Nastya"
+          title="Фикс локальных багов"
+          subtitle="с которыми не справляются линтеры"
+          sign='С'
       >
         <CardsLayout
-            cols="1"
+            cols="3"
             horizontalGap="large"
             verticalGap="medium"
             contentWidth="narrow"
@@ -23,12 +55,17 @@ const BugFixingSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             isActive={isActive}
             isVisited={isVisited}
         >
-          <div style={{ textAlign: 'center', padding: '2rem' }}>
-            <h3>🐛 Исправление ошибок</h3>
-            <p>Быстрая диагностика и решение проблем в коде с помощью AI</p>
-          </div>
+          {cards.map((card, index) => (
+              <PointsCard
+                  key={card.description}
+                  size="large"
+                  description={card.description}
+                  points={card.points}
+                  animationIndex={index}
+                  bulletColor="#1890ff"
+              />
+          ))}
         </CardsLayout>
-
       </SlideWrapper>
   );
 };
