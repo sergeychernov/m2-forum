@@ -35,28 +35,27 @@ const Presentation: React.FC = () => {
   const currentSlide = slideNumber ? parseInt(slideNumber, 10) : 1;
 
   const slides = [
-    { id: 1, component: TitleSlide },
-    { id: 2, component: ToolsOverviewSlide },
-    { id: 3, component: IBDecisionSlide },
-    { id: 4, component: LogAnalysisSlide },
-    { id: 5, component: ProductPrototypeSlide },
-    { id: 6, component: GithubPipelineSlide },
-    { id: 7, component: E2ETestingSlide },
-    { id: 8, component: UnitTestingSlide },
-    { id: 9, component: TelegramBotSlide },
-    { id: 10, component: LibraryUpdatesSlide },
-    { id: 11, component: DatabaseSlide },
-    { id: 12, component: CodeReviewSlide },
-    { id: 13, component: BugFixingSlide },
-    { id: 14, component: NpmLibrarySlide },
-    { id: 15, component: DocumentationSlide },
-    { id: 16, component: DocTranslationSlide },
-    
-    { id: 17, component: RegexSlide },
-    { id: 18, component: PresentationSlide },
-    { id: 19, component: ResultsSlide },
-    { id: 20, component: ConclusionsSlide },
-    { id: 21, component: QRCodesSlide },
+    TitleSlide,
+    ToolsOverviewSlide,
+    IBDecisionSlide,
+    LogAnalysisSlide,
+    ProductPrototypeSlide,
+    GithubPipelineSlide,
+    E2ETestingSlide,
+    UnitTestingSlide,
+    TelegramBotSlide,
+    LibraryUpdatesSlide,
+    DatabaseSlide,
+    CodeReviewSlide,
+    BugFixingSlide,
+    NpmLibrarySlide,
+    DocumentationSlide,
+    DocTranslationSlide,
+    RegexSlide,
+    PresentationSlide,
+    ResultsSlide,
+    ConclusionsSlide,
+    QRCodesSlide,
   ];
 
   const updateURL = useCallback((slideNum: number) => {
@@ -230,24 +229,27 @@ const Presentation: React.FC = () => {
 
       {/* Slides Container */}
       <div className={styles.slidesContainer}>
-        {slides.map(({ id, component: SlideComponent }) => (
-          <div
-            key={id}
-            className={`${styles.slide} ${
-              id === currentSlide 
-                ? styles.active 
-                : id < currentSlide 
-                  ? styles.prev 
-                  : styles.next
-            }`}
-            data-slide={id}
-          >
-            <SlideComponent 
-              isActive={id === currentSlide}
-              isVisited={visitedSlides.has(id)}
-            />
-          </div>
-        ))}
+        {slides.map((SlideComponent, index) => {
+          const slideId = index + 1;
+          return (
+            <div
+              key={slideId}
+              className={`${styles.slide} ${
+                slideId === currentSlide 
+                  ? styles.active 
+                  : slideId < currentSlide 
+                    ? styles.prev 
+                    : styles.next
+              }`}
+              data-slide={slideId}
+            >
+              <SlideComponent 
+                isActive={slideId === currentSlide} 
+                isVisited={visitedSlides.has(slideId)} 
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
