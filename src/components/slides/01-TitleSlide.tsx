@@ -21,7 +21,7 @@ const TitleSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     <div className={`${styles.slideContent} ${titleStyles.titleSlide}`}>
       <h1>Использование AI инструментов в команде CMS</h1>
       <p className={titleStyles.subtitle}>Опыт внедрения и анализ эффективности</p>
-      
+
       <div className={titleStyles.clockContainer} onClick={handleClockClick}>
         {!showMeme ? (
           <div className={titleStyles.animatedClock}>
@@ -64,11 +64,11 @@ const TitleSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           </div>
         )}
       </div>
-      
+
       <div className={titleStyles.authorshipInfo}>
-        <a 
-          href="https://github.com/sergeychernov/m2-forum" 
-          target="_blank" 
+        <a
+          href="https://github.com/sergeychernov/m2-forum"
+          target="_blank"
           rel="noopener noreferrer"
           className={titleStyles.authorLink}
         >

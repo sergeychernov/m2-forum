@@ -5,8 +5,8 @@ import SlideWrapper from "../SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
 
 interface SlideProps {
-  isActive: boolean;
-  isVisited: boolean;
+    isActive: boolean;
+    isVisited: boolean;
 }
 
 const RegexSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {

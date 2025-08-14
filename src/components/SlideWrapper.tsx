@@ -12,14 +12,14 @@ interface SlideWrapperProps {
 }
 
 const SlideWrapper: React.FC<SlideWrapperProps> = ({
-                                                     title,
-                                                     subtitle,
-                                                     children,
-                                                     footerNote,
-                                                     className = '',
-                                                     scrollable = false,
-                                                     sign,
-                                                 }) => {
+    title,
+    subtitle,
+    children,
+    footerNote,
+    className = '',
+    scrollable = false,
+    sign,
+}) => {
 
     const containerClasses = [
         styles.slideContent,

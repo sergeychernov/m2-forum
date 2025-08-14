@@ -29,12 +29,12 @@ const config: StorybookConfig = {
         },
       ],
     });
-    
+
     config.resolve = {
       ...config.resolve,
       extensions: [...(config.resolve?.extensions || []), '.ts', '.tsx'],
     };
-    
+
     return config;
   },
 };

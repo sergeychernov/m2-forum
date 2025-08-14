@@ -13,9 +13,9 @@ interface PointsListProps {
     isVisited?: boolean;
 }
 
-export const PointsList: React.FC<PointsListProps> = ({ 
-    items, 
-    bulletColor = '#1890ff', 
+export const PointsList: React.FC<PointsListProps> = ({
+    items,
+    bulletColor = '#1890ff',
     gap = '16px',
     animationType = 'none',
     animationIndex = 0,

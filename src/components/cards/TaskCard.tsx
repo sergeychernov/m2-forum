@@ -38,11 +38,11 @@ const TaskCard: React.FC<TaskCardProps> = ({
   return (
     <div className={`${styles.taskCard} ${styles[rating]} ${animationClasses}`}>
       <div className={`${styles.taskBorderLeft} ${styles[`border${rating.charAt(0).toUpperCase() + rating.slice(1)}`]}`}></div>
-      
+
       <div className={styles.taskContent}>
         <h3 className={styles.taskTitle}>{title}</h3>
         <p className={styles.taskDescription}>{description}</p>
-        
+
         <div className={styles.taskFooter}>
           <span className={styles.taskTool}>{tool}</span>
           <span className={styles.taskIcon}>{icon}</span>

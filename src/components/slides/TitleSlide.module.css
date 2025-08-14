@@ -7,7 +7,8 @@
   gap: var(--space-32);
   padding: var(--space-24) var(--space-16);
   position: relative;
-  overflow-y: auto; /* Добавляем возможность скролла */
+  overflow-y: auto;
+  /* Добавляем возможность скролла */
 }
 
 .subtitle {
@@ -43,7 +44,7 @@
   border: 8px solid var(--color-primary);
   border-radius: 50%;
   background: var(--color-background);
-  box-shadow: 
+  box-shadow:
     0 0 20px rgba(var(--color-primary-rgb), 0.3),
     inset 0 0 20px rgba(var(--color-primary-rgb), 0.1);
   animation: clockGlow 3s ease-in-out infinite alternate;
@@ -63,10 +64,25 @@
   transform: translate(-50%, -50%);
 }
 
-.number12 { top: 24px; left: 50%; }
-.number3 { top: 50%; right: 12px; }
-.number6 { bottom: 0px; left: 50%; }
-.number9 { top: 50%; left: 24px; }
+.number12 {
+  top: 24px;
+  left: 50%;
+}
+
+.number3 {
+  top: 50%;
+  right: 12px;
+}
+
+.number6 {
+  bottom: 0px;
+  left: 50%;
+}
+
+.number9 {
+  top: 50%;
+  left: 24px;
+}
 
 .clockHands {
   position: absolute;
@@ -140,20 +156,24 @@
   align-items: center;
   justify-content: center;
   width: 80vw;
-  max-width: 800px; /* Уменьшаем максимальную ширину */
-  max-height: 45vh; /* Ограничиваем высоту */
+  max-width: 800px;
+  /* Уменьшаем максимальную ширину */
+  max-height: 45vh;
+  /* Ограничиваем высоту */
 }
 
 .memeImage {
   width: calc(40vw - var(--space-8));
-  max-width: 350px; /* Уменьшаем максимальную ширину изображений */
-  max-height: 40vh; /* Ограничиваем высоту изображений */
+  max-width: 350px;
+  /* Уменьшаем максимальную ширину изображений */
+  max-height: 40vh;
+  /* Ограничиваем высоту изображений */
   height: auto;
   aspect-ratio: 1;
   object-fit: contain;
   border-radius: var(--border-radius-lg);
   border: 3px solid var(--color-primary);
-  box-shadow: 
+  box-shadow:
     0 8px 25px rgba(0, 0, 0, 0.15),
     0 0 20px rgba(var(--color-primary-rgb), 0.3);
   transition: transform 0.3s ease;
@@ -173,15 +193,16 @@
     gap: var(--space-16);
     max-height: 55vh;
   }
-  
+
   .memeImage {
     width: 250px;
     max-width: 80vw;
     max-height: 25vh;
   }
-  
+
   .authorshipInfo {
-    position: relative; /* На мобильных делаем обычным элементом */
+    position: relative;
+    /* На мобильных делаем обычным элементом */
     bottom: auto;
     left: auto;
     transform: none;
@@ -194,13 +215,13 @@
     gap: var(--space-16);
     padding: var(--space-16);
   }
-  
+
   .memeImage {
     width: 200px;
     max-width: 90vw;
     max-height: 20vh;
   }
-  
+
   .authorshipInfo {
     font-size: var(--font-size-xs);
     padding: var(--space-6) var(--space-12);
@@ -211,7 +232,8 @@
 /* Обеспечиваем, что контент не перекрывается с фиксированной плашкой */
 @media (min-width: 769px) {
   .titleSlide {
-    padding-bottom: 120px; /* Добавляем отступ снизу для фиксированной плашки */
+    padding-bottom: 120px;
+    /* Добавляем отступ снизу для фиксированной плашки */
   }
 }
 
@@ -231,7 +253,8 @@
   font-weight: var(--font-weight-medium);
 }
 
-.versionText, .buildText {
+.versionText,
+.buildText {
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
@@ -239,33 +262,71 @@
 
 /* Анимации */
 @keyframes clockGlow {
-  0% { box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3), inset 0 0 20px rgba(var(--color-primary-rgb), 0.1); }
-  100% { box-shadow: 0 0 30px rgba(var(--color-primary-rgb), 0.5), inset 0 0 30px rgba(var(--color-primary-rgb), 0.2); }
+  0% {
+    box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3), inset 0 0 20px rgba(var(--color-primary-rgb), 0.1);
+  }
+
+  100% {
+    box-shadow: 0 0 30px rgba(var(--color-primary-rgb), 0.5), inset 0 0 30px rgba(var(--color-primary-rgb), 0.2);
+  }
 }
 
 @keyframes minuteRotation {
-  from { transform: rotate(90deg); }
-  to { transform: rotate(-270deg); }
+  from {
+    transform: rotate(90deg);
+  }
+
+  to {
+    transform: rotate(-270deg);
+  }
 }
 
 @keyframes secondRotation {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes labelPulse {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
+
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
 
 @keyframes memeAppear {
-  from { opacity: 0; transform: scale(0.8) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 @keyframes memeFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 /* Удаляем старые стили */

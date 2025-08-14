@@ -26,7 +26,7 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
 
   return (
     <SlideWrapper
-        title="Обзор инструментов"
+      title="Обзор инструментов"
       subtitle='3 месяца назад мы начали постепенно пробовать внедрять vibecoding в нашу работу, хотя изначально мы даже не слышали об этом термине'
       sign='Ч'
     >

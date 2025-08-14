@@ -15,10 +15,10 @@ interface QRCardProps {
   isVisited?: boolean;
 }
 
-const QRCard: React.FC<QRCardProps> = ({ 
-  title, 
-  description, 
-  url, 
+const QRCard: React.FC<QRCardProps> = ({
+  title,
+  description,
+  url,
   icon,
   animationType = 'none',
   animationIndex = 0,
@@ -27,7 +27,7 @@ const QRCard: React.FC<QRCardProps> = ({
   isVisited = false
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
   const { animationClasses } = useCardAnimation({
     isActive,
     isVisited,
@@ -54,14 +54,14 @@ const QRCard: React.FC<QRCardProps> = ({
       <div className={styles.qrCodeWrapper}>
         <canvas ref={canvasRef} className={styles.qrCode} />
       </div>
-      
+
       <div className={styles.qrInfo}>
         <h3>{icon} {title}</h3>
         <p className={styles.qrDescription}>{description}</p>
-        <a 
-          href={url} 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
           className={styles.qrLink}
         >
           {url}

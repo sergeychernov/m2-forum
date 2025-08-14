@@ -9,26 +9,26 @@ interface SlideProps {
 
 const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
-      <SlideWrapper
-          title="Презентация"
-          subtitle="Sergey"
+    <SlideWrapper
+      title="Презентация"
+      subtitle="Sergey"
+    >
+      <CardsLayout
+        cols="1"
+        horizontalGap="large"
+        verticalGap="medium"
+        contentWidth="narrow"
+        animationType="appearance"
+        animationDelay={150}
+        isActive={isActive}
+        isVisited={isVisited}
       >
-        <CardsLayout
-            cols="1"
-            horizontalGap="large"
-            verticalGap="medium"
-            contentWidth="narrow"
-            animationType="appearance"
-            animationDelay={150}
-            isActive={isActive}
-            isVisited={isVisited}
-        >
-          <div style={{ textAlign: 'center', padding: '2rem' }}>
-            <h3>🎯 Создание презентаций</h3>
-            <p>Подготовка материалов и визуализация данных для выступлений</p>
-          </div>
-        </CardsLayout>
-      </SlideWrapper>
+        <div style={{ textAlign: 'center', padding: '2rem' }}>
+          <h3>🎯 Создание презентаций</h3>
+          <p>Подготовка материалов и визуализация данных для выступлений</p>
+        </div>
+      </CardsLayout>
+    </SlideWrapper>
   );
 };
 

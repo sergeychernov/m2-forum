@@ -1,6 +1,7 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
 import SlideWrapper from "../SlideWrapper";
+import TaskCard from '../cards/TaskCard';
 
 interface SlideProps {
   isActive: boolean;
@@ -10,12 +11,12 @@ interface SlideProps {
 const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
       <SlideWrapper
-          title="Разбор логов и ошибок"
+          title="Эволюция разбора логов"
       subtitle="Sergey"
       sign='Ч'
       >
         <CardsLayout
-            cols="1"
+            cols="3"
             horizontalGap="large"
             verticalGap="medium"
             contentWidth="narrow"
@@ -23,11 +24,45 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             animationDelay={150}
             isActive={isActive}
             isVisited={isVisited}
-        >
-          <div style={{ textAlign: 'center', padding: '2rem' }}>
-            <h3>🔍 Анализ логов и диагностика ошибок</h3>
-            <p>Использование AI для быстрого поиска паттернов в логах и определения причин ошибок</p>
-          </div>
+      >
+        <TaskCard
+          title="1. Ручной анализ"
+          description="Чтение логов глазами, ручные догадки"
+          tool="Медленно, высок риск ошибок"
+          rating="conditional"
+          icon="👀"
+          animationType="appearance"
+          animationIndex={0}
+          animationDelay={150}
+          isActive={isActive}
+          isVisited={isVisited}
+        />
+        
+        <TaskCard
+          title="2. ChatGPT вручную"
+          description="Копируете логи → вставляете в чат → задаёте вопросы"
+          tool="Быстрее, но требует усилий"
+          rating="satisfactory"
+          icon="💬"
+          animationType="appearance"
+          animationIndex={1}
+          animationDelay={150}
+          isActive={isActive}
+          isVisited={isVisited}
+        />
+        
+        <TaskCard
+          title="3. Cursor + @terminal"
+          description="Один клик вставляет лог из терминала в чат, AI сразу анализирует"
+          tool="Максимально удобно, эффективно"
+          rating="excellent"
+          icon="⚡"
+          animationType="appearance"
+          animationIndex={2}
+          animationDelay={150}
+          isActive={isActive}
+          isVisited={isVisited}
+        />
         </CardsLayout>
       </SlideWrapper>
   );

@@ -9,27 +9,27 @@ interface SlideProps {
 
 const LibraryUpdatesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
-      <SlideWrapper
-          title="Обновление библиотек"
+    <SlideWrapper
+      title="Обновление библиотек"
       subtitle="Sergey"
       sign='Ч'
+    >
+      <CardsLayout
+        cols="1"
+        horizontalGap="large"
+        verticalGap="medium"
+        contentWidth="narrow"
+        animationType="appearance"
+        animationDelay={150}
+        isActive={isActive}
+        isVisited={isVisited}
       >
-        <CardsLayout
-            cols="1"
-            horizontalGap="large"
-            verticalGap="medium"
-            contentWidth="narrow"
-            animationType="appearance"
-            animationDelay={150}
-            isActive={isActive}
-            isVisited={isVisited}
-        >
-          <div style={{ textAlign: 'center', padding: '2rem' }}>
-            <h3>📦 Управление зависимостями</h3>
-            <p>AI помощь в анализе совместимости и планировании обновлений библиотек</p>
-          </div>
-        </CardsLayout>
-      </SlideWrapper>
+        <div style={{ textAlign: 'center', padding: '2rem' }}>
+          <h3>📦 Управление зависимостями</h3>
+          <p>AI помощь в анализе совместимости и планировании обновлений библиотек</p>
+        </div>
+      </CardsLayout>
+    </SlideWrapper>
   );
 };
 
