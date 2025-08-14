@@ -9,6 +9,8 @@ const config: StorybookConfig = {
     name: '@storybook/react-webpack5',
     options: {},
   },
+  // Добавляем поддержку статических файлов
+  staticDirs: ['../public'],
   typescript: {
     reactDocgen: 'react-docgen-typescript',
     check: false,

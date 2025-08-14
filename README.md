@@ -195,7 +195,7 @@ npm run deploy
 ### Компоненты карточек
 
 Доступные типы карточек:
-- `ToolCard` - Для инструментов
+- `FeaturesListCard` - Для списка функций (заменяет ToolCard)
 - `ModelCard` - Для моделей
 - `TaskCard` - Для задач
 - `QRCard` - Для QR-кодов
