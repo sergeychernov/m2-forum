@@ -72,6 +72,7 @@
     grid-template-columns: 2fr 3fr;
   }
   
+  /* Добавить после .cols-auto */
   .ratio-2-3-2 .cardsContainer {
     grid-template-columns: 3fr 2fr;
   }
