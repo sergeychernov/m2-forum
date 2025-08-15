@@ -26,7 +26,7 @@ const Presentation: React.FC = () => {
   const { slideNumber } = useParams<{ slideNumber?: string }>();
   const navigate = useNavigate();
   
-  const totalSlides = 21;
+  
   const [visitedSlides, setVisitedSlides] = useState(new Set([1]));
 
   // Определяем текущий слайд из URL или устанавливаем 1 по умолчанию
@@ -53,6 +53,8 @@ const Presentation: React.FC = () => {
     ConclusionsSlide,
     QRCodesSlide,
   ];
+
+  const totalSlides = slides.length;
 
   const updateURL = useCallback((slideNum: number) => {
     if (slideNum === 1) {
