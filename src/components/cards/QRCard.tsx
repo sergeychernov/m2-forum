@@ -4,6 +4,7 @@ import CardWrapper from '../wrappers/CardWrapper';
 import styles from './QRCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import { CardBackground } from '../../types/CardBackground';
+import { BorderAccent } from '../../types/BorderAccent';
 
 interface QRCardProps {
   title: string;
@@ -17,6 +18,7 @@ interface QRCardProps {
   isVisited?: boolean;
   cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
   background?: CardBackground;
+  borderAccent?: BorderAccent;
 }
 
 const QRCard: React.FC<QRCardProps> = ({
@@ -30,7 +32,8 @@ const QRCard: React.FC<QRCardProps> = ({
   isActive = true,
   isVisited = false,
   cardVariant = 'default',
-  background
+  background,
+  borderAccent
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const expandedCanvasRef = useRef<HTMLCanvasElement>(null);

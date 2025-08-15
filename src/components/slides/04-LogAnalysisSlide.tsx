@@ -32,7 +32,7 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           title="1. Ручной анализ"
           description="Чтение логов глазами, ручные догадки"
           tool="Медленно, высок риск ошибок"
-          rating="conditional"
+          borderAccent="yellow"
           icon="👀"
           animationType="appearance"
           animationIndex={0}
@@ -53,7 +53,7 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           title="2. ChatGPT вручную"
           description="Копируете логи → вставляете в чат → задаёте вопросы"
           tool="Быстрее, но требует усилий"
-          rating="satisfactory"
+          borderAccent="blue"
           icon="💬"
           animationType="appearance"
           animationIndex={1}
@@ -66,7 +66,7 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           title="3. Cursor + @terminal"
           description="Один клик вставляет лог из терминала в чат, AI сразу анализирует"
           tool="Максимально удобно, эффективно"
-          rating="excellent"
+          borderAccent="green"
           icon="⚡"
           animationType="appearance"
           animationIndex={2}

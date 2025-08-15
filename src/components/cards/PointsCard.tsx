@@ -4,6 +4,7 @@ import styles from './PointsCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import { CardBackground } from '../../types/CardBackground';
 import cn from "classnames";
+import { BorderAccent } from '../../types/BorderAccent';
 
 interface PointsCardProps {
     description: string;
@@ -15,6 +16,7 @@ interface PointsCardProps {
     isActive?: boolean;
     isVisited?: boolean;
     background?: CardBackground;
+    borderAccent?: BorderAccent;
 }
 
 const PointsCard: React.FC<PointsCardProps> = ({
@@ -26,7 +28,8 @@ const PointsCard: React.FC<PointsCardProps> = ({
     animationDelay = 300,
     isActive = true,
     isVisited = false,
-    background
+    background,
+    borderAccent
 }) => {
     const { animationClasses } = useCardAnimation({
         isActive,
@@ -41,6 +44,7 @@ const PointsCard: React.FC<PointsCardProps> = ({
             variant="default" 
             hoverable={true}
             background={background}
+            borderAccent={borderAccent}
             className={cn(styles.pointsContent, styles[size], animationClasses)}
         >
             <p className={styles.description}>{description}</p>

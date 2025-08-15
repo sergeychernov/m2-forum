@@ -113,14 +113,14 @@ const sampleTasks = [
     title: 'E2E тесты',
     description: 'Генерировать тесты не получается, но можно уточнять синтаксис',
     tool: 'gemini, claude',
-    rating: 'conditional' as const,
+    borderAccent: 'yellow' as const,
     icon: '🧪'
   },
   {
     title: 'Разбор логов',
     description: 'Находит паттерны, но может упустить контекст',
     tool: 'gemini, gpt, claude',
-    rating: 'satisfactory' as const,
+    borderAccent: 'blue' as const,
     icon: '🔍'
   },
 ];
@@ -277,7 +277,7 @@ const renderCards = (
             title={taskData.title}
             description={taskData.description}
             tool={taskData.tool}
-            rating={taskData.rating}
+            borderAccent={taskData.borderAccent}
             icon={taskData.icon}
           />
         );

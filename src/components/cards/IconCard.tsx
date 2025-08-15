@@ -4,6 +4,7 @@ import styles from './IconCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import { CardBackground } from '../../types/CardBackground';
 import cn from "classnames";
+import { BorderAccent } from '../../types/BorderAccent';
 
 interface ModelCardProps {
   icon: string;
@@ -16,6 +17,7 @@ interface ModelCardProps {
   isActive?: boolean;
   isVisited?: boolean;
   background?: CardBackground;
+  borderAccent?: BorderAccent;
 }
 
 const ModelCard: React.FC<ModelCardProps> = ({ 
@@ -28,7 +30,8 @@ const ModelCard: React.FC<ModelCardProps> = ({
   animationDelay = 300,
   isActive = true,
   isVisited = false,
-  background
+  background,
+  borderAccent
 }) => {
   const { animationClasses } = useCardAnimation({
     isActive,
@@ -44,6 +47,7 @@ const ModelCard: React.FC<ModelCardProps> = ({
       variant="default" 
       hoverable={true}
       background={background}
+      borderAccent={borderAccent}
       className={cn(styles.modelCardContent, animationClasses)}
     >
       <div className={styles.modelIcon}>{icon}</div>

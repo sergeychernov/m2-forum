@@ -229,3 +229,246 @@
     box-shadow: none;
   }
 }
+
+.borderAccent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.cardWrapper {
+  position: relative; /* Убедиться что есть relative positioning */
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--color-text);
+}
+
+/* Цветовые темы фонов */
+.bgWhite {
+  background: #ffffff;
+  color: #000000;
+  border-color: #e0e0e0;
+}
+
+.bgGray {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgBlack {
+  background: linear-gradient(135deg, #343a40 0%, #212529 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgRed {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgGreen {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgBlue {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgPurple {
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgPink {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgCyan {
+  background: linear-gradient(135deg, #00cec9 0%, #55a3ff 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgOrange {
+  background: linear-gradient(135deg, #ff9500 0%, #ff6b35 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgYellow {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+  color: white;
+  border-color: transparent;
+}
+
+/* Варианты карточек */
+.default {
+  /* Стандартные стили уже применены выше */
+}
+
+.elevated {
+  box-shadow: var(--shadow-lg);
+  border: none;
+}
+
+.outlined {
+  border: 2px solid var(--color-card-border);
+  box-shadow: none;
+}
+
+.minimal {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* Размеры */
+.small {
+  padding: var(--space-16);
+  border-radius: var(--radius-md);
+}
+
+.medium {
+  padding: var(--space-24);
+}
+
+.large {
+  padding: var(--space-32);
+  border-radius: var(--radius-xl);
+}
+
+/* Интерактивность */
+.hoverable:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Специальные эффекты для цветных фонов при наведении */
+.bgWhite.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.bgGray.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+}
+
+.bgBlack.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(52, 58, 64, 0.4);
+}
+
+.bgRed.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.bgGreen.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(17, 153, 142, 0.4);
+}
+
+.bgBlue.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(116, 185, 255, 0.4);
+}
+
+.bgPurple.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(162, 155, 254, 0.4);
+}
+
+.bgPink.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+}
+
+.bgCyan.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(0, 206, 201, 0.4);
+}
+
+.bgOrange.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
+}
+
+.bgYellow.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:active {
+  transform: translateY(-2px) scale(1.01);
+}
+
+/* Специальные эффекты для elevated варианта */
+.elevated.hoverable:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 
+    var(--shadow-xl),
+    0 12px 40px rgba(var(--color-primary-rgb), 0.15);
+}
+
+/* Специальные эффекты для outlined варианта */
+.outlined.hoverable:hover {
+  border-color: var(--color-primary);
+  box-shadow: 
+    var(--shadow-md),
+    0 0 0 1px var(--color-primary);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .cardWrapper {
+    border-radius: var(--radius-md);
+  }
+  
+  .large {
+    padding: var(--space-24);
+    border-radius: var(--radius-lg);
+  }
+  
+  .hoverable:hover {
+    transform: translateY(-2px) scale(1.01);
+  }
+  
+  .elevated.hoverable:hover {
+    transform: translateY(-3px) scale(1.02);
+  }
+}
+
+/* Отключение эффектов на мобильных устройствах */
+@media (hover: none) {
+  .hoverable:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-card-border);
+  }
+  
+  .elevated.hoverable:hover {
+    transform: none;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .outlined.hoverable:hover {
+    border-color: var(--color-card-border);
+    box-shadow: none;
+  }
+}

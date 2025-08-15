@@ -4,6 +4,7 @@ import styles from './FeaturesListCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import { CardBackground } from '../../types/CardBackground';
 import cn from 'classnames';
+import { BorderAccent } from '../../types/BorderAccent';
 
 export interface Feature {
   icon: string;
@@ -25,6 +26,7 @@ interface FeaturesListCardProps {
   isVisited?: boolean;
   cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
   background?: CardBackground;
+  borderAccent?: BorderAccent;
 }
 
 const FeaturesListCard: React.FC<FeaturesListCardProps> = ({ 
@@ -38,7 +40,8 @@ const FeaturesListCard: React.FC<FeaturesListCardProps> = ({
   isActive = true,
   isVisited = false,
   cardVariant = 'default',
-  background  // убираем значение по умолчанию
+  background,
+  borderAccent
 }) => {
   const { animationClasses } = useCardAnimation({
     isActive,
@@ -53,6 +56,7 @@ const FeaturesListCard: React.FC<FeaturesListCardProps> = ({
       variant={cardVariant} 
       background={background}
       hoverable={true}
+      borderAccent={borderAccent}
       className={cn(styles.featuresContent, animationClasses)}
     >
       <div className={styles.featuresHeader}>

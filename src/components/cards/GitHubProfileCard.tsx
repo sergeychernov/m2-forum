@@ -3,6 +3,7 @@ import CardWrapper from '../wrappers/CardWrapper';
 import styles from './GitHubProfileCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import { CardBackground } from '../../types/CardBackground';
+import { BorderAccent } from '../../types/BorderAccent';
 
 interface GitHubUser {
   login: string;
@@ -23,6 +24,7 @@ interface GitHubProfileCardProps {
   isActive?: boolean;
   isVisited?: boolean;
   background?: CardBackground;
+  borderAccent?: BorderAccent;
 }
 
 const GitHubProfileCard: React.FC<GitHubProfileCardProps> = ({
@@ -32,7 +34,8 @@ const GitHubProfileCard: React.FC<GitHubProfileCardProps> = ({
   animationDelay = 300,
   isActive = true,
   isVisited = false,
-  background
+  background,
+  borderAccent
 }) => {
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [loading, setLoading] = useState(true);

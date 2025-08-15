@@ -49,6 +49,7 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             key={index}
             content={conclusion.content}
             index={index}
+            borderAccent={{ from: "#06b6d4", to: "#ef4444" }}
           />
         ))}
       </CardsLayout>

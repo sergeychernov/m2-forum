@@ -4,6 +4,7 @@ import CardWrapper from '../wrappers/CardWrapper';
 import styles from './MarkdownCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import { CardBackground } from '../../types/CardBackground';
+import { BorderAccent } from '../../types/BorderAccent';
 
 interface MarkdownCardProps {
   content: string;
@@ -15,6 +16,7 @@ interface MarkdownCardProps {
   isActive?: boolean;
   isVisited?: boolean;
   background?: CardBackground;
+  borderAccent?: BorderAccent;
 }
 
 const MarkdownCard: React.FC<MarkdownCardProps> = ({ 
@@ -26,7 +28,8 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
   animationDelay = 300,
   isActive = true,
   isVisited = false,
-  background
+  background,
+  borderAccent
 }) => {
   const [showExplosion, setShowExplosion] = useState(false);
   const [showLightning, setShowLightning] = useState(false);
@@ -70,11 +73,13 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
       variant="outlined" 
       hoverable={true}
       background={background}
+      borderAccent={borderAccent}
       className={`${styles.markdownContent} ${animationClasses} ${
         isFirstCard ? styles.firstCard : ''
       } ${isLastCard ? styles.lastCard : ''}`}
     >
-      <div className={`${styles.markdownBorderLeft} ${styles.blue}`}></div>
+      {/* Убрать старую линию */}
+      {/* <div className={`${styles.markdownBorderLeft} ${styles.blue}`}></div> */}
       
       {/* Специальные эффекты для explosion анимации */}
       {showLightning && (
