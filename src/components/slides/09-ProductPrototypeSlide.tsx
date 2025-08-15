@@ -12,8 +12,8 @@ interface SlideProps {
 const ProductPrototypeSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
     <SlideWrapper
-      title="Прототип чат-флоу: из идеи — в гипотезу на защите"
-      subtitle="Sergey"
+      title="Новый продукт: Чат бот"
+      subtitle="Codex и Cursor: эмулятор чатом + прототип сайта"
       sign='Ч'
     >
       <CardsLayout

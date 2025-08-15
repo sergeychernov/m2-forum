@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ImageCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import cn from "classnames";
@@ -14,6 +14,7 @@ interface ImageCardProps {
 	isActive?: boolean;
 	isVisited?: boolean;
 	className?: string;
+	enableFullscreen?: boolean;
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({
@@ -26,8 +27,11 @@ const ImageCard: React.FC<ImageCardProps> = ({
 	animationDelay = 300,
 	isActive = true,
 	isVisited = false,
-	className
+	className,
+	enableFullscreen = false
 }) => {
+	const [isFullscreen, setIsFullscreen] = useState(false);
+	
 	const { animationClasses } = useCardAnimation({
 		isActive,
 		isVisited,
@@ -36,15 +40,59 @@ const ImageCard: React.FC<ImageCardProps> = ({
 		index: animationIndex
 	});
 
+	const handleImageClick = () => {
+		if (enableFullscreen) {
+			setIsFullscreen(true);
+		}
+	};
+
+	const handleFullscreenClose = () => {
+		setIsFullscreen(false);
+	};
+
+	const handleBackdropClick = (e: React.MouseEvent) => {
+		if (e.target === e.currentTarget) {
+			handleFullscreenClose();
+		}
+	};
+
 	return (
-		<div className={cn(styles.imageCard, animationClasses)}>
-			<img
-				alt={alt}
-				src={src}
-				className={cn(styles.image, className)}
-				style={{ maxHeight, objectFit }}
-			/>
-		</div>
+		<>
+			<div className={cn(styles.imageCard, animationClasses)}>
+				<img
+					alt={alt}
+					src={src}
+					className={cn(styles.image, className, {
+						[styles.clickable]: enableFullscreen
+					})}
+					style={{ maxHeight, objectFit }}
+					onClick={handleImageClick}
+				/>
+			</div>
+			
+			{isFullscreen && (
+				<div 
+					className={styles.fullscreenOverlay}
+					onClick={handleBackdropClick}
+				>
+					<div className={styles.fullscreenContainer}>
+						<button 
+							className={styles.closeButton}
+							onClick={handleFullscreenClose}
+							aria-label="Закрыть полноэкранный режим"
+						>
+							×
+						</button>
+						<img
+							alt={alt}
+							src={src}
+							className={styles.fullscreenImage}
+							onClick={handleFullscreenClose}
+						/>
+					</div>
+				</div>
+			)}
+		</>
 	);
 };
 
