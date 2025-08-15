@@ -8,6 +8,7 @@ interface CardWrapperProps {
   hoverable?: boolean;
   className?: string;
   onClick?: () => void;
+  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
 }
 
 const CardWrapper: React.FC<CardWrapperProps> = ({
@@ -16,12 +17,14 @@ const CardWrapper: React.FC<CardWrapperProps> = ({
   size = 'medium',
   hoverable = true,
   className = '',
-  onClick
+  onClick,
+  background = 'default'
 }) => {
   const cardClasses = [
     styles.cardWrapper,
     styles[variant],
     styles[size],
+    styles[`bg${background.charAt(0).toUpperCase() + background.slice(1)}`],
     hoverable ? styles.hoverable : '',
     onClick ? styles.clickable : '',
     className

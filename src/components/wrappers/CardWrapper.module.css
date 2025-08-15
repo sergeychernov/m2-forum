@@ -10,6 +10,61 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  color: var(--color-text);
+}
+
+/* Цветовые темы фонов */
+.bgDefault {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.bgPrimary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgSuccess {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgWarning {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgError {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgInfo {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgPurple {
+  background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgPink {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgCyan {
+  background: linear-gradient(135deg, #00cec9 0%, #55a3ff 100%);
+  color: white;
+  border-color: transparent;
 }
 
 /* Варианты карточек */
@@ -52,7 +107,39 @@
 .hoverable:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: var(--shadow-lg);
-  border-color: var(--color-primary);
+}
+
+/* Специальные эффекты для цветных фонов при наведении */
+.bgPrimary.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.bgSuccess.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(17, 153, 142, 0.4);
+}
+
+.bgWarning.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
+}
+
+.bgError.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.bgInfo.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(116, 185, 255, 0.4);
+}
+
+.bgPurple.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(162, 155, 254, 0.4);
+}
+
+.bgPink.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+}
+
+.bgCyan.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(0, 206, 201, 0.4);
 }
 
 .clickable {
