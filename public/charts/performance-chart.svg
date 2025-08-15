@@ -1,5 +1,5 @@
 <svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
-  <rect width="300" height="120" fill="#1a1a1a" rx="8"></rect>
+  <rect width="300" height="120" fill="#FFFFFF" rx="8"></rect>
 
   <defs>
     <pattern id="grid" width="50" height="20" patternUnits="userSpaceOnUse">
