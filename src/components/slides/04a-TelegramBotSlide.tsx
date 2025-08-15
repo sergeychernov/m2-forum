@@ -44,6 +44,7 @@ const TelegramBotSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
 					animationDelay={150}
 					isActive={isActive}
 					isVisited={isVisited}
+					
 				/>
 
 				<QRCard

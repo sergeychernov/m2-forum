@@ -325,7 +325,7 @@
 .textContent p {
   margin: 0;
   font-size: var(--font-size-base);
-  color: var(--color-text);
+  color: inherit;
   line-height: var(--line-height-normal);
   transition: all 0.3s ease;
 }

@@ -36,13 +36,14 @@
 .featuresHeader h3 {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text);
+  color: inherit;
   margin-bottom: var(--space-8);
 }
 
 .featuresCategory {
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: inherit;
+  opacity: 0.8;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: var(--font-weight-medium);
@@ -75,7 +76,7 @@
 
 .featureText {
   font-size: var(--font-size-base);
-  color: var(--color-text);
+  color: inherit;
 }
 
 .note {
@@ -89,19 +90,19 @@
 .note.note {
   background-color: rgba(59, 130, 246, 0.1);
   border-color: #3b82f6;
-  color: var(--color-text);
+  color: inherit;
 }
 
 .note.warning {
   background-color: rgba(245, 158, 11, 0.1);
   border-color: #f59e0b;
-  color: var(--color-text);
+  color: inherit;
 }
 
 .note.advantage {
   background-color: rgba(34, 197, 94, 0.1);
   border-color: #22c55e;
-  color: var(--color-text);
+  color: inherit;
 }
 
 .featureGrid {
@@ -118,7 +119,7 @@
   background: rgba(var(--color-teal-500-rgb), 0.05);
   border-radius: var(--radius-base);
   font-size: var(--font-size-sm);
-  color: var(--color-text);
+  color: inherit;
   transition: all 0.2s ease;
 }
 
@@ -142,7 +143,7 @@
   font-size: var(--font-size-sm);
   text-align: center;
   position: relative;
-  color: var(--color-text);
+  color: inherit;
 }
 
 .features-note {

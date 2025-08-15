@@ -35,7 +35,6 @@ const ProductPrototypeSlide: React.FC<SlideProps> = ({ isActive, isVisited }) =>
             "🚀 Демонстрация на защите гипотез снижает недопонимание"
           ]}
           size="medium"
-          bulletColor="#1890ff"
           animationType="appearance"
           animationIndex={0}
           animationDelay={150}

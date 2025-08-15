@@ -62,7 +62,6 @@ const BugFixingSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             description={card.description}
             points={card.points}
             animationIndex={index}
-            bulletColor="#1890ff"
           />
         ))}
       </CardsLayout>

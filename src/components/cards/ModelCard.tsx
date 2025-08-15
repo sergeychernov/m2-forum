@@ -14,6 +14,7 @@ interface ModelCardProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
+  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
 }
 
 const ModelCard: React.FC<ModelCardProps> = ({ 
@@ -25,7 +26,8 @@ const ModelCard: React.FC<ModelCardProps> = ({
   animationIndex = 0,
   animationDelay = 300,
   isActive = true,
-  isVisited = false
+  isVisited = false,
+  background = 'default'
 }) => {
   const { animationClasses } = useCardAnimation({
     isActive,
@@ -40,6 +42,7 @@ const ModelCard: React.FC<ModelCardProps> = ({
       size={size} 
       variant="default" 
       hoverable={true}
+      background={background}
       className={cn(styles.modelCardContent, animationClasses)}
     >
       <div className={styles.modelIcon}>{icon}</div>

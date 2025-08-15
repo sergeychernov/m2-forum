@@ -97,13 +97,13 @@
 .taskTitle {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-text);
+  color: inherit;
   margin-bottom: var(--space-8);
 }
 
 .taskDescription {
   font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
+  color: inherit;
   line-height: var(--line-height-normal);
   flex: 1;
   margin-bottom: var(--space-16);
@@ -118,7 +118,7 @@
 
 .taskTool {
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: inherit;
   font-weight: var(--font-weight-medium);
 }
 
@@ -181,7 +181,7 @@
 .taskDescription {
   flex: 1;
   font-size: var(--font-size-sm);
-  color: var(--color-text);
+  color: inherit;
   line-height: 1.4;
   transition: color 0.3s ease;
   margin-bottom: var(--space-16);
@@ -192,7 +192,7 @@
 }
 
 .taskCard:hover .taskDescription {
-  color: var(--color-text-secondary);
+  color: inherit;
 }
 
 .taskFooter {
@@ -205,7 +205,7 @@
 
 .taskTool {
   font-size: var(--font-size-xs);
-  color: var(--color-text-secondary);
+  color: inherit;
   font-weight: var(--font-weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.05em;

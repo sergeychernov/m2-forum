@@ -14,6 +14,7 @@ interface TaskCardProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
+  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({
@@ -26,7 +27,8 @@ const TaskCard: React.FC<TaskCardProps> = ({
   animationIndex = 0,
   animationDelay = 300,
   isActive = true,
-  isVisited = false
+  isVisited = false,
+  background = 'default'
 }) => {
   const { animationClasses } = useCardAnimation({
     isActive,
@@ -40,6 +42,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
     <CardWrapper 
       variant="outlined" 
       hoverable={true}
+      background={background}
       className={`${styles.taskContent} ${styles[rating]} ${animationClasses}`}
     >
       <div className={`${styles.taskBorderLeft} ${styles[`border${rating.charAt(0).toUpperCase() + rating.slice(1)}`]}`}></div>

@@ -52,14 +52,14 @@
 
 .qrInfo h3 {
   font-size: var(--font-size-xl);
-  color: var(--color-text);
+  color: inherit;
   margin-bottom: var(--space-12);
   font-weight: var(--font-weight-semibold);
 }
 
 .qrDescription {
   font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
+  color: inherit;
   margin-bottom: var(--space-16);
   line-height: var(--line-height-normal);
 }

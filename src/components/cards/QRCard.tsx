@@ -15,6 +15,7 @@ interface QRCardProps {
   isActive?: boolean;
   isVisited?: boolean;
   cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
+  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
 }
 
 const QRCard: React.FC<QRCardProps> = ({
@@ -27,7 +28,8 @@ const QRCard: React.FC<QRCardProps> = ({
   animationDelay = 300,
   isActive = true,
   isVisited = false,
-  cardVariant = 'default'
+  cardVariant = 'default',
+  background = 'default'
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const expandedCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -91,6 +93,7 @@ const QRCard: React.FC<QRCardProps> = ({
         variant={cardVariant} 
         size="medium"
         hoverable={true}
+        background={background}
         className={`${styles.qrContent} ${animationClasses}`}
       >
         <div className={styles.qrCodeWrapper}>

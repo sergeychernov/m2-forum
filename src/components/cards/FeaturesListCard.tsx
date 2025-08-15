@@ -23,6 +23,7 @@ interface FeaturesListCardProps {
   isActive?: boolean;
   isVisited?: boolean;
   cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
+  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
 }
 
 const FeaturesListCard: React.FC<FeaturesListCardProps> = ({ 
@@ -35,7 +36,8 @@ const FeaturesListCard: React.FC<FeaturesListCardProps> = ({
   animationDelay = 300,
   isActive = true,
   isVisited = false,
-  cardVariant = 'default'
+  cardVariant = 'default',
+  background = 'default'
 }) => {
   const { animationClasses } = useCardAnimation({
     isActive,
@@ -48,6 +50,7 @@ const FeaturesListCard: React.FC<FeaturesListCardProps> = ({
   return (
     <CardWrapper 
       variant={cardVariant} 
+      background={background}
       hoverable={true}
       className={cn(styles.featuresContent, animationClasses)}
     >

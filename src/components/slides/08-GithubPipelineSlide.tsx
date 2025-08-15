@@ -37,7 +37,6 @@ const GithubPipelineSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             "Можно использовать привычные средства разработки добавляя свои коммиты в pull request"
           ]}
           size="medium"
-          bulletColor="#1890ff"
         />
 
         <ImageCard

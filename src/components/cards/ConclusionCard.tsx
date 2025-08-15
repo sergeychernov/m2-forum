@@ -13,6 +13,7 @@ interface ConclusionCardProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
+  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
 }
 
 const ConclusionCard: React.FC<ConclusionCardProps> = ({ 
@@ -24,7 +25,8 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
   animationIndex = 0,
   animationDelay = 300,
   isActive = true,
-  isVisited = false
+  isVisited = false,
+  background = 'default'
 }) => {
   const [showExplosion, setShowExplosion] = useState(false);
   const [showLightning, setShowLightning] = useState(false);

@@ -275,7 +275,6 @@ const renderCards = (
             description={pointsCardData.description}
             points={pointsCardData.points}
             size="medium"
-            bulletColor="#1890ff"
           />
         );
         break;

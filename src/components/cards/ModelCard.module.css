@@ -96,7 +96,7 @@
 
 .modelCardContent h3 {
   margin-bottom: var(--space-8);
-  color: var(--color-text);
+  color: inherit;
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   transition: color 0.3s ease;
@@ -104,13 +104,13 @@
 
 .modelCardContent p {
   font-size: var(--font-size-lg);
-  color: var(--color-text-secondary);
+  color: inherit;
   margin: 0;
   transition: color 0.3s ease;
 }
 
 .modelCard:hover p {
-  color: var(--color-text);
+  color: inherit;
 }
 
 /* Добавляем специальные эффекты для разных карточек */
