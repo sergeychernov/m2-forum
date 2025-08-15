@@ -1,0 +1,31 @@
+.stubCard {
+  width: 100%;
+  min-height: 200px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.stubCard.visible {
+  border: 2px dashed var(--color-border, #e0e0e0);
+  border-radius: var(--radius-lg, 8px);
+  background: var(--color-surface-secondary, #f5f5f5);
+  opacity: 0.3;
+}
+
+.debugText {
+  color: var(--color-text-secondary, #666);
+  font-size: var(--font-size-sm, 14px);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .stubCard {
+    min-height: 150px;
+  }
+}

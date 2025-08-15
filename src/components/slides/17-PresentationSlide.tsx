@@ -4,6 +4,8 @@ import SlideWrapper from "../wrappers/SlideWrapper";
 import CardWrapper from '../wrappers/CardWrapper';
 import GitHubProfileCard from '../cards/GitHubProfileCard';
 import GridSpan from '../wrappers/GridSpan';
+import StubCard from '../cards/StubCard';
+import ImageCard from '../cards/ImageCard';
 
 interface SlideProps {
   isActive: boolean;
@@ -87,6 +89,15 @@ const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             </div>
           </CardWrapper>
         </GridSpan>
+        <StubCard />
+        <GridSpan cols={2}>
+          <ImageCard 
+            src={`${process.env.PUBLIC_URL}/jokes/2025-08-14_16-36-44.png`}
+            alt="Шутка о программировании"
+            maxHeight="300px"
+          />
+        </GridSpan>
+        <StubCard/>
       </CardsLayout>
     </SlideWrapper>
   );
