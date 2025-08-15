@@ -26,6 +26,7 @@ const CodeReviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         <SlideWrapper
             title="Code Review"
             subtitle='Не заменит ревью от разработчиков, но облегчит им работу, благодаря первичному ревью от ИИ'
+            sign='👩'
         >
             <CardsLayout
                 colsRatio="1:1"

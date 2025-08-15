@@ -43,7 +43,7 @@ const BugFixingSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       <SlideWrapper
           title="Фикс локальных багов"
           subtitle="с которыми не справляются линтеры"
-          sign='С'
+          sign='👩'
       >
         <CardsLayout
             cols="3"

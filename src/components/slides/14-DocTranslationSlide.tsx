@@ -11,7 +11,7 @@ const DocTranslationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
       <SlideWrapper
           title="Перевод документации"
-          subtitle="Sergey"
+          sign='🎩'
       >
         <CardsLayout
             cols="1"

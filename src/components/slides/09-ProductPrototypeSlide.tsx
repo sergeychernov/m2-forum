@@ -14,7 +14,7 @@ const ProductPrototypeSlide: React.FC<SlideProps> = ({ isActive, isVisited }) =>
     <SlideWrapper
       title="Новый продукт: Чат бот"
       subtitle="Codex и Cursor: эмулятор чатом + прототип сайта"
-      sign='Ч'
+      sign='🎩'
     >
       <CardsLayout
         cols="2"

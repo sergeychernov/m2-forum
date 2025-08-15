@@ -55,7 +55,7 @@ const DatabaseSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       <SlideWrapper
           title="База данных"
           subtitle="ИИ отлично справляется с запросами, проектированием БД, но с миграциями не всегда везет"
-          sign='С'
+          sign='🎩'
       >
         <CardsLayout
             cols="3"

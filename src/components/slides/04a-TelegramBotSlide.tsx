@@ -21,7 +21,7 @@ const TelegramBotSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     <SlideWrapper
       title="Совместная разработка Telegram бота"
       subtitle="Cursor + Сергей + Cursor +Настя + Cursor + Маша = MVP"
-      sign='ЧС'
+      sign='🎩👩'
     >
       <CardsLayout
         cols="2"

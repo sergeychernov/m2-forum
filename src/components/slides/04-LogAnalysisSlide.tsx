@@ -12,8 +12,7 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
       <SlideWrapper
           title="Эволюция разбора логов"
-      subtitle="Sergey"
-      sign='Ч'
+      sign='🎩'
       >
         <CardsLayout
             cols="3"

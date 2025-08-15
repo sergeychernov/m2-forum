@@ -22,7 +22,7 @@ const UnitTestingSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       <SlideWrapper
           title="Unit тестирование"
           subtitle="С unit-тестами ИИ показал себя гораздо лучше"
-          sign='С'
+          sign='👩'
       >
         <CardsLayout
             cols="3"

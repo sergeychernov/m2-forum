@@ -27,7 +27,7 @@ const LibraryUpdatesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     <SlideWrapper
       title="Обновление и миграция библиотек"
       subtitle="Telegraf  перестала активно поддерживаться. Выбрали grammY как современную и активно развивающуюся альтернативу."
-      sign='Ч'
+            sign='🎩'
     >
       <CardsLayout
         cols="2"

@@ -13,7 +13,8 @@ const GithubPipelineSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
       <SlideWrapper
           title="GitHub Pipeline"
-          subtitle="Автоматизация процессов CI/CD с помощью Codex"
+      subtitle="Автоматизация процессов CI/CD с помощью Codex"
+      sign='🎩'
       >
         <CardsLayout
             cols="2"

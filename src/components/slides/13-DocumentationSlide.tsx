@@ -11,7 +11,7 @@ const DocumentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
       <SlideWrapper
           title="Документация"
-          subtitle="Sergey"
+          sign='🎩'
       >
         <CardsLayout
             cols="1"

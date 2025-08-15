@@ -19,7 +19,7 @@ const IBDecisionSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     <SlideWrapper
       title="Мы с безопасниками посовещались..."
       subtitle='и Артем Олифиренко решил. Что будем использовать Cursor.'
-      sign='Ч'
+      sign='🎩'
     >
       <CardsLayout
         cols="3"
