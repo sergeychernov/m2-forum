@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import CardWrapper from '../wrappers/CardWrapper';
 import styles from './ConclusionCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 
@@ -38,7 +39,6 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
 
   useEffect(() => {
     if (shouldAnimate && animationType === 'explosion') {
-      // Специальные эффекты только для explosion анимации
       const lightningTimer = setTimeout(() => {
         setShowLightning(true);
       }, 100);
@@ -48,9 +48,9 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
       }, 200);
 
       const cleanupTimer = setTimeout(() => {
-        setShowExplosion(false);
         setShowLightning(false);
-      }, 1500);
+        setShowExplosion(false);
+      }, 2000);
 
       return () => {
         clearTimeout(lightningTimer);
@@ -60,107 +60,45 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
     }
   }, [shouldAnimate, animationType]);
 
-  const generateLightningPath = () => {
-    const paths = [
-      "M50,0 L45,20 L55,25 L40,45 L60,50 L35,70 L50,100",
-      "M0,30 L20,25 L15,45 L35,40 L30,60 L50,55 L45,75 L70,70",
-      "M100,20 L80,30 L90,50 L70,45 L75,65 L55,70 L60,90 L40,95"
-    ];
-    return paths[index % paths.length];
-  };
-
-  const generateExplosionParticles = () => {
-    const particles = [];
-    const particleCount = 12;
-    
-    for (let i = 0; i < particleCount; i++) {
-      const angle = (360 / particleCount) * i;
-      const distance = 50 + Math.random() * 30;
-      const size = 3 + Math.random() * 4;
-      
-      particles.push(
-        <div
-          key={i}
-          className={styles.explosionParticle}
-          style={{
-            '--angle': `${angle}deg`,
-            '--distance': `${distance}px`,
-            '--size': `${size}px`,
-            '--delay': `${i * 20}ms`,
-          } as React.CSSProperties}
-        />
-      );
-    }
-    return particles;
-  };
+  const isFirstCard = index === 0;
+  const isLastCard = index % 2 === 1; // Предполагаем четное количество карточек
 
   return (
-    <div className={styles.cardContainer}>
-      {/* Молния - только для explosion анимации */}
-      {showLightning && animationType === 'explosion' && (
+    <CardWrapper 
+      variant="outlined" 
+      hoverable={true}
+      className={`${styles.conclusionContent} ${animationClasses} ${
+        isFirstCard ? styles.firstCard : ''
+      } ${isLastCard ? styles.lastCard : ''}`}
+    >
+      <div className={`${styles.conclusionBorderLeft} ${styles.blue}`}></div>
+      
+      {/* Специальные эффекты для explosion анимации */}
+      {showLightning && (
         <div className={styles.lightningContainer}>
-          <svg className={styles.lightning} viewBox="0 0 100 100">
-            <defs>
-              <filter id={`glow-${index}`}>
-                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                <feMerge> 
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-            <path
-              d={generateLightningPath()}
-              stroke="#00d4ff"
-              strokeWidth="2"
-              fill="none"
-              filter={`url(#glow-${index})`}
-              className={styles.lightningPath}
-            />
-          </svg>
+          <div className={styles.lightning}></div>
         </div>
       )}
-
-      {/* Взрыв - только для explosion анимации */}
-      {showExplosion && animationType === 'explosion' && (
+      
+      {showExplosion && (
         <div className={styles.explosionContainer}>
-          <div className={styles.explosionCore} />
-          <div className={styles.explosionRing} />
-          <div className={styles.explosionShockwave} />
-          {generateExplosionParticles()}
-        </div>
-      )}
-
-      {/* Карточка */}
-      <div
-        className={`${styles.conclusionCard} ${animationClasses} ${
-          index % 2 === 0 ? styles.fromRight : styles.fromLeft
-        }`}
-        tabIndex={0}
-      >
-        <div className={`${styles.conclusionBorderLeft} ${styles.blue}`}></div>
-        
-        {/* Эффект энергетического поля */}
-        <div className={styles.energyField}></div>
-        
-        {/* Частицы вокруг карточки */}
-        <div className={styles.ambientParticles}>
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              className={styles.ambientParticle}
-              style={{
-                '--particle-delay': `${i * 0.5}s`,
-                '--particle-angle': `${i * 60}deg`,
-              } as React.CSSProperties}
-            />
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className={styles.explosionParticle} style={{
+              '--particle-angle': `${i * 45}deg`
+            } as React.CSSProperties}></div>
           ))}
         </div>
-
-        {hasChart && chart}
+      )}
+      
+      <div className={styles.textContent}>
         <p>{text}</p>
+        {hasChart && chart && (
+          <div className={styles.chartContainer}>
+            {chart}
+          </div>
+        )}
       </div>
-    </div>
+    </CardWrapper>
   );
 };
 

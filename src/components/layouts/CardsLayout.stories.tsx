@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CardsLayout from './CardsLayout';
 import ThreeCardsLayout from './ThreeCardsLayout';
-import SlideWrapper from '../SlideWrapper';
+import SlideWrapper from '../wrappers/SlideWrapper';
 import ConclusionCard from '../cards/ConclusionCard';
 import FeaturesListCard from '../cards/FeaturesListCard';
 import ImageCard from '../cards/ImageCard';
@@ -211,7 +211,7 @@ const renderCards = (
   }
 ) => {
   const cards = [];
-  
+
   for (let i = 0; i < count; i++) {
     switch (cardType) {
       case 'ConclusionCard':
@@ -224,7 +224,7 @@ const renderCards = (
           />
         );
         break;
-        
+
       case 'FeaturesListCard':
         const featureData = sampleTools[i % sampleTools.length];
         cards.push(
@@ -242,7 +242,7 @@ const renderCards = (
           />
         );
         break;
-        
+
       case 'ImageCard':
         const imageData = sampleImages[i % sampleImages.length];
         cards.push(
@@ -254,7 +254,7 @@ const renderCards = (
           />
         );
         break;
-        
+
       case 'ModelCard':
         const modelData = sampleModels[i % sampleModels.length];
         cards.push(
@@ -270,13 +270,13 @@ const renderCards = (
       case 'PointsCard':
         const pointsCardData = samplePointsCards[i % samplePointsCards.length];
         cards.push(
-            <PointsCard
-                key={`pointscard-${i}`}
-                description={pointsCardData.description}
-                points={pointsCardData.points}
-                size="medium"
-                bulletColor="#1890ff"
-            />
+          <PointsCard
+            key={`pointscard-${i}`}
+            description={pointsCardData.description}
+            points={pointsCardData.points}
+            size="medium"
+            bulletColor="#1890ff"
+          />
         );
         break;
 
@@ -310,7 +310,7 @@ const renderCards = (
           />
         );
         break;
-        
+
       case 'QRCard':
         const qrData = sampleQRCards[i % sampleQRCards.length];
         cards.push(
@@ -328,7 +328,7 @@ const renderCards = (
         break;
     }
   }
-  
+
   return cards;
 };
 

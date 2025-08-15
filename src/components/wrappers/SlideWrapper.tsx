@@ -9,6 +9,7 @@ interface SlideWrapperProps {
     className?: string;
     scrollable?: boolean;
     sign?: string;
+    cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
 }
 
 const SlideWrapper: React.FC<SlideWrapperProps> = ({
@@ -19,6 +20,7 @@ const SlideWrapper: React.FC<SlideWrapperProps> = ({
     className = '',
     scrollable = false,
     sign,
+    cardVariant = 'default',
 }) => {
 
     const containerClasses = [
@@ -27,11 +29,25 @@ const SlideWrapper: React.FC<SlideWrapperProps> = ({
         className,
     ].filter(Boolean).join(' ');
 
+    const enhancedChildren = React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+            const childType = child.type as any;
+            if (childType && (childType.displayName === 'CardsLayout' || childType.name === 'CardsLayout')) {
+                const childProps = child.props || {};
+                return React.cloneElement(child as any, {
+                    ...childProps,
+                    cardVariant
+                });
+            }
+        }
+        return child;
+    });
+
     const content = (
         <>
             <h2 className={styles.title}>{title}</h2>
             {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-            {children}
+            {enhancedChildren}
             {footerNote && (
                 <div className={styles.footerNote}>
                     <p>{footerNote}</p>
@@ -48,23 +64,9 @@ const SlideWrapper: React.FC<SlideWrapperProps> = ({
     if (scrollable) {
         return (
             <div className={`${containerClasses}`}>
-                <h2 className={styles.title}>{title}</h2>
-                {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-                <div className={styles.scrollableWrapper}>
-                    <div className={styles.scrollableContent}>
-                        {children}
-                        {footerNote && (
-                            <div className={styles.footerNote}>
-                                <p>{footerNote}</p>
-                            </div>
-                        )}
-                    </div>
+                <div className={styles.scrollContainer}>
+                    {content}
                 </div>
-                {sign && (
-                    <div className={styles.speakerSign}>
-                        {sign}
-                    </div>
-                )}
             </div>
         );
     }

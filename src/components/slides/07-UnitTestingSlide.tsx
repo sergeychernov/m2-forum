@@ -1,6 +1,6 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
-import SlideWrapper from "../SlideWrapper";
+import SlideWrapper from "../wrappers/SlideWrapper";
 import ModelCard from "../cards/ModelCard";
 
 interface SlideProps {
@@ -19,31 +19,31 @@ const UnitTestingSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   ];
 
   return (
-      <SlideWrapper
-          title="Unit тестирование"
-          subtitle="С unit-тестами ИИ показал себя гораздо лучше"
-          sign='👩'
+    <SlideWrapper
+      title="Unit тестирование"
+      subtitle="С unit-тестами ИИ показал себя гораздо лучше"
+      sign='👩'
+    >
+      <CardsLayout
+        cols="3"
+        horizontalGap="large"
+        verticalGap="medium"
+        contentWidth="narrow"
+        animationType="ghost"
+        animationDelay={150}
+        isActive={isActive}
+        isVisited={isVisited}
       >
-        <CardsLayout
-            cols="3"
-            horizontalGap="large"
-            verticalGap="medium"
-            contentWidth="narrow"
-            animationType="ghost"
-            animationDelay={150}
-            isActive={isActive}
-            isVisited={isVisited}
-        >
-          {cards.map((card) => (
-              <ModelCard
-                  key={card.description}
-                  size="medium"
-                  icon={card.icon}
-                  description={card.description}
-              />
-          ))}
-        </CardsLayout>
-      </SlideWrapper>
+        {cards.map((card) => (
+          <ModelCard
+            key={card.description}
+            size="medium"
+            icon={card.icon}
+            description={card.description}
+          />
+        ))}
+      </CardsLayout>
+    </SlideWrapper>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
-import SlideWrapper from "../SlideWrapper";
+import SlideWrapper from "../wrappers/SlideWrapper";
 import FeaturesListCard from '../cards/FeaturesListCard';
 import QRCard from '../cards/QRCard';
 
@@ -27,7 +27,7 @@ const LibraryUpdatesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     <SlideWrapper
       title="Обновление и миграция библиотек"
       subtitle="Telegraf  перестала активно поддерживаться. Выбрали grammY как современную и активно развивающуюся альтернативу."
-            sign='🎩'
+      sign='🎩'
     >
       <CardsLayout
         cols="2"
@@ -40,36 +40,36 @@ const LibraryUpdatesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         isActive={isActive}
         isVisited={isVisited}
       >
-          
-          <FeaturesListCard
-            title="Как это было раньше"
-            category="Ручная миграция"
+
+        <FeaturesListCard
+          title="Как это было раньше"
+          category="Ручная миграция"
           features={oldWayFeatures}
           note={{
-              type: 'warning',
-              text: 'AI значительно ускоряет процесс миграции между библиотеками'
-            }}
-            animationType="appearance"
-            animationIndex={1}
-            animationDelay={300}
-            isActive={isActive}
-            isVisited={isVisited}
-          />
-          
-          <FeaturesListCard
-            title="Как это стало с AI"
-            category="Автоматизированная миграция"
-            features={newWayFeatures}
-            note={{
-              type: 'advantage',
-              text: 'AI значительно ускоряет процесс миграции между библиотеками'
-            }}
-            animationType="appearance"
-            animationIndex={2}
-            animationDelay={450}
-            isActive={isActive}
-            isVisited={isVisited}
-          />
+            type: 'warning',
+            text: 'AI значительно ускоряет процесс миграции между библиотеками'
+          }}
+          animationType="appearance"
+          animationIndex={1}
+          animationDelay={300}
+          isActive={isActive}
+          isVisited={isVisited}
+        />
+
+        <FeaturesListCard
+          title="Как это стало с AI"
+          category="Автоматизированная миграция"
+          features={newWayFeatures}
+          note={{
+            type: 'advantage',
+            text: 'AI значительно ускоряет процесс миграции между библиотеками'
+          }}
+          animationType="appearance"
+          animationIndex={2}
+          animationDelay={450}
+          isActive={isActive}
+          isVisited={isVisited}
+        />
       </CardsLayout>
     </SlideWrapper>
   );

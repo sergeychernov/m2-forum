@@ -2,7 +2,7 @@ import React from 'react';
 import ModelCard from "../cards/ModelCard";
 import ImageCard from "../cards/ImageCard";
 import ThreeCardsLayout from "../layouts/ThreeCardsLayout";
-import SlideWrapper from "../SlideWrapper";
+import SlideWrapper from "../wrappers/SlideWrapper";
 
 interface SlideProps {
     isActive: boolean;

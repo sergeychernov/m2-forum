@@ -1,4 +1,5 @@
 import React from 'react';
+import CardWrapper from '../wrappers/CardWrapper';
 import styles from './PointsCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import cn from "classnames";
@@ -16,16 +17,16 @@ interface PointsCardProps {
 }
 
 const PointsCard: React.FC<PointsCardProps> = ({
-                                                   description,
-                                                   points,
-                                                   size = 'small',
-                                                   bulletColor = '#1890ff',
-                                                   animationType = 'none',
-                                                   animationIndex = 0,
-                                                   animationDelay = 300,
-                                                   isActive = true,
-                                                   isVisited = false
-                                               }) => {
+    description,
+    points,
+    size = 'small',
+    bulletColor = '#1890ff',
+    animationType = 'none',
+    animationIndex = 0,
+    animationDelay = 300,
+    isActive = true,
+    isVisited = false
+}) => {
     const { animationClasses } = useCardAnimation({
         isActive,
         isVisited,
@@ -35,22 +36,26 @@ const PointsCard: React.FC<PointsCardProps> = ({
     });
 
     return (
-        <div className={cn(styles.pointsCard, styles[size], animationClasses)}>
+        <CardWrapper 
+            variant="default" 
+            hoverable={true}
+            className={cn(styles.pointsContent, styles[size], animationClasses)}
+        >
             <p className={styles.description}>{description}</p>
             <div className={styles.pointsList}>
                 {points.map((point, index) => (
                     <div key={index} className={styles.pointItem}>
-            <span
-                className={styles.bullet}
-                style={{ color: bulletColor }}
-            >
-              •
-            </span>
+                        <span
+                            className={styles.bullet}
+                            style={{ color: bulletColor }}
+                        >
+                            •
+                        </span>
                         <span className={styles.pointText}>{point}</span>
                     </div>
                 ))}
             </div>
-        </div>
+        </CardWrapper>
     );
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import CardWrapper from '../wrappers/CardWrapper';
 import styles from './TaskCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 
@@ -36,10 +37,14 @@ const TaskCard: React.FC<TaskCardProps> = ({
   });
 
   return (
-    <div className={`${styles.taskCard} ${styles[rating]} ${animationClasses}`}>
+    <CardWrapper 
+      variant="outlined" 
+      hoverable={true}
+      className={`${styles.taskContent} ${styles[rating]} ${animationClasses}`}
+    >
       <div className={`${styles.taskBorderLeft} ${styles[`border${rating.charAt(0).toUpperCase() + rating.slice(1)}`]}`}></div>
-
-      <div className={styles.taskContent}>
+      
+      <div className={styles.taskBody}>
         <h3 className={styles.taskTitle}>{title}</h3>
         <p className={styles.taskDescription}>{description}</p>
 
@@ -48,7 +53,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
           <span className={styles.taskIcon}>{icon}</span>
         </div>
       </div>
-    </div>
+    </CardWrapper>
   );
 };
 

@@ -32,16 +32,72 @@
     height: 100%;
 }
 
+/* Убираем базовые стили карточки - теперь они в CardWrapper */
+.pointsContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Убираем width: 100% чтобы не конфликтовать с размерами */
+}
+
+/* Ограничиваем ширину карточки */
 .small {
+    max-width: 200px;
     width: 200px;
 }
 
 .medium {
+    max-width: 300px;
     width: 300px;
 }
 
 .large {
+    max-width: 350px;
     width: 350px;
+}
+
+.description {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    margin-bottom: var(--space-16);
+    font-weight: var(--font-weight-medium);
+}
+
+.pointsList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    flex: 1;
+}
+
+.pointItem {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-8);
+}
+
+.bullet {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+    margin-top: 2px;
+    min-width: 16px;
+}
+
+.pointText {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-normal);
+    flex: 1;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .small,
+    .medium,
+    .large {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 .pointsCard:hover {

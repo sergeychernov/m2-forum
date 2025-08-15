@@ -1,7 +1,7 @@
 import React from 'react';
 import { PointsList } from '../cards/PointsList';
 import ImageCard from '../cards/ImageCard';
-import SlideWrapper from "../SlideWrapper";
+import SlideWrapper from "../wrappers/SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
 
 interface SlideProps {

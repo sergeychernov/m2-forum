@@ -1,4 +1,5 @@
 import React from 'react';
+import CardWrapper from '../wrappers/CardWrapper';
 import styles from './ModelCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import cn from "classnames";
@@ -35,11 +36,16 @@ const ModelCard: React.FC<ModelCardProps> = ({
   });
 
   return (
-      <div className={cn(styles.modelCard, styles[size], animationClasses)}>
+    <CardWrapper 
+      size={size} 
+      variant="default" 
+      hoverable={true}
+      className={cn(styles.modelCardContent, animationClasses)}
+    >
       <div className={styles.modelIcon}>{icon}</div>
       <h3>{name}</h3>
       <p>{description}</p>
-    </div>
+    </CardWrapper>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import QRCode from 'qrcode';
+import CardWrapper from '../wrappers/CardWrapper';
 import styles from './QRCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 
@@ -13,6 +14,7 @@ interface QRCardProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
+  cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
 }
 
 const QRCard: React.FC<QRCardProps> = ({
@@ -24,7 +26,8 @@ const QRCard: React.FC<QRCardProps> = ({
   animationIndex = 0,
   animationDelay = 300,
   isActive = true,
-  isVisited = false
+  isVisited = false,
+  cardVariant = 'default'
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -50,24 +53,22 @@ const QRCard: React.FC<QRCardProps> = ({
   }, [url]);
 
   return (
-    <div className={`${styles.qrCard} ${animationClasses}`}>
+    <CardWrapper 
+      variant={cardVariant} 
+      size="medium"
+      hoverable={true}
+      className={`${styles.qrContent} ${animationClasses}`}
+    >
       <div className={styles.qrCodeWrapper}>
         <canvas ref={canvasRef} className={styles.qrCode} />
       </div>
-
+      
       <div className={styles.qrInfo}>
         <h3>{icon} {title}</h3>
         {description && <p className={styles.qrDescription}>{description}</p>}
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.qrLink}
-        >
-          {url}
-        </a>
+        <div className={styles.qrUrl}>{url}</div>
       </div>
-    </div>
+    </CardWrapper>
   );
 };
 

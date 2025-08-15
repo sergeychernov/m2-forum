@@ -1,4 +1,4 @@
-import SlideWrapper from '../SlideWrapper';
+import SlideWrapper from '../wrappers/SlideWrapper';
 import React from 'react';
 import FeaturesListCard from '../cards/FeaturesListCard';
 import CardsLayout from '../layouts/CardsLayout';

@@ -64,28 +64,37 @@
   outline-offset: 2px;
 }
 
-.modelIcon {
-  font-size: 2.5rem;
-  margin-bottom: var(--space-16);
-  transition: transform 0.3s ease;
-  display: inline-block;
+/* Убираем базовые стили карточки - теперь они в CardWrapper */
+.modelCardContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
-.modelCard:hover .modelIcon {
-  transform: scale(1.3) rotate(15deg);
-  animation: iconPulse 0.6s ease-in-out;
+.modelIcon {
+  font-size: 3rem;
+  margin-bottom: var(--space-16);
+  transition: transform 0.3s ease;
+}
+
+.modelCardContent:hover .modelIcon {
+  transform: scale(1.2);
+  animation: iconPulse 0.6s ease;
 }
 
 @keyframes iconPulse {
   0%, 100% {
-    transform: scale(1.3) rotate(15deg);
+    transform: scale(1.2);
   }
   50% {
-    transform: scale(1.5) rotate(15deg);
+    transform: scale(1.4);
   }
 }
 
-.modelCard h3 {
+.modelCardContent h3 {
   margin-bottom: var(--space-8);
   color: var(--color-text);
   font-size: var(--font-size-xl);
@@ -93,11 +102,7 @@
   transition: color 0.3s ease;
 }
 
-.modelCard:hover h3 {
-  color: var(--color-primary);
-}
-
-.modelCard p {
+.modelCardContent p {
   font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   margin: 0;

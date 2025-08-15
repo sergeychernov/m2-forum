@@ -1,6 +1,6 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
-import SlideWrapper from "../SlideWrapper";
+import SlideWrapper from "../wrappers/SlideWrapper";
 import TaskCard from '../cards/TaskCard';
 
 interface SlideProps {
@@ -10,19 +10,19 @@ interface SlideProps {
 
 const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
-      <SlideWrapper
-          title="Эволюция разбора логов"
+    <SlideWrapper
+      title="Эволюция разбора логов"
       sign='🎩'
-      >
-        <CardsLayout
-            cols="3"
-            horizontalGap="large"
-            verticalGap="medium"
-            contentWidth="narrow"
-            animationType="appearance"
-            animationDelay={150}
-            isActive={isActive}
-            isVisited={isVisited}
+    >
+      <CardsLayout
+        cols="3"
+        horizontalGap="large"
+        verticalGap="medium"
+        contentWidth="narrow"
+        animationType="appearance"
+        animationDelay={150}
+        isActive={isActive}
+        isVisited={isVisited}
       >
         <TaskCard
           title="1. Ручной анализ"
@@ -36,7 +36,7 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           isActive={isActive}
           isVisited={isVisited}
         />
-        
+
         <TaskCard
           title="2. ChatGPT вручную"
           description="Копируете логи → вставляете в чат → задаёте вопросы"
@@ -49,7 +49,7 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           isActive={isActive}
           isVisited={isVisited}
         />
-        
+
         <TaskCard
           title="3. Cursor + @terminal"
           description="Один клик вставляет лог из терминала в чат, AI сразу анализирует"
@@ -62,8 +62,8 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           isActive={isActive}
           isVisited={isVisited}
         />
-        </CardsLayout>
-      </SlideWrapper>
+      </CardsLayout>
+    </SlideWrapper>
   );
 };
 

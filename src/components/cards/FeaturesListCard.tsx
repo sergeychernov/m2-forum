@@ -1,4 +1,5 @@
 import React from 'react';
+import CardWrapper from '../wrappers/CardWrapper';
 import styles from './FeaturesListCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import cn from 'classnames';
@@ -21,6 +22,7 @@ interface FeaturesListCardProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
+  cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
 }
 
 const FeaturesListCard: React.FC<FeaturesListCardProps> = ({ 
@@ -32,7 +34,8 @@ const FeaturesListCard: React.FC<FeaturesListCardProps> = ({
   animationIndex = 0,
   animationDelay = 300,
   isActive = true,
-  isVisited = false
+  isVisited = false,
+  cardVariant = 'default'
 }) => {
   const { animationClasses } = useCardAnimation({
     isActive,
@@ -43,27 +46,31 @@ const FeaturesListCard: React.FC<FeaturesListCardProps> = ({
   });
 
   return (
-    <div className={`${styles.featuresGroup} ${animationClasses}`}>
+    <CardWrapper 
+      variant={cardVariant} 
+      hoverable={true}
+      className={cn(styles.featuresContent, animationClasses)}
+    >
       <div className={styles.featuresHeader}>
         <h3>{title}</h3>
-        <p className={styles.featuresCategory}>{category}</p>
+        {category && <p className={styles.featuresCategory}>{category}</p>}
       </div>
-      <div className={styles.featuresContent}>
-        <div className={styles.featureGrid}>
-          {features.map((feature, index) => (
-            <div key={index} className={styles.featureItem}>
-              <span className={styles.featureIcon}>{feature.icon}</span>
-              <span>{feature.text}</span>
-            </div>
-          ))}
-        </div>
-        {note && (
-          <div className={cn(styles.features, styles[`features-${note.type}`])}>
-            {note.text}
+      
+      <div className={styles.featuresGrid}>
+        {features.map((feature, index) => (
+          <div key={index} className={styles.featureItem}>
+            <span className={styles.featureIcon}>{feature.icon}</span>
+            <span className={styles.featureText}>{feature.text}</span>
           </div>
-        )}
+        ))}
       </div>
-    </div>
+      
+      {note && (
+        <div className={`${styles.note} ${styles[note.type]}`}>
+          {note.text}
+        </div>
+      )}
+    </CardWrapper>
   );
 };
 

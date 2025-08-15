@@ -27,6 +27,7 @@ interface CardsLayoutProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
+  cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
 }
 
 const CardsLayout: React.FC<CardsLayoutProps> = ({
@@ -41,7 +42,8 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
   animationType = 'none',
   animationDelay = 300,
   isActive = true,
-  isVisited = false
+  isVisited = false,
+  cardVariant = 'default'
 }) => {
   // Определяем соотношение по умолчанию для каждого типа колонок
   const getDefaultRatio = (colsCount: ColsCount): string => {
@@ -93,7 +95,8 @@ const CardsLayout: React.FC<CardsLayoutProps> = ({
         animationIndex: index,
         animationDelay,
         isActive,
-        isVisited
+        isVisited,
+        cardVariant
       } as any);
     }
     return child;

@@ -1,6 +1,6 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
-import SlideWrapper from "../SlideWrapper";
+import SlideWrapper from "../wrappers/SlideWrapper";
 import PointsCard from '../cards/PointsCard';
 import QRCard from '../cards/QRCard';
 
@@ -42,7 +42,7 @@ const ProductPrototypeSlide: React.FC<SlideProps> = ({ isActive, isVisited }) =>
           isActive={isActive}
           isVisited={isVisited}
         />
-        
+
         <QRCard
           title="Интерактивный прототип"
           description="Демонстрация чат-флоу"

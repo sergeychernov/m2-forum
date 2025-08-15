@@ -1,6 +1,6 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
-import SlideWrapper from "../SlideWrapper";
+import SlideWrapper from "../wrappers/SlideWrapper";
 import FeaturesListCard from "../cards/FeaturesListCard";
 
 interface SlideProps {
@@ -52,33 +52,33 @@ const DatabaseSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   ];
 
   return (
-      <SlideWrapper
-          title="База данных"
-          subtitle="ИИ отлично справляется с запросами, проектированием БД, но с миграциями не всегда везет"
-          sign='🎩'
+    <SlideWrapper
+      title="База данных"
+      subtitle="ИИ отлично справляется с запросами, проектированием БД, но с миграциями не всегда везет"
+      sign='🎩'
+    >
+      <CardsLayout
+        cols="3"
+        horizontalGap="large"
+        verticalGap="medium"
+        contentWidth="medium"
+        animationType="appearance"
+        animationDelay={150}
+        isActive={isActive}
+        isVisited={isVisited}
       >
-        <CardsLayout
-            cols="3"
-            horizontalGap="large"
-            verticalGap="medium"
-            contentWidth="medium"
-            animationType="appearance"
-            animationDelay={150}
-            isActive={isActive}
-            isVisited={isVisited}
-        >
-          {cards.map((card, index) => (
-              <FeaturesListCard
-                  key={card.title}
-                  title={card.title}
-                  category={card.category}
-                  features={card.features}
-                  note={card.note}
-                  animationIndex={index}
-              />
-          ))}
-        </CardsLayout>
-      </SlideWrapper>
+        {cards.map((card, index) => (
+          <FeaturesListCard
+            key={card.title}
+            title={card.title}
+            category={card.category}
+            features={card.features}
+            note={card.note}
+            animationIndex={index}
+          />
+        ))}
+      </CardsLayout>
+    </SlideWrapper>
   );
 };
 

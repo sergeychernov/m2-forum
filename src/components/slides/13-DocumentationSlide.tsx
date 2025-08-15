@@ -1,6 +1,6 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
-import SlideWrapper from "../SlideWrapper";
+import SlideWrapper from "../wrappers/SlideWrapper";
 
 interface SlideProps {
   isActive: boolean;
@@ -9,26 +9,26 @@ interface SlideProps {
 
 const DocumentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
-      <SlideWrapper
-          title="Документация"
-          sign='🎩'
+    <SlideWrapper
+      title="Документация"
+      sign='🎩'
+    >
+      <CardsLayout
+        cols="1"
+        horizontalGap="large"
+        verticalGap="medium"
+        contentWidth="narrow"
+        animationType="appearance"
+        animationDelay={150}
+        isActive={isActive}
+        isVisited={isVisited}
       >
-        <CardsLayout
-            cols="1"
-            horizontalGap="large"
-            verticalGap="medium"
-            contentWidth="narrow"
-            animationType="appearance"
-            animationDelay={150}
-            isActive={isActive}
-            isVisited={isVisited}
-        >
-          <div style={{ textAlign: 'center', padding: '2rem' }}>
-            <h3>📖 Техническая документация</h3>
-            <p>Создание и поддержка документации проектов с помощью AI</p>
-          </div>
-        </CardsLayout>
-      </SlideWrapper>
+        <div style={{ textAlign: 'center', padding: '2rem' }}>
+          <h3>📖 Техническая документация</h3>
+          <p>Создание и поддержка документации проектов с помощью AI</p>
+        </div>
+      </CardsLayout>
+    </SlideWrapper>
   );
 };
 

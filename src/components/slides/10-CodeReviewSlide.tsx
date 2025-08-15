@@ -1,11 +1,11 @@
 import React from 'react';
 import FeaturesListCard from "../cards/FeaturesListCard";
-import SlideWrapper from "../SlideWrapper";
+import SlideWrapper from "../wrappers/SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
 
 interface SlideProps {
-  isActive: boolean;
-  isVisited: boolean;
+    isActive: boolean;
+    isVisited: boolean;
 }
 
 const CodeReviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
