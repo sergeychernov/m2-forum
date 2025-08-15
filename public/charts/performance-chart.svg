@@ -1,5 +1,5 @@
-<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
-  <rect width="300" height="120" fill="#FFFFFF" rx="8"></rect>
+<svg width="360" height="120" viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="360" height="120" fill="#FFFFFF" rx="8"></rect>
 
   <defs>
     <pattern id="grid" width="50" height="20" patternUnits="userSpaceOnUse">
@@ -37,11 +37,11 @@
   <circle cx="210" cy="71" r="4" fill="#00d4ff" filter="url(#chartGlow)"></circle>
   <circle cx="250" cy="30" r="5" fill="#ff6b6b" stroke="#fff" stroke-width="2" filter="url(#chartGlow)"></circle>
 
-  <text x="50" y="85" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">22</text>
-  <text x="90" y="83" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">23</text>
-  <text x="130" y="27" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">53</text>
-  <text x="170" y="63" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">34</text>
-  <text x="210" y="66" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">32</text>
+  <text x="50" y="85" font-size="10" font-weight="600" fill="#000000" text-anchor="middle">22</text>
+  <text x="90" y="83" font-size="10" font-weight="600" fill="#000000" text-anchor="middle">23</text>
+  <text x="130" y="27" font-size="10" font-weight="600" fill="#010101" text-anchor="middle">53</text>
+  <text x="170" y="63" font-size="10" font-weight="600" fill="#000000" text-anchor="middle">34</text>
+  <text x="210" y="66" font-size="10" font-weight="600" fill="#000000" text-anchor="middle">32</text>
   <text x="250" y="25" font-size="10" font-weight="600" fill="#ff6b6b" text-anchor="middle">54</text>
 
   <line x1="250" y1="35" x2="270" y2="15" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="3,3"></line>

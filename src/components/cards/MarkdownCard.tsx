@@ -33,6 +33,7 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
 }) => {
   const [showExplosion, setShowExplosion] = useState(false);
   const [showLightning, setShowLightning] = useState(false);
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
   
   const { shouldAnimate, animationClasses } = useCardAnimation({
     isActive,
@@ -68,49 +69,106 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
   const isFirstCard = index === 0;
   const isLastCard = index % 2 === 1;
 
+  // Кастомный компонент для изображений
+  const ImageComponent = ({ src, alt, ...props }: any) => {
+    const handleImageClick = () => {
+      setFullscreenImage(src);
+    };
+
+    return (
+      <img
+        src={src}
+        alt={alt}
+        className={styles.markdownImage}
+        onClick={handleImageClick}
+        {...props}
+      />
+    );
+  };
+
+  const handleFullscreenClose = () => {
+    setFullscreenImage(null);
+  };
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      handleFullscreenClose();
+    }
+  };
+
   return (
-    <CardWrapper 
-      variant="outlined" 
-      hoverable={true}
-      background={background}
-      borderAccent={borderAccent}
-      className={`${styles.markdownContent} ${animationClasses} ${
-        isFirstCard ? styles.firstCard : ''
-      } ${isLastCard ? styles.lastCard : ''}`}
-    >
-      {/* Убрать старую линию */}
-      {/* <div className={`${styles.markdownBorderLeft} ${styles.blue}`}></div> */}
-      
-      {/* Специальные эффекты для explosion анимации */}
-      {showLightning && (
-        <div className={styles.lightningContainer}>
-          <div className={styles.lightning}></div>
-        </div>
-      )}
-      
-      {showExplosion && (
-        <div className={styles.explosionContainer}>
-          {[...Array(8)].map((_, i) => (
-            <div key={i} className={styles.explosionParticle} style={{
-              '--particle-angle': `${i * 45}deg`
-            } as React.CSSProperties}></div>
-          ))}
-        </div>
-      )}
-      
-      <div className={styles.textContent}>
-        <div className={styles.markdownRenderer}>
-          <ReactMarkdown>
-            {content}
-          </ReactMarkdown>
-        </div>
-        {chart && (
-          <div className={styles.chartContainer}>
-            {chart}
+    <>
+      <CardWrapper 
+        variant="outlined" 
+        hoverable={true}
+        background={background}
+        borderAccent={borderAccent}
+        className={`${styles.markdownContent} ${animationClasses} ${
+          isFirstCard ? styles.firstCard : ''
+        } ${isLastCard ? styles.lastCard : ''}`}
+      >
+        {/* Убрать старую линию */}
+        {/* <div className={`${styles.markdownBorderLeft} ${styles.blue}`}></div> */}
+        
+        {/* Специальные эффекты для explosion анимации */}
+        {showLightning && (
+          <div className={styles.lightningContainer}>
+            <div className={styles.lightning}></div>
           </div>
         )}
-      </div>
-    </CardWrapper>
+        
+        {showExplosion && (
+          <div className={styles.explosionContainer}>
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className={styles.explosionParticle} style={{
+                '--particle-angle': `${i * 45}deg`
+              } as React.CSSProperties}></div>
+            ))}
+          </div>
+        )}
+        
+        <div className={styles.textContent}>
+          <div className={styles.markdownRenderer}>
+            <ReactMarkdown
+              components={{
+                img: ImageComponent
+              }}
+            >
+              {content}
+            </ReactMarkdown>
+          </div>
+          {chart && (
+            <div className={styles.chartContainer}>
+              {chart}
+            </div>
+          )}
+        </div>
+      </CardWrapper>
+      
+      {/* Полноэкранный режим для изображений */}
+      {fullscreenImage && (
+        <div 
+          className={styles.fullscreenOverlay}
+          onClick={handleBackdropClick}
+        >
+          <div className={styles.fullscreenContainer}>
+            <button 
+              className={styles.closeButton}
+              onClick={handleFullscreenClose}
+              aria-label="Закрыть полноэкранный режим"
+            >
+              ×
+            </button>
+            <img
+              alt="Полноэкранное изображение"
+              src={fullscreenImage}
+              className={styles.fullscreenImage}
+              onClick={handleFullscreenClose}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
