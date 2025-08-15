@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import CardWrapper from '../wrappers/CardWrapper';
-import styles from './ConclusionCard.module.css';
+import styles from './MarkdownCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import { CardBackground } from '../../types/CardBackground';
 
-interface ConclusionCardProps {
-  text: string;
-  hasChart?: boolean;
+interface MarkdownCardProps {
+  content: string;
   index: number;
   chart?: React.ReactNode;
   animationType?: AnimationType;
@@ -17,9 +17,8 @@ interface ConclusionCardProps {
   background?: CardBackground;
 }
 
-const ConclusionCard: React.FC<ConclusionCardProps> = ({ 
-  text, 
-  hasChart = false, 
+const MarkdownCard: React.FC<MarkdownCardProps> = ({ 
+  content, 
   index, 
   chart,
   animationType = 'none',
@@ -27,7 +26,7 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
   animationDelay = 300,
   isActive = true,
   isVisited = false,
-  background = 'default'
+  background
 }) => {
   const [showExplosion, setShowExplosion] = useState(false);
   const [showLightning, setShowLightning] = useState(false);
@@ -64,17 +63,18 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
   }, [shouldAnimate, animationType]);
 
   const isFirstCard = index === 0;
-  const isLastCard = index % 2 === 1; // Предполагаем четное количество карточек
+  const isLastCard = index % 2 === 1;
 
   return (
     <CardWrapper 
       variant="outlined" 
       hoverable={true}
-      className={`${styles.conclusionContent} ${animationClasses} ${
+      background={background}
+      className={`${styles.markdownContent} ${animationClasses} ${
         isFirstCard ? styles.firstCard : ''
       } ${isLastCard ? styles.lastCard : ''}`}
     >
-      <div className={`${styles.conclusionBorderLeft} ${styles.blue}`}></div>
+      <div className={`${styles.markdownBorderLeft} ${styles.blue}`}></div>
       
       {/* Специальные эффекты для explosion анимации */}
       {showLightning && (
@@ -94,8 +94,12 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
       )}
       
       <div className={styles.textContent}>
-        <p>{text}</p>
-        {hasChart && chart && (
+        <div className={styles.markdownRenderer}>
+          <ReactMarkdown>
+            {content}
+          </ReactMarkdown>
+        </div>
+        {chart && (
           <div className={styles.chartContainer}>
             {chart}
           </div>
@@ -105,4 +109,4 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
   );
 };
 
-export default ConclusionCard;
+export default MarkdownCard;

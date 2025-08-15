@@ -1,5 +1,5 @@
 import React from 'react';
-import ModelCard from '../cards/ModelCard';
+import ModelCard from '../cards/IconCard';
 import CardsLayout from '../layouts/CardsLayout';
 import SlideWrapper from "../wrappers/SlideWrapper";
 

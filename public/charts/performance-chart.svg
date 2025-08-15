@@ -1,0 +1,57 @@
+<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="120" fill="#1a1a1a" rx="8"></rect>
+
+  <defs>
+    <pattern id="grid" width="50" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 20" fill="none" stroke="rgba(148, 163, 184, 0.1)" stroke-width="1"></path>
+    </pattern>
+    <filter id="chartGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+      <feMerge>
+        <feMergeNode in="coloredBlur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="300" height="120" fill="url(#grid)"></rect>
+
+  <text x="15" y="95" font-size="10" fill="#94a3b8" text-anchor="middle">20</text>
+  <text x="15" y="75" font-size="10" fill="#94a3b8" text-anchor="middle">30</text>
+  <text x="15" y="55" font-size="10" fill="#94a3b8" text-anchor="middle">40</text>
+  <text x="15" y="35" font-size="10" fill="#94a3b8" text-anchor="middle">50</text>
+
+  <text x="50" y="110" font-size="10" fill="#94a3b8" text-anchor="middle">Фев</text>
+  <text x="90" y="110" font-size="10" fill="#94a3b8" text-anchor="middle">Мар</text>
+  <text x="130" y="110" font-size="10" fill="#94a3b8" text-anchor="middle">Апр</text>
+  <text x="170" y="110" font-size="10" fill="#94a3b8" text-anchor="middle">Май</text>
+  <text x="210" y="110" font-size="10" fill="#94a3b8" text-anchor="middle">Июн</text>
+  <text x="250" y="110" font-size="10" fill="#94a3b8" text-anchor="middle">Июл</text>
+
+  <polyline
+    points="50,90 90,88 130,32 170,68 210,71 250,30"
+    fill="none"
+    stroke="#00d4ff"
+    stroke-width="3"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+    filter="url(#chartGlow)"
+  />
+
+  <circle cx="50" cy="90" r="4" fill="#00d4ff" filter="url(#chartGlow)"></circle>
+  <circle cx="90" cy="88" r="4" fill="#00d4ff" filter="url(#chartGlow)"></circle>
+  <circle cx="130" cy="32" r="4" fill="#00d4ff" filter="url(#chartGlow)"></circle>
+  <circle cx="170" cy="68" r="4" fill="#00d4ff" filter="url(#chartGlow)"></circle>
+  <circle cx="210" cy="71" r="4" fill="#00d4ff" filter="url(#chartGlow)"></circle>
+  <circle cx="250" cy="30" r="5" fill="#ff6b6b" stroke="#fff" stroke-width="2" filter="url(#chartGlow)"></circle>
+
+  <text x="50" y="85" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">22</text>
+  <text x="90" y="83" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">23</text>
+  <text x="130" y="27" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">53</text>
+  <text x="170" y="63" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">34</text>
+  <text x="210" y="66" font-size="10" font-weight="600" fill="#f1f5f9" text-anchor="middle">32</text>
+  <text x="250" y="25" font-size="10" font-weight="600" fill="#ff6b6b" text-anchor="middle">54</text>
+
+  <line x1="250" y1="35" x2="270" y2="15" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="3,3"></line>
+  <text x="275" y="12" font-size="8" fill="#ff6b6b" font-weight="500">Уход старшего</text>
+  <text x="275" y="22" font-size="8" fill="#ff6b6b" font-weight="500">разработчика</text>
+</svg>

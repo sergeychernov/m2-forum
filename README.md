@@ -295,6 +295,169 @@ npm run deploy
 - `QRCard` - Для QR-кодов
 - `ConclusionCard` - Для выводов
 - `PointsCard` - Для отображения очков/баллов
+- `MarkdownCard` - Для отображения Markdown-контента с поддержкой графиков и изображений
+
+#### MarkdownCard
+
+Компонент для отображения Markdown-контента с расширенными возможностями:
+
+##### Основные свойства:
+- `content` (string, обязательно) - Markdown-текст для отображения
+- `index` (number, обязательно) - Индекс карточки для анимаций
+- `hasChart` (boolean, по умолчанию false) - Включает отображение графика
+- `chart` (React.ReactNode) - React-компонент графика для отображения
+- `animationType` - Тип анимации появления карточки
+- `animationIndex` - Индекс для анимации
+- `animationDelay` - Задержка анимации
+- `isActive` / `isVisited` - Состояния для анимаций
+- `background` - Фоновая тема карточки
+
+##### Базовое использование:
+```tsx
+import MarkdownCard from '../cards/MarkdownCard';
+
+<MarkdownCard
+  content="## Заголовок\n\nОбычный текст с **жирным** и *курсивом*."
+  index={0}
+/>
+```
+
+##### Поддерживаемые Markdown-элементы:
+- **Заголовки** (H1-H6): `# Заголовок`, `## Подзаголовок`
+- **Текстовое форматирование**: `**жирный**`, `*курсив*`
+- **Списки**: 
+  ```markdown
+  - Элемент списка 1
+  - Элемент списка 2
+  
+  1. Нумерованный список
+  2. Второй элемент
+  ```
+- **Цитаты**: `> Это цитата`
+- **Код**: \`inline code\` и блоки кода:
+  \`\`\`javascript
+  const example = 'code block';
+  \`\`\`
+- **Ссылки**: `[текст ссылки](https://example.com)`
+
+##### Добавление изображений:
+
+Для добавления изображений используйте стандартный Markdown-синтаксис:
+
+```tsx
+<MarkdownCard
+  content={`
+    ## Пример с изображением
+    
+    ![Описание изображения](/img/example.png)
+    
+    Текст после изображения.
+  `}
+  index={0}
+/>
+```
+
+**Важно**: 
+- Изображения должны находиться в папке `public/img/`
+- Используйте абсолютные пути от корня проекта: `/img/filename.ext`
+- Поддерживаются форматы: PNG, JPG, JPEG, SVG, GIF
+
+##### Добавление графиков:
+
+Для встраивания интерактивных графиков используйте пропсы `hasChart` и `chart`:
+
+```tsx
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+
+const chartData = [
+  { name: 'Янв', value: 400 },
+  { name: 'Фев', value: 300 },
+  { name: 'Мар', value: 600 }
+];
+
+const MyChart = () => (
+  <LineChart width={300} height={200} data={chartData}>
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="name" />
+    <YAxis />
+    <Tooltip />
+    <Line type="monotone" dataKey="value" stroke="#8884d8" />
+  </LineChart>
+);
+
+<MarkdownCard
+  content={`
+    ## Статистика продаж
+    
+    График показывает динамику продаж за первый квартал.
+  `}
+  hasChart={true}
+  chart={<MyChart />}
+  index={0}
+/>
+```
+
+##### Комбинирование с анимациями:
+
+```tsx
+<CardsLayout
+  animationType="explosion"
+  animationDelay={250}
+  isActive={isActive}
+  isVisited={isVisited}
+>
+  <MarkdownCard
+    content="### Анимированная карточка\n\nЭта карточка появится с эффектом взрыва."
+    index={0}
+    animationType="explosion"
+    animationDelay={250}
+    isActive={isActive}
+    isVisited={isVisited}
+  />
+</CardsLayout>
+```
+
+##### Пример из реального использования:
+
+```tsx
+const conclusions = [
+  {
+    content: `**AI инструменты значительно повышают продуктивность** в большинстве задач.
+    
+    В нашей команде AI как новый сотрудник — потеряв одного старшего разработчика, 
+    производительность команды не упала.`,
+    hasChart: false
+  },
+  {
+    content: `## Наибольшая эффективность
+    
+    Достигается в задачах:
+    - Документации
+    - Генерации кода
+    - Рефакторинга`,
+    hasChart: false
+  }
+];
+
+<CardsLayout cols="2">
+  {conclusions.map((conclusion, index) => (
+    <MarkdownCard
+      key={index}
+      content={conclusion.content}
+      hasChart={conclusion.hasChart}
+      index={index}
+    />
+  ))}
+</CardsLayout>
+```
+
+##### Стилизация:
+
+- Карточки автоматически получают градиентную левую границу
+- Поддерживают эффекты наведения с подсветкой
+- Первая и последняя карточка в ряду получают специальные градиентные фоны
+- Адаптивный дизайн для мобильных устройств
+- Центрированное выравнивание текста по умолчанию
 
 Все карточки автоматически наследуют стиль, заданный через `cardVariant` в `SlideWrapper`.
 

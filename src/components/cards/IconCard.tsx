@@ -1,6 +1,6 @@
 import React from 'react';
 import CardWrapper from '../wrappers/CardWrapper';
-import styles from './ModelCard.module.css';
+import styles from './IconCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import { CardBackground } from '../../types/CardBackground';
 import cn from "classnames";

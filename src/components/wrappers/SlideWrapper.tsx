@@ -7,7 +7,6 @@ interface SlideWrapperProps {
     children: ReactNode;
     footerNote?: string;
     className?: string;
-    scrollable?: boolean;
     sign?: string;
     cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
 }
@@ -18,14 +17,12 @@ const SlideWrapper: React.FC<SlideWrapperProps> = ({
     children,
     footerNote,
     className = '',
-    scrollable = false,
     sign,
     cardVariant = 'default',
 }) => {
 
     const containerClasses = [
         styles.slideContent,
-        scrollable ? styles.scrollableSlide : '',
         className,
     ].filter(Boolean).join(' ');
 
@@ -60,16 +57,6 @@ const SlideWrapper: React.FC<SlideWrapperProps> = ({
             )}
         </>
     );
-
-    if (scrollable) {
-        return (
-            <div className={`${containerClasses}`}>
-                <div className={styles.scrollContainer}>
-                    {content}
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className={containerClasses}>

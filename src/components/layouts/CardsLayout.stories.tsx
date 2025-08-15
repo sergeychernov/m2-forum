@@ -2,10 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react';
 import CardsLayout from './CardsLayout';
 import ThreeCardsLayout from './ThreeCardsLayout';
 import SlideWrapper from '../wrappers/SlideWrapper';
-import ConclusionCard from '../cards/ConclusionCard';
 import FeaturesListCard from '../cards/FeaturesListCard';
 import ImageCard from '../cards/ImageCard';
-import ModelCard from '../cards/ModelCard';
+import ModelCard from '../cards/IconCard';
 import PointsCard from '../cards/PointsCard';
 import PointsList from '../cards/PointsList';
 import QRCard from '../cards/QRCard';
@@ -214,16 +213,6 @@ const renderCards = (
 
   for (let i = 0; i < count; i++) {
     switch (cardType) {
-      case 'ConclusionCard':
-        const conclusionData = sampleConclusions[i % sampleConclusions.length];
-        cards.push(
-          <ConclusionCard
-            key={`conclusion-${i}`}
-            text={conclusionData.text}
-            index={conclusionData.index}
-          />
-        );
-        break;
 
       case 'FeaturesListCard':
         const featureData = sampleTools[i % sampleTools.length];
