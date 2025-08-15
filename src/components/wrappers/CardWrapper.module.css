@@ -14,36 +14,37 @@
 }
 
 /* Цветовые темы фонов */
-.bgDefault {
-  background: var(--color-surface);
-  color: var(--color-text);
+.bgWhite {
+  background: #ffffff;
+  color: #000000;
+  border-color: #e0e0e0;
 }
 
-.bgPrimary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.bgGray {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
   color: white;
   border-color: transparent;
 }
 
-.bgSuccess {
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+.bgBlack {
+  background: linear-gradient(135deg, #343a40 0%, #212529 100%);
   color: white;
   border-color: transparent;
 }
 
-.bgWarning {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
-  border-color: transparent;
-}
-
-.bgError {
+.bgRed {
   background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
   color: white;
   border-color: transparent;
 }
 
-.bgInfo {
+.bgGreen {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgBlue {
   background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
   color: white;
   border-color: transparent;
@@ -63,6 +64,18 @@
 
 .bgCyan {
   background: linear-gradient(135deg, #00cec9 0%, #55a3ff 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgOrange {
+  background: linear-gradient(135deg, #ff9500 0%, #ff6b35 100%);
+  color: white;
+  border-color: transparent;
+}
+
+.bgYellow {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
   color: white;
   border-color: transparent;
 }
@@ -110,23 +123,27 @@
 }
 
 /* Специальные эффекты для цветных фонов при наведении */
-.bgPrimary.hoverable:hover {
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+.bgWhite.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.bgSuccess.hoverable:hover {
-  box-shadow: 0 8px 25px rgba(17, 153, 142, 0.4);
+.bgGray.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
 }
 
-.bgWarning.hoverable:hover {
-  box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
+.bgBlack.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(52, 58, 64, 0.4);
 }
 
-.bgError.hoverable:hover {
+.bgRed.hoverable:hover {
   box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
 }
 
-.bgInfo.hoverable:hover {
+.bgGreen.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(17, 153, 142, 0.4);
+}
+
+.bgBlue.hoverable:hover {
   box-shadow: 0 8px 25px rgba(116, 185, 255, 0.4);
 }
 
@@ -140,6 +157,14 @@
 
 .bgCyan.hoverable:hover {
   box-shadow: 0 8px 25px rgba(0, 206, 201, 0.4);
+}
+
+.bgOrange.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
+}
+
+.bgYellow.hoverable:hover {
+  box-shadow: 0 8px 25px rgba(253, 203, 110, 0.4);
 }
 
 .clickable {

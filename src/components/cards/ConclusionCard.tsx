@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CardWrapper from '../wrappers/CardWrapper';
 import styles from './ConclusionCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
+import { CardBackground } from '../../types/CardBackground';
 
 interface ConclusionCardProps {
   text: string;
@@ -13,7 +14,7 @@ interface ConclusionCardProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
-  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
+  background?: CardBackground;
 }
 
 const ConclusionCard: React.FC<ConclusionCardProps> = ({ 

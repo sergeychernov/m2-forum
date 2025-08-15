@@ -2,6 +2,7 @@ import React from 'react';
 import CardWrapper from '../wrappers/CardWrapper';
 import styles from './PointsCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
+import { CardBackground } from '../../types/CardBackground';
 import cn from "classnames";
 
 interface PointsCardProps {
@@ -13,7 +14,7 @@ interface PointsCardProps {
     animationDelay?: number;
     isActive?: boolean;
     isVisited?: boolean;
-    background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
+    background?: CardBackground;
 }
 
 const PointsCard: React.FC<PointsCardProps> = ({
@@ -25,7 +26,7 @@ const PointsCard: React.FC<PointsCardProps> = ({
     animationDelay = 300,
     isActive = true,
     isVisited = false,
-    background = 'default'
+    background
 }) => {
     const { animationClasses } = useCardAnimation({
         isActive,

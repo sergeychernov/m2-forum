@@ -27,7 +27,7 @@ const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         isVisited={isVisited}
       >
         <GridSpan cols={2}>
-          <CardWrapper background="primary" size="large">
+          <CardWrapper background="purple" size="large">
             <div style={{ textAlign: 'center' }}>
               <h3>🚀 Совместная разработка</h3>
               <p>Презентация создана двумя разработчиками с помощью <strong>Cursor AI</strong></p>
@@ -38,7 +38,7 @@ const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         
         <GitHubProfileCard 
           username="AnaSerg"
-          background="purple"
+          background="pink"
           animationType="appearance"
           animationIndex={1}
           animationDelay={300}
@@ -48,7 +48,7 @@ const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         
         <GitHubProfileCard 
           username="sergeychernov"
-          background="cyan"
+          background="blue"
           animationType="appearance"
           animationIndex={2}
           animationDelay={450}
@@ -56,7 +56,7 @@ const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           isVisited={isVisited}
         />
         
-        <CardWrapper background="info">
+        <CardWrapper background="cyan">  {/* было info */}
           <div style={{ textAlign: 'center' }}>
             <h4>⚙️ Автоматизация</h4>
             <p><strong>GitHub Actions</strong> для автоматического деплоя</p>
@@ -64,7 +64,7 @@ const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           </div>
         </CardWrapper>
         
-        <CardWrapper background="warning">
+        <CardWrapper background="orange">  {/* было warning */}
           <div style={{ textAlign: 'center' }}>
             <h4>🎨 Контент</h4>
             <p>Изображения и мемы созданы с помощью <strong>ChatGPT</strong></p>
@@ -73,7 +73,7 @@ const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         </CardWrapper>
         
         <GridSpan cols={2}>
-          <CardWrapper background="success" size="large">
+          <CardWrapper background="green" size="large">  {/* было success */}
             <div style={{ textAlign: 'center' }}>
               <h3>🍴 Попробуйте сами!</h3>
               <p><strong>Сделайте fork</strong> этой презентации</p>

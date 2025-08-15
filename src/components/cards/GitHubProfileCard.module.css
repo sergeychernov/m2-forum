@@ -4,6 +4,7 @@
   min-height: 280px;
   display: flex;
   flex-direction: column;
+  padding-top: var(--space-24); /* Добавляем отступ сверху */
 }
 
 .profileHeader {
@@ -11,6 +12,7 @@
   align-items: center;
   gap: var(--space-16);
   margin-bottom: var(--space-16);
+  margin-top: var(--space-20); /* Опускаем блок ниже */
 }
 
 .avatar {

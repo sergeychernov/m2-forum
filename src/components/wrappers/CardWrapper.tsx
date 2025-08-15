@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import styles from './CardWrapper.module.css';
+import { CardBackground } from '../../types/CardBackground';
 
 interface CardWrapperProps {
   children: ReactNode;
@@ -8,7 +9,7 @@ interface CardWrapperProps {
   hoverable?: boolean;
   className?: string;
   onClick?: () => void;
-  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
+  background?: CardBackground;
 }
 
 const CardWrapper: React.FC<CardWrapperProps> = ({
@@ -18,13 +19,13 @@ const CardWrapper: React.FC<CardWrapperProps> = ({
   hoverable = true,
   className = '',
   onClick,
-  background = 'default'
+  background
 }) => {
   const cardClasses = [
     styles.cardWrapper,
     styles[variant],
     styles[size],
-    styles[`bg${background.charAt(0).toUpperCase() + background.slice(1)}`],
+    background ? styles[`bg${background.charAt(0).toUpperCase() + background.slice(1)}`] : '',
     hoverable ? styles.hoverable : '',
     onClick ? styles.clickable : '',
     className

@@ -2,6 +2,7 @@ import React from 'react';
 import CardWrapper from '../wrappers/CardWrapper';
 import styles from './ModelCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
+import { CardBackground } from '../../types/CardBackground';
 import cn from "classnames";
 
 interface ModelCardProps {
@@ -14,7 +15,7 @@ interface ModelCardProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
-  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
+  background?: CardBackground;
 }
 
 const ModelCard: React.FC<ModelCardProps> = ({ 
@@ -27,7 +28,7 @@ const ModelCard: React.FC<ModelCardProps> = ({
   animationDelay = 300,
   isActive = true,
   isVisited = false,
-  background = 'default'
+  background
 }) => {
   const { animationClasses } = useCardAnimation({
     isActive,

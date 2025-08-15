@@ -2,9 +2,10 @@ import React from 'react';
 import CardWrapper from '../wrappers/CardWrapper';
 import styles from './FeaturesListCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
+import { CardBackground } from '../../types/CardBackground';
 import cn from 'classnames';
 
-interface Feature {
+export interface Feature {
   icon: string;
   text: string;
 }
@@ -23,7 +24,7 @@ interface FeaturesListCardProps {
   isActive?: boolean;
   isVisited?: boolean;
   cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
-  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
+  background?: CardBackground;
 }
 
 const FeaturesListCard: React.FC<FeaturesListCardProps> = ({ 
@@ -37,7 +38,7 @@ const FeaturesListCard: React.FC<FeaturesListCardProps> = ({
   isActive = true,
   isVisited = false,
   cardVariant = 'default',
-  background = 'default'
+  background  // убираем значение по умолчанию
 }) => {
   const { animationClasses } = useCardAnimation({
     isActive,

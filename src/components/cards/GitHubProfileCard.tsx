@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CardWrapper from '../wrappers/CardWrapper';
 import styles from './GitHubProfileCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
+import { CardBackground } from '../../types/CardBackground';
 
 interface GitHubUser {
   login: string;
@@ -21,7 +22,7 @@ interface GitHubProfileCardProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
-  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
+  background?: CardBackground;
 }
 
 const GitHubProfileCard: React.FC<GitHubProfileCardProps> = ({
@@ -31,7 +32,7 @@ const GitHubProfileCard: React.FC<GitHubProfileCardProps> = ({
   animationDelay = 300,
   isActive = true,
   isVisited = false,
-  background = 'default'
+  background
 }) => {
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [loading, setLoading] = useState(true);
@@ -89,7 +90,7 @@ const GitHubProfileCard: React.FC<GitHubProfileCardProps> = ({
   if (error || !user) {
     return (
       <CardWrapper 
-        background="error"
+        background="red"
         hoverable={false}
         className={`${styles.profileCard} ${animationClasses}`}
       >

@@ -2,6 +2,7 @@ import React from 'react';
 import CardWrapper from '../wrappers/CardWrapper';
 import styles from './TaskCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
+import { CardBackground } from '../../types/CardBackground';
 
 interface TaskCardProps {
   title: string;
@@ -14,7 +15,7 @@ interface TaskCardProps {
   animationDelay?: number;
   isActive?: boolean;
   isVisited?: boolean;
-  background?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'purple' | 'pink' | 'cyan';
+  background?: CardBackground;
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({
@@ -28,7 +29,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
   animationDelay = 300,
   isActive = true,
   isVisited = false,
-  background = 'default'
+  background
 }) => {
   const { animationClasses } = useCardAnimation({
     isActive,
