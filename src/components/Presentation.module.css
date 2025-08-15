@@ -95,13 +95,17 @@
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Изменяем с center на flex-start */
   justify-content: center;
   opacity: 0;
   transform: translateX(100%);
   transition: all 0.6s var(--ease-standard);
-  padding: 0; /* Убираем padding, так как он теперь в самих слайдах */
-  overflow-y: auto; /* Добавляем возможность скролла для слайдов */
+  padding: 0;
+  overflow-y: auto;
+  /* Добавляем отступ сверху для красивого отображения */
+  padding-top: var(--space-32);
+  /* Обеспечиваем минимальную высоту для скролла */
+  min-height: 100vh;
 }
 
 .slide.active {

@@ -16,11 +16,9 @@ import CodeReviewSlide from './slides/10-CodeReviewSlide';
 import BugFixingSlide from './slides/11-BugFixingSlide';
 import NpmLibrarySlide from './slides/12-NpmLibrarySlide';
 import DocumentationSlide from './slides/13-DocumentationSlide';
-import DocTranslationSlide from './slides/14-DocTranslationSlide';
 import DatabaseSlide from './slides/15-DatabaseSlide';
 import RegexSlide from './slides/16-RegexSlide';
 import PresentationSlide from './slides/17-PresentationSlide';
-import ResultsSlide from './slides/18-ResultsSlide';
 import ConclusionsSlide from './slides/19-ConclusionsSlide';
 import QRCodesSlide from './slides/20-QRCodesSlide';
 
@@ -51,9 +49,7 @@ const Presentation: React.FC = () => {
     BugFixingSlide,
     NpmLibrarySlide,
     DocumentationSlide,
-    DocTranslationSlide,
     PresentationSlide,
-    ResultsSlide,
     ConclusionsSlide,
     QRCodesSlide,
   ];

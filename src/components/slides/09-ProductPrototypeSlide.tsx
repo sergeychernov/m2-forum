@@ -45,7 +45,6 @@ const ProductPrototypeSlide: React.FC<SlideProps> = ({ isActive, isVisited }) =>
 
         <QRCard
           title="Интерактивный прототип"
-          description="Демонстрация чат-флоу"
           url="https://sergeychernov.github.io/m2-prototype"
           icon="🎨"
           animationType="appearance"

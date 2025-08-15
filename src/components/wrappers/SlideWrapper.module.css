@@ -7,6 +7,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* Убираем ограничение высоты и добавляем возможность роста */
+    min-height: calc(100vh - var(--space-64)); /* Минимальная высота с учетом отступов */
+    /* Добавляем отступ снизу для навигации */
+    padding-bottom: 120px;
 }
 
 @keyframes slideIn {
