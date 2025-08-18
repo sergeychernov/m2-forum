@@ -19,7 +19,7 @@ const NpmLibrarySlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         cols="2"
         horizontalGap="large"
         verticalGap="medium"
-        contentWidth="wide"
+        contentWidth="narrow"
         animationType="appearance"
         animationDelay={150}
         isActive={isActive}
