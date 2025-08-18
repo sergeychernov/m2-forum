@@ -1,6 +1,8 @@
 import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
 import SlideWrapper from "../wrappers/SlideWrapper";
+import QRCard from '../cards/QRCard';
+import PointsCard from '../cards/PointsCard';
 
 interface SlideProps {
   isActive: boolean;
@@ -14,19 +16,45 @@ const NpmLibrarySlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       sign='👩'
     >
       <CardsLayout
-        cols="1"
+        cols="2"
         horizontalGap="large"
         verticalGap="medium"
-        contentWidth="narrow"
+        contentWidth="wide"
         animationType="appearance"
         animationDelay={150}
         isActive={isActive}
         isVisited={isVisited}
       >
-        <div style={{ textAlign: 'center', padding: '2rem' }}>
-          <h3>📚 Разработка библиотек</h3>
-          <p>Создание и публикация переиспользуемых компонентов и утилит</p>
-        </div>
+        <QRCard
+          title="fetch-retry-proxy"
+          description="NPM библиотека для HTTP запросов с повторными попытками и прокси"
+          url="https://www.npmjs.com/package/fetch-retry-proxy"
+          icon="📦"
+          animationType="appearance"
+          animationIndex={0}
+          animationDelay={150}
+          isActive={isActive}
+          isVisited={isVisited}
+        />
+        
+        <PointsCard
+          description="Как Cursor помог в разработке"
+          points={[
+            "🚀 Быстрое создание структуры проекта",
+            "⚙️ Автоматическая настройка сборки и публикации",
+            "💡 Подбор подходящего имени для библиотеки",
+            "📝 Генерация документации и README",
+            "🔧 Настройка TypeScript конфигурации",
+            "✅ Создание тестов и CI/CD пайплайна"
+          ]}
+          size="medium"
+          animationType="appearance"
+          animationIndex={1}
+          animationDelay={300}
+          isActive={isActive}
+          isVisited={isVisited}
+          background="white"
+        />
       </CardsLayout>
     </SlideWrapper>
   );
