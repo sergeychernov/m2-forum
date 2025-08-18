@@ -2,6 +2,8 @@ import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
 import SlideWrapper from "../wrappers/SlideWrapper";
 import FeaturesListCard from '../cards/FeaturesListCard';
+import QRCard from '../cards/QRCard';
+import GridSpan from '../wrappers/GridSpan';
 
 interface SlideProps {
   isActive: boolean;
@@ -103,6 +105,21 @@ const DocumentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           isActive={isActive}
           isVisited={isVisited}
         />
+
+        {/* QR-код растянут на две колонки с помощью GridSpan */}
+        <GridSpan cols={2}>
+          <QRCard
+            title="Статья на habr за 40 минут"
+            description="Написана по тезисам и документации проекта с помощью ChatGPT"
+            url="https://habr.com/ru/articles/926944/"
+            icon="📄"
+            animationType="appearance"
+            animationIndex={4}
+            animationDelay={800}
+            isActive={isActive}
+            isVisited={isVisited}
+          />
+        </GridSpan>
       </CardsLayout>
     </SlideWrapper>
   );
