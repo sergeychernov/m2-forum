@@ -84,6 +84,16 @@
     flex-shrink: 0;
 }
 
+.icon {
+    font-size: var(--font-size-lg);
+    margin-top: 0;
+    min-width: 20px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .pointText {
     font-size: var(--font-size-base);
     color: inherit;
@@ -129,6 +139,10 @@
 }
 
 .pointsCard:hover .bullet {
+    transform: scale(1.2);
+}
+
+.pointsCard:hover .icon {
     transform: scale(1.2);
 }
 
