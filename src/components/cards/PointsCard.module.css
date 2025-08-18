@@ -42,18 +42,15 @@
 
 /* Ограничиваем ширину карточки */
 .small {
-    max-width: 200px;
-    width: 200px;
+    width: 100%;
 }
 
 .medium {
-    max-width: 300px;
-    width: 300px;
+    width: 100%;
 }
 
 .large {
-    max-width: 350px;
-    width: 350px;
+    width: 100%;
 }
 
 .description {
@@ -68,20 +65,23 @@
     flex-direction: column;
     gap: var(--space-12);
     flex: 1;
+    align-items: flex-start;
 }
 
 .pointItem {
     display: flex;
-    align-items: flex-start;
-    gap: var(--space-8);
+    align-items: flex-start; /* Выравнивание по верхнему краю для многострочного текста */
+    gap: var(--space-4);
+    text-align: left; /* Убеждаемся, что текст выравнивается по левому краю */
 }
 
 .bullet {
     font-size: var(--font-size-lg);
     font-weight: bold;
-    margin-top: 2px;
+    margin-top: 0;
     min-width: 16px;
     color: inherit;
+    flex-shrink: 0;
 }
 
 .pointText {
@@ -128,26 +128,6 @@
     color: inherit;
 }
 
-.pointsList {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-12);
-}
-
-.pointItem {
-    display: flex;
-    align-items: flex-start;
-    line-height: 1.4;
-}
-
-.bullet {
-    display: inline-block;
-    margin-right: var(--space-12);
-    font-weight: bold;
-    font-size: var(--font-size-lg);
-    transition: transform 0.3s ease;
-}
-
 .pointsCard:hover .bullet {
     transform: scale(1.2);
 }
@@ -157,6 +137,8 @@
     font-size: var(--font-size-md);
     color: inherit;
     transition: color 0.3s ease;
+    text-align: left; /* Явно указываем выравнивание по левому краю */
+    word-wrap: break-word; /* Обеспечиваем правильный перенос длинных слов */
 }
 
 .pointsCard:hover .pointText {
