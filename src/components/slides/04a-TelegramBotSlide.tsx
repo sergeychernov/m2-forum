@@ -14,7 +14,8 @@ const TelegramBotSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
 		{ icon: '🧠', text: 'YandexGPT' },
 		{ icon: '💎', text: 'Gemini' },
 		{ icon: '🗄️', text: 'YDB' },
-		{ icon: '🎤', text: 'SpeechKit' }
+		{ icon: '🎤', text: 'SpeechKit' },
+		{ icon: '🤖', text: 'Grammy' },
 	];
 
 	return (
