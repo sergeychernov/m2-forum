@@ -31,13 +31,14 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
     <SlideWrapper
       title="Выводы и перспективы"
+      sign='👩🎩'
     >
       <CardsLayout
         cols="2"
         horizontalGap="medium"
         verticalGap="medium"
         contentWidth="wide"
-        animationType="bubbling"
+        animationType="explosion"
         animationDelay={250}
         isActive={isActive}
         isVisited={isVisited}

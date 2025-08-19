@@ -4,159 +4,6 @@
   height: 100%;
 }
 
-/* === МОЛНИЯ === */
-.lightningContainer {
-  position: absolute;
-  top: -50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 100px;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.lightning {
-  width: 100%;
-  height: 100%;
-  animation: lightningFlash 0.8s ease-out;
-}
-
-.lightningPath {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: lightningStrike 0.6s ease-out forwards;
-}
-
-@keyframes lightningFlash {
-  0%, 100% { opacity: 0; }
-  10%, 30%, 50% { opacity: 1; }
-  20%, 40% { opacity: 0.3; }
-}
-
-@keyframes lightningStrike {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* === ВЗРЫВ === */
-.explosionContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
-  z-index: 5;
-  pointer-events: none;
-}
-
-.explosionCore {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle, #fff 0%, #ff6b6b 30%, #ff4757 70%, transparent 100%);
-  border-radius: 50%;
-  animation: explosionCore 0.8s ease-out;
-}
-
-.explosionRing {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  border: 3px solid #ff6b6b;
-  border-radius: 50%;
-  animation: explosionRing 1s ease-out;
-}
-
-.explosionShockwave {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  border: 2px solid rgba(255, 107, 107, 0.5);
-  border-radius: 50%;
-  animation: explosionShockwave 1.2s ease-out;
-}
-
-.explosionParticle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: var(--size);
-  height: var(--size);
-  background: linear-gradient(45deg, #ff6b6b, #ffa500, #ffff00);
-  border-radius: 50%;
-  animation: explosionParticle 1s ease-out var(--delay);
-  transform-origin: center;
-}
-
-@keyframes explosionCore {
-  0% {
-    width: 0;
-    height: 0;
-    opacity: 1;
-  }
-  50% {
-    width: 40px;
-    height: 40px;
-    opacity: 0.8;
-  }
-  100% {
-    width: 80px;
-    height: 80px;
-    opacity: 0;
-  }
-}
-
-@keyframes explosionRing {
-  0% {
-    width: 0;
-    height: 0;
-    opacity: 1;
-    border-width: 5px;
-  }
-  100% {
-    width: 120px;
-    height: 120px;
-    opacity: 0;
-    border-width: 1px;
-  }
-}
-
-@keyframes explosionShockwave {
-  0% {
-    width: 0;
-    height: 0;
-    opacity: 0.8;
-  }
-  100% {
-    width: 200px;
-    height: 200px;
-    opacity: 0;
-  }
-}
-
-@keyframes explosionParticle {
-  0% {
-    transform: translate(-50%, -50%) rotate(var(--angle)) translateX(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(var(--angle)) translateX(var(--distance)) scale(0);
-    opacity: 0;
-  }
-}
-
 /* === КАРТОЧКА === */
 .markdownCard {
   background: var(--color-surface);
@@ -383,7 +230,7 @@
 
 .markdownRenderer ul li::before {
   content: '•';
-  color: inherit; /* Изменено с var(--color-primary) на inherit */
+  color: inherit;
   font-weight: bold;
   position: absolute;
   left: 0;
@@ -401,8 +248,8 @@
 .markdownRenderer blockquote {
   margin: var(--space-16) 0;
   padding: var(--space-12) var(--space-16);
-  border-left: none; /* Убираем рамку */
-  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный белый фон по умолчанию для темных карточек */
+  border-left: none;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-sm);
   font-style: italic;
 }
@@ -456,63 +303,6 @@
   margin-top: var(--space-16);
 }
 
-/* Специальные эффекты */
-.lightningContainer {
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 80px;
-  z-index: 1;
-}
-
-.lightning {
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(255, 255, 0, 0.8) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: lightningFlash 0.3s ease-out;
-}
-
-@keyframes lightningFlash {
-  0%, 100% { opacity: 0; transform: scale(0.5); }
-  50% { opacity: 1; transform: scale(1.2); }
-}
-
-.explosionContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 150px;
-  height: 150px;
-  z-index: 1;
-}
-
-.explosionParticle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  background: radial-gradient(circle, #ff6b6b, #00d4ff);
-  border-radius: 50%;
-  transform-origin: center;
-  animation: explode 0.8s ease-out forwards;
-}
-
-@keyframes explode {
-  0% {
-    transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateX(0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateX(80px) scale(0);
-    opacity: 0;
-  }
-}
-
 /* Эффекты наведения */
 .markdownContent:hover .markdownBorderLeft {
   width: 5px;
@@ -524,17 +314,6 @@
 @media (max-width: 768px) {
   .markdownContent {
     min-height: 150px;
-  }
-  
-  .lightningContainer {
-    width: 60px;
-    height: 60px;
-    top: -30px;
-  }
-  
-  .explosionContainer {
-    width: 120px;
-    height: 120px;
   }
   
   .markdownRenderer h1 {
