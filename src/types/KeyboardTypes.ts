@@ -5,7 +5,7 @@ export interface KeyboardConfig {
 }
 
 export interface SlideWithActions {
-	onNextAction?: () => void;
+	onNextAction?: () => boolean; // Возвращает true если действие выполнено, false если нужно перейти к следующему слайду
 }
 
 export interface SlideProps {

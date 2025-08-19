@@ -93,9 +93,14 @@ const Presentation: React.FC = () => {
   }, [currentSlide, updateURL]);
 
   const nextAction = useCallback(() => {
+    console.info('nextAction', currentSlide);
     const currentSlideRef = slideRefs[currentSlide];
     if (currentSlideRef && currentSlideRef.onNextAction) {
-      currentSlideRef.onNextAction();
+      const actionHandled = currentSlideRef.onNextAction();
+      if (!actionHandled) {
+        // Если действие не было обработано, переходим к следующему слайду
+        nextSlide();
+      }
     } else {
       // Если у слайда нет внутренних действий, переходим к следующему слайду
       nextSlide();
@@ -289,11 +294,9 @@ const Presentation: React.FC = () => {
               <SlideComponent
                 isActive={slideId === currentSlide}
                 isVisited={visitedSlides.has(slideId)}
-                {...(SlideComponent.length > 2 ? {
-                  onRegisterSlide: (slideRef: SlideWithActions) => registerSlide(slideId, slideRef),
-                  keyboardConfig,
-                  updateKeyboardConfig
-                } : {})}
+                onRegisterSlide={(slideRef: SlideWithActions) => registerSlide(slideId, slideRef)}
+                keyboardConfig={keyboardConfig}
+                updateKeyboardConfig={updateKeyboardConfig}
               />
             </div>
           );
