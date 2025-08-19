@@ -12,19 +12,23 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   const conclusions = [
     {
       content: `**AI инструменты значительно повышают продуктивность** в большинстве задач. В нашей команде AI как новый сотрудник — потеряв одного старшего разработчика, производительность осталась прежней\n\n![График производительности команды](${process.env.PUBLIC_URL}/charts/performance-chart.svg)`,
-      background: 'blue' as const
+      background: 'blue' as const,
+      enableFullscreen: true
     },
     {
       content: '## Наибольшая эффективность\n\nДостигается в задачах:\n- Документации\n- Генерации кода \n- Работа с DB \n- Тесты \n- Logs \n- Bugs',
-      background: 'green' as const
+      background: 'green' as const,
+      enableFullscreen: false
     },
     {
       content: '### Время адаптации\n\nЧтобы разработчику увеличить производительность потребуется **2-3 месяца**, чтобы выработался специфический навык:\n\n- Формулирования задач\n- Декомпозиции\n- Адаптации под специфику проекта',
-      background: 'purple' as const
+      background: 'purple' as const,
+      enableFullscreen: false
     },
     {
       content: '⚠️ **Всегда проверяйте и тестируйте сгенерированный код**\n\n### Баланс важен\n\nИспользуйте AI как **помощник**, а не замену собственных знаний.\n\n> Важно поддерживать баланс между автоматизацией и человеческим контролем',
-      background: 'orange' as const
+      background: 'orange' as const,
+      enableFullscreen: false
     }
   ];
 
@@ -51,6 +55,7 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             background={conclusion.background}
             isActive={isActive}
             isVisited={isVisited}
+            enableFullscreen={conclusion.enableFullscreen}
           />
         ))}
       </CardsLayout>

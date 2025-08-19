@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+// файл: MarkdownCard.tsx (компонент MarkdownCard)
+import React, { useEffect, useState, useRef, forwardRef, useImperativeHandle } from 'react';
 import ReactMarkdown from 'react-markdown';
 import CardWrapper from '../wrappers/CardWrapper';
 import styles from './MarkdownCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import { CardBackground } from '../../types/CardBackground';
 import { BorderAccent } from '../../types/BorderAccent';
+import { InteractiveRef } from '../../types/Interactive';
 
 interface MarkdownCardProps {
   content: string;
@@ -17,9 +19,13 @@ interface MarkdownCardProps {
   isVisited?: boolean;
   background?: CardBackground;
   borderAccent?: BorderAccent;
+  // Новый проп: включает управление fullscreen через nextAction
+  enableFullscreen?: boolean;
+  // Унифицированный флаг интерактивности
+  interactive?: boolean;
 }
 
-const MarkdownCard: React.FC<MarkdownCardProps> = ({ 
+const MarkdownCard = forwardRef<InteractiveRef, MarkdownCardProps>(({ 
   content, 
   index, 
   chart,
@@ -29,8 +35,10 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
   isActive = true,
   isVisited = false,
   background,
-  borderAccent
-}) => {
+  borderAccent,
+  enableFullscreen = false,
+  interactive
+}, ref) => {
   const [showExplosion, setShowExplosion] = useState(false);
   const [showLightning, setShowLightning] = useState(false);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
@@ -43,21 +51,23 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
     index: animationIndex
   });
 
+  // Будем сохранять первую встреченную картинку, чтобы уметь открывать её по nextAction
+  const firstImageRef = useRef<string | null>(null);
+  // Сбрасываем перед рендером markdown (на каждой отрисовке)
+  firstImageRef.current = null;
+
   useEffect(() => {
     if (shouldAnimate && animationType === 'explosion') {
       const lightningTimer = setTimeout(() => {
         setShowLightning(true);
       }, 100);
-
       const explosionTimer = setTimeout(() => {
         setShowExplosion(true);
       }, 200);
-
       const cleanupTimer = setTimeout(() => {
         setShowLightning(false);
         setShowExplosion(false);
       }, 2000);
-
       return () => {
         clearTimeout(lightningTimer);
         clearTimeout(explosionTimer);
@@ -77,9 +87,13 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
     }
   }, [isActive, shouldLoadImages]);
 
+  // Единый флаг интерактивности (совместимость с enableFullscreen)
+  const isInteractive = (interactive ?? enableFullscreen) === true;
+
   // Кастомный компонент для изображений: используем shouldLoadImages вместо isActive
   const ImageComponent = ({ src, alt, ...props }: any) => {
     const handleImageClick = () => {
+      if (!isInteractive) return;
       setFullscreenImage(src);
     };
 
@@ -90,6 +104,11 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
           style={{ background: 'var(--color-background-secondary)' }}
         />
       );
+    }
+
+    // Запоминаем первую картинку
+    if (typeof src === 'string' && !firstImageRef.current) {
+      firstImageRef.current = src;
     }
 
     return (
@@ -115,6 +134,21 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
     }
   };
 
+  // Императивные методы для интеграции с nextAction
+  useImperativeHandle(ref, () => ({
+    openFullscreen: () => {
+      if (!isInteractive) return;
+      const src = firstImageRef.current;
+      if (src) {
+        setFullscreenImage(src);
+      }
+    },
+    closeFullscreen: () => {
+      setFullscreenImage(null);
+    },
+    isFullscreenOpen: () => !!fullscreenImage
+  }), [isInteractive, fullscreenImage]);
+
   return (
     <>
       <CardWrapper 
@@ -126,14 +160,12 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
           isFirstCard ? styles.firstCard : ''
         } ${isLastCard ? styles.lastCard : ''}`}
       >
-        
         {/* Специальные эффекты для explosion анимации */}
         {showLightning && (
           <div className={styles.lightningContainer}>
             <div className={styles.lightning}></div>
           </div>
         )}
-        
         {showExplosion && (
           <div className={styles.explosionContainer}>
             {[...Array(8)].map((_, i) => (
@@ -143,7 +175,6 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
             ))}
           </div>
         )}
-        
         <div className={styles.textContent}>
           <div className={styles.markdownRenderer}>
             <ReactMarkdown
@@ -187,6 +218,18 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
       )}
     </>
   );
+});
+
+MarkdownCard.displayName = 'MarkdownCard';
+
+// Статический метод: компонент сам решает, интерактивный он или нет
+// Правило: интерактивна, если enableFullscreen === true И в контенте есть изображение
+(MarkdownCard as any).isInteractive = (props: { content?: string; enableFullscreen?: boolean }) => {
+  if (props?.enableFullscreen !== true) return false;
+  const text = props?.content || '';
+  const hasMarkdownImage = /!\[[^\]]*\]\([^)]+\)/.test(text); // ![alt](src)
+  const hasHtmlImage = /<img\s[^>]*src=["'][^"']+["'][^>]*>/i.test(text); // <img src="...">
+  return hasMarkdownImage || hasHtmlImage;
 };
 
 export default MarkdownCard;

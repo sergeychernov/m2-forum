@@ -2,6 +2,7 @@ import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'rea
 import styles from './ImageCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import cn from "classnames";
+import { InteractiveRef } from '../../types/Interactive';
 
 interface ImageCardProps {
 	src: string;
@@ -17,13 +18,9 @@ interface ImageCardProps {
 	enableFullscreen?: boolean;
 }
 
-export interface ImageCardRef {
-	openFullscreen: () => void;
-	closeFullscreen: () => void;
-	isFullscreenOpen: () => boolean;
-}
+export type ImageCardRef = InteractiveRef;
 
-const ImageCard = React.memo(forwardRef<ImageCardRef, ImageCardProps>(({ 
+const ImageCard = React.memo(forwardRef<InteractiveRef, ImageCardProps>(({
 	src,
 	alt,
 	maxHeight = '400px',
@@ -37,7 +34,7 @@ const ImageCard = React.memo(forwardRef<ImageCardRef, ImageCardProps>(({
 	enableFullscreen = false
 }, ref) => {
 	const [isFullscreen, setIsFullscreen] = useState(false);
-	
+
 	const { animationClasses } = useCardAnimation({
 		isActive,
 		isVisited,
@@ -54,10 +51,13 @@ const ImageCard = React.memo(forwardRef<ImageCardRef, ImageCardProps>(({
 		}
 	}, [isActive, shouldLoadImage]);
 
+	// Единый флаг интерактивности для ImageCard
+	const isInteractive = (enableFullscreen === true);
+
 	// Предоставляем методы через ref
 	useImperativeHandle(ref, () => ({
 		openFullscreen: () => {
-			if (enableFullscreen) {
+			if (isInteractive) {
 				setIsFullscreen(true);
 			}
 		},
@@ -68,11 +68,12 @@ const ImageCard = React.memo(forwardRef<ImageCardRef, ImageCardProps>(({
 	}));
 
 	const handleImageClick = () => {
-		if (enableFullscreen) {
+		if (isInteractive) {
 			setIsFullscreen(true);
 		}
 	};
 
+	// ВОССТАНОВЛЕНО: обработчики для модалки
 	const handleFullscreenClose = () => {
 		setIsFullscreen(false);
 	};
@@ -91,7 +92,7 @@ const ImageCard = React.memo(forwardRef<ImageCardRef, ImageCardProps>(({
 						alt={alt}
 						src={src}
 						className={cn(styles.image, className, {
-							[styles.clickable]: enableFullscreen
+							[styles.clickable]: isInteractive
 						})}
 						style={{ maxHeight, objectFit }}
 						onClick={handleImageClick}
@@ -107,14 +108,14 @@ const ImageCard = React.memo(forwardRef<ImageCardRef, ImageCardProps>(({
 					/>
 				)}
 			</div>
-			
+
 			{isFullscreen && (
-				<div 
+				<div
 					className={styles.fullscreenOverlay}
 					onClick={handleBackdropClick}
 				>
 					<div className={styles.fullscreenContainer}>
-						<button 
+						<button
 							className={styles.closeButton}
 							onClick={handleFullscreenClose}
 							aria-label="Закрыть полноэкранный режим"
@@ -136,5 +137,11 @@ const ImageCard = React.memo(forwardRef<ImageCardRef, ImageCardProps>(({
 
 // Добавляем displayName для корректной работы с SlideWrapper
 ImageCard.displayName = 'ImageCard';
+
+// Статический метод: компонент сам решает, интерактивный он или нет
+// Правило: ImageCard интерактивна только если enableFullscreen === true
+(ImageCard as any).isInteractive = (props: { enableFullscreen?: boolean }) => {
+    return props?.enableFullscreen === true;
+};
 
 export default ImageCard;

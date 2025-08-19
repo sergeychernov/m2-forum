@@ -1,6 +1,6 @@
 import React, { ReactNode, useRef, useCallback, forwardRef, useImperativeHandle, useState } from 'react';
 import styles from './SlideWrapper.module.css';
-import { ImageCardRef } from '../cards/ImageCard';
+import { InteractiveRef } from '../../types/Interactive';
 import { useSlideInstance } from './SlideContext';
 
 interface SlideWrapperProps {
@@ -20,18 +20,19 @@ interface ImageCardProps {
     [key: string]: any;
 }
 
-const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperProps>(({ 
+const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperProps>(({
     title,
     subtitle,
     children,
     footerNote,
-    className = '',
+    className,
     sign,
-    cardVariant = 'default',
-    onRegisterSlideActions
+    cardVariant,
+    onRegisterSlideActions,
+    onRegisterSlide, // оставлен для обратной совместимости, если используется снаружи
 }, ref) => {
     const [actionStep, setActionStep] = useState(0);
-    const imageCardRefs = useRef<(ImageCardRef | null)[]>([]);
+    const interactiveRefs = useRef<(InteractiveRef | null)[]>([]);
     const totalActions = useRef(0);
 
     const containerClasses = [
@@ -39,31 +40,30 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
         className,
     ].filter(Boolean).join(' ');
 
-    // Функция для обработки последовательных действий
+    // Последовательные действия: open -> close для каждой интерактивной карточки
     const handleNextAction = useCallback((): boolean => {
         if (actionStep < totalActions.current) {
-            const imageIndex = Math.floor(actionStep / 2);
+            const elementIndex = Math.floor(actionStep / 2);
             const isOpenAction = actionStep % 2 === 0;
-            
-            const imageCard = imageCardRefs.current[imageIndex];
-            if (imageCard) {
+
+            const interactive = interactiveRefs.current[elementIndex];
+            if (interactive) {
                 if (isOpenAction) {
-                    imageCard.openFullscreen();
+                    interactive.openFullscreen();
                 } else {
-                    imageCard.closeFullscreen();
+                    interactive.closeFullscreen();
                 }
                 setActionStep(prev => prev + 1);
-                return true; // Действие обработано
+                return true;
             }
         }
-        // Больше действий нет, переходим к следующему слайду
         return false;
     }, [actionStep]);
 
-    // Подключаем контекст регистрации слайда
+    // Регистрация слайда через контекст
     const { registerSlide } = useSlideInstance();
 
-    // Предоставляем методы через ref
+    // Экспорт действий наружу через ref
     useImperativeHandle(ref, () => ({
         onNextAction: handleNextAction
     }));
@@ -73,97 +73,91 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
         setActionStep(0);
     }, []);
 
-    // Рекурсивная функция для поиска ImageCard в дереве компонентов
-    const findImageCards = (element: React.ReactElement, refs: (ImageCardRef | null)[]): React.ReactElement => {
-        const childType = element.type as any;
-        
-        // Если это ImageCard с enableFullscreen
-        if (childType && (childType.displayName === 'ImageCard' || childType.name === 'ImageCard')) {
-            const props = element.props as ImageCardProps;
-            
-            if (props.enableFullscreen) {
-                const refIndex = refs.length;
-                refs.push(null); // Заполним позже через callback ref
-                
-                // Создаем новые props с callback ref
-                const newProps = {
-                    ...props,
-                    key: `image-card-${refIndex}`
-                };
-                
-                // Используем callback ref для установки ссылки
-                const callbackRef = (node: ImageCardRef | null) => {
-                    refs[refIndex] = node;
-                    // Если у элемента уже был ref, вызываем его тоже
-                    const originalRef = (element as any).ref;
-                    if (typeof originalRef === 'function') {
-                        originalRef(node);
-                    } else if (originalRef && typeof originalRef === 'object') {
-                        (originalRef as any).current = node;
-                    }
-                };
-                
-                return React.cloneElement(element, {
-                    ...newProps,
-                    ref: callbackRef
-                } as any);
-            }
+    // Рекурсивная функция: находим все интерактивные элементы (только через статический метод isInteractive)
+    const findInteractiveElements = (
+        element: React.ReactElement<any, any>,
+        refs: (InteractiveRef | null)[]
+    ): React.ReactElement<any, any> => {
+        const elementProps = (element.props || {}) as any;
+        const elementType: any = (element as any).type;
+
+        // Только статический метод компонента
+        const isInteractive =
+            typeof elementType?.isInteractive === 'function'
+                ? !!elementType.isInteractive(elementProps)
+                : false;
+
+        if (isInteractive) {
+            const refIndex = refs.length;
+            refs.push(null);
+
+            const newProps = {
+                ...elementProps,
+                key: element.key ?? `interactive-${refIndex}`,
+            };
+
+            const callbackRef = (node: InteractiveRef | null) => {
+                refs[refIndex] = node;
+                const originalRef = (element as any).ref;
+                if (typeof originalRef === 'function') {
+                    originalRef(node);
+                } else if (originalRef && typeof originalRef === 'object') {
+                    (originalRef as any).current = node;
+                }
+            };
+
+            return React.cloneElement(element, {
+                ...newProps,
+                ref: callbackRef,
+            } as any);
         }
-        
-        // Рекурсивно обрабатываем дочерние элементы
-        if (React.isValidElement(element) && element.props) {
-            const elementProps = element.props as any;
-            if (elementProps.children) {
-                const enhancedChildren = React.Children.map(elementProps.children, (child) => {
-                    if (React.isValidElement(child)) {
-                        return findImageCards(child, refs);
-                    }
-                    return child;
-                });
-                
-                return React.cloneElement(element, {
-                    ...elementProps,
-                    children: enhancedChildren
-                } as any);
-            }
+
+        // Рекурсивно обрабатываем детей
+        if ((elementProps as any)?.children) {
+            const enhancedChildren = React.Children.map((elementProps as any).children, (child) => {
+                if (React.isValidElement(child)) {
+                    return findInteractiveElements(child as React.ReactElement<any, any>, refs);
+                }
+                return child;
+            });
+
+            return React.cloneElement(element, {
+                ...elementProps,
+                children: enhancedChildren,
+            } as any);
         }
-        
+
         return element;
     };
 
-    // ВАЖНО: собираем refs с нуля на каждый рендер и только потом присваиваем в imageCardRefs.current
-    const collectedRefs: (ImageCardRef | null)[] = [];
+    // ВАЖНО: собираем refs с нуля на каждый рендер и только потом присваиваем в interactiveRefs.current
+    const collectedRefs: (InteractiveRef | null)[] = [];
 
     const enhancedChildren = React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
             const childType = child.type as any;
-            
-            // Обрабатываем CardsLayout
+
+            // Пробрасываем cardVariant внутрь CardsLayout и продолжаем поиск рефов
             if (childType && (childType.displayName === 'CardsLayout' || childType.name === 'CardsLayout')) {
                 const childProps = child.props || {};
                 const enhancedChild = React.cloneElement(child as any, {
                     ...childProps,
-                    cardVariant
+                    cardVariant,
                 });
-                
-                // Ищем ImageCard внутри CardsLayout
-                return findImageCards(enhancedChild, collectedRefs);
+                return findInteractiveElements(enhancedChild, collectedRefs);
             }
-            
-            // Ищем ImageCard на верхнем уровне
-            return findImageCards(child, collectedRefs);
+
+            return findInteractiveElements(child, collectedRefs);
         }
         return child;
     });
 
-    // Перезаписываем refs после построения дерева, чтобы избежать накопления null
-    imageCardRefs.current = collectedRefs;
+    interactiveRefs.current = collectedRefs;
 
-    // Подсчитываем общее количество действий и регистрируем слайд после монтирования/обновления
+    // Пересчёт количества действий и регистрация
     React.useEffect(() => {
-        const validRefs = imageCardRefs.current.filter(ref => ref !== null);
-        const newTotalActions = validRefs.length * 2;
-        totalActions.current = newTotalActions;
+        const validRefs = interactiveRefs.current.filter(Boolean);
+        totalActions.current = validRefs.length * 2;
 
         if (onRegisterSlideActions) {
             onRegisterSlideActions({ onNextAction: handleNextAction });
@@ -171,7 +165,10 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
         if (registerSlide) {
             registerSlide({ onNextAction: handleNextAction });
         }
-    }, [children, onRegisterSlideActions, handleNextAction, registerSlide]);
+        if (onRegisterSlide) {
+            onRegisterSlide({ onNextAction: handleNextAction });
+        }
+    }, [children, onRegisterSlideActions, handleNextAction, registerSlide, onRegisterSlide]);
 
     const content = (
         <>
