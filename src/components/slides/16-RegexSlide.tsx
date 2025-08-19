@@ -1,28 +1,52 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import { PointsList } from '../cards/PointsList';
 import ImageCard from '../cards/ImageCard';
 import SlideWrapper from "../wrappers/SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
+import { SlideProps } from '../../types/KeyboardTypes';
 
-interface SlideProps {
-    isActive: boolean;
-    isVisited: boolean;
-}
+const RegexSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({ 
+    isActive, 
+    isVisited,
+    onRegisterSlide,
+    keyboardConfig,
+    updateKeyboardConfig
+}, ref) => {
+    const slideWrapperRef = useRef<{ onNextAction: () => boolean }>(null);
 
-const RegexSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
+    // Предоставляем методы через ref, чтобы Presentation мог вызывать действия
+    useImperativeHandle(ref, () => ({
+        onNextAction: () => {
+            // Делегируем вызов действия в SlideWrapper
+            return slideWrapperRef.current?.onNextAction() || false;
+        }
+    }));
+
+    // Регистрируем этот слайд в Presentation.tsx
+    React.useEffect(() => {
+        if (onRegisterSlide && ref) {
+            onRegisterSlide({
+                // Передаем функцию, которую Presentation сможет вызвать
+                onNextAction: () => (ref as any).current.onNextAction()
+            });
+        }
+    }, [onRegisterSlide, ref]);
+
+
     const features = [
-        'Валидация сложных данных (телефоны, email, пароли)',
-        'Парсинг и форматирование дат/времени',
-        'Обработка и фильтрация JSON-ответов API',
-        'Рефакторинг и оптимизация существующего кода',
-        'Генерация тестовых данных и моков'
+        "🤖 ИИ анализирует контекст задачи",
+        "📝 Генерирует точные регулярные выражения",
+        "✅ Проверяет корректность на примерах",
+        "🔧 Предлагает оптимизации и улучшения",
+        "📚 Объясняет логику работы паттерна"
     ];
 
     return (
         <SlideWrapper
-            title="Регулярные выражения и не только"
-            subtitle='ИИ помогает с редко используемыми задачами, когда легко ошибиться или забыть синтаксис'
-            sign='👩'
+            ref={slideWrapperRef}
+            title="Регулярные выражения с ИИ"
+            subtitle="Автоматическая генерация и оптимизация regex-паттернов"
+            footerNote="ИИ помогает создавать сложные регулярные выражения быстро и без ошибок"
         >
             <CardsLayout
                 colsRatio="2:3"
@@ -41,10 +65,11 @@ const RegexSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
                     maxHeight="400px"
                     objectFit="contain"
                     enableFullscreen={true}
+                    className="imageCard"
                 />
             </CardsLayout>
         </SlideWrapper>
     );
-};
+});
 
 export default RegexSlide;

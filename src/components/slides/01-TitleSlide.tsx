@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle, forwardRef, useEffect } from 'react';
+import React, { useState, useImperativeHandle, forwardRef, useEffect, useCallback } from 'react';
 import styles from '../layouts/CardsLayout.module.css';
 import titleStyles from './TitleSlide.module.css';
 import ImageCard from '../cards/ImageCard';
@@ -15,15 +15,13 @@ const TitleSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
   const buildVersion = process.env.REACT_APP_BUILD_VERSION || 'dev';
   const buildNumber = process.env.REACT_APP_BUILD_NUMBER || '1';
 
-  const handleClockClick = () => {
+  const handleClockClick = useCallback(() => {
     if (!showMeme) {
-      console.log('TitleSlide: showing meme');
       setShowMeme(true);
       return true; // Действие выполнено
     }
-    console.log('TitleSlide: no more actions, should go to next slide');
     return false; // Действий больше нет, переходим к следующему слайду
-  };
+  }, [showMeme]);
 
   // Экспортируем метод onNextAction для использования системой клавиатуры
   useImperativeHandle(ref, () => ({
@@ -32,12 +30,10 @@ const TitleSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
 
   // Регистрируем слайд в системе при монтировании
   useEffect(() => {
-    console.log('TitleSlide: useEffect called', { onRegisterSlide: !!onRegisterSlide });
     if (onRegisterSlide) {
-      console.log('TitleSlide: registering slide with onNextAction');
       onRegisterSlide({ onNextAction: handleClockClick });
     }
-  }, [onRegisterSlide]);
+  }, [onRegisterSlide, handleClockClick]);
 
   return (
     <div className={`${styles.slideContent} ${titleStyles.titleSlide}`}>

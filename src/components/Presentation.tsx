@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Presentation.module.css';
 import { KeyboardAction, KeyboardConfig, SlideWithActions } from '../types/KeyboardTypes';
@@ -26,11 +26,16 @@ import QRCodesSlide from './slides/20-QRCodesSlide';
 const Presentation: React.FC = () => {
   const { slideNumber } = useParams<{ slideNumber?: string }>();
   const navigate = useNavigate();
+  const [currentSlide, setCurrentSlide] = useState(1);
+  const [visitedSlides, setVisitedSlides] = useState(new Set<number>());
+  const slideRefs = useRef<{ [key: number]: SlideWithActions }>({});
 
-  const [visitedSlides, setVisitedSlides] = useState(new Set([1]));
-  const [slideRefs, setSlideRefs] = useState<{ [key: number]: SlideWithActions }>({});
+  useEffect(() => {
+    const slideNum = parseInt(slideNumber || '1', 10);
+    setCurrentSlide(slideNum);
+    setVisitedSlides(prev => new Set(prev).add(slideNum));
+  }, [slideNumber]);
 
-  // Настройки клавиатуры по умолчанию
   const [keyboardConfig, setKeyboardConfig] = useState<KeyboardConfig>({
     'ArrowRight': 'nextSlide',
     'Enter': 'nextSlide',
@@ -39,7 +44,6 @@ const Presentation: React.FC = () => {
   });
 
   // Определяем текущий слайд из URL или устанавливаем 1 по умолчанию
-  const currentSlide = slideNumber ? parseInt(slideNumber, 10) : 1;
 
   const slides = [
     TitleSlide,
@@ -93,19 +97,34 @@ const Presentation: React.FC = () => {
   }, [currentSlide, updateURL]);
 
   const nextAction = useCallback(() => {
-    console.info('nextAction', currentSlide);
-    const currentSlideRef = slideRefs[currentSlide];
+    const currentSlideRef = slideRefs.current[currentSlide];
     if (currentSlideRef && currentSlideRef.onNextAction) {
       const actionHandled = currentSlideRef.onNextAction();
       if (!actionHandled) {
         // Если действие не было обработано, переходим к следующему слайду
-        nextSlide();
+        if (currentSlide < totalSlides) {
+          const newSlide = currentSlide + 1;
+          updateURL(newSlide);
+          setVisitedSlides(prev => {
+            const newSet = new Set(prev);
+            newSet.add(newSlide);
+            return newSet;
+          });
+        }
       }
     } else {
       // Если у слайда нет внутренних действий, переходим к следующему слайду
-      nextSlide();
+      if (currentSlide < totalSlides) {
+        const newSlide = currentSlide + 1;
+        updateURL(newSlide);
+        setVisitedSlides(prev => {
+          const newSet = new Set(prev);
+          newSet.add(newSlide);
+          return newSet;
+        });
+      }
     }
-  }, [currentSlide, slideRefs, nextSlide]);
+  }, [currentSlide, slideRefs, totalSlides, updateURL]);
 
   const goToSlide = useCallback((slideNumber: number) => {
     if (slideNumber >= 1 && slideNumber <= totalSlides) {
@@ -133,8 +152,8 @@ const Presentation: React.FC = () => {
 
   // Функция для регистрации слайда с поддержкой действий
   const registerSlide = useCallback((slideNumber: number, slideRef: SlideWithActions) => {
-    setSlideRefs(prev => ({ ...prev, [slideNumber]: slideRef }));
-  }, []);
+    slideRefs.current[slideNumber] = slideRef;
+  }, []); // Убедиться что зависимостей нет
 
   // Обновляем visitedSlides при изменении текущего слайда
   useEffect(() => {
@@ -194,7 +213,7 @@ const Presentation: React.FC = () => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [keyboardConfig, nextSlide, previousSlide, nextAction, goToSlide, totalSlides]);
+  }, [keyboardConfig, goToSlide, totalSlides, nextSlide, previousSlide, nextAction]); // Добавляем функции в зависимости
 
   // Touch support
   useEffect(() => {

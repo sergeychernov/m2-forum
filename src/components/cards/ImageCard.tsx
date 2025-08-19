@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import styles from './ImageCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import cn from "classnames";
@@ -17,7 +17,13 @@ interface ImageCardProps {
 	enableFullscreen?: boolean;
 }
 
-const ImageCard: React.FC<ImageCardProps> = ({
+export interface ImageCardRef {
+	openFullscreen: () => void;
+	closeFullscreen: () => void;
+	isFullscreenOpen: () => boolean;
+}
+
+const ImageCard = forwardRef<ImageCardRef, ImageCardProps>(({ 
 	src,
 	alt,
 	maxHeight = '400px',
@@ -29,7 +35,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
 	isVisited = false,
 	className,
 	enableFullscreen = false
-}) => {
+}, ref) => {
 	const [isFullscreen, setIsFullscreen] = useState(false);
 	
 	const { animationClasses } = useCardAnimation({
@@ -39,6 +45,19 @@ const ImageCard: React.FC<ImageCardProps> = ({
 		delay: animationDelay,
 		index: animationIndex
 	});
+
+	// Предоставляем методы через ref
+	useImperativeHandle(ref, () => ({
+		openFullscreen: () => {
+			if (enableFullscreen) {
+				setIsFullscreen(true);
+			}
+		},
+		closeFullscreen: () => {
+			setIsFullscreen(false);
+		},
+		isFullscreenOpen: () => isFullscreen
+	}));
 
 	const handleImageClick = () => {
 		if (enableFullscreen) {
@@ -94,6 +113,6 @@ const ImageCard: React.FC<ImageCardProps> = ({
 			)}
 		</>
 	);
-};
+});
 
 export default ImageCard;
