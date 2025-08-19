@@ -20,7 +20,7 @@ const ProductPrototypeSlide: React.FC<SlideProps> = ({ isActive, isVisited }) =>
         cols="2"
         colsRatio="3:2"
         horizontalGap="large"
-        verticalGap="medium"
+        verticalGap="large"
         contentWidth="medium"
         animationType="appearance"
         animationDelay={150}

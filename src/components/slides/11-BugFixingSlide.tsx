@@ -48,7 +48,7 @@ const BugFixingSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       <CardsLayout
         cols="3"
         horizontalGap="large"
-        verticalGap="medium"
+        verticalGap="large"
         contentWidth="narrow"
         animationType="appearance"
         animationDelay={150}

@@ -20,7 +20,7 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         cols="3"
         colsRatio='2:1:1'
         horizontalGap="large"
-        verticalGap="medium"
+        verticalGap="large"
         contentWidth="narrow"
         animationType="appearance"
         animationDelay={150}

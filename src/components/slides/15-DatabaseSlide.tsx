@@ -60,7 +60,7 @@ const DatabaseSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       <CardsLayout
         cols="3"
         horizontalGap="large"
-        verticalGap="medium"
+        verticalGap="large"
         contentWidth="medium"
         animationType="appearance"
         animationDelay={150}

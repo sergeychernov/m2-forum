@@ -27,7 +27,7 @@ const TelegramBotSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
 			<CardsLayout
 				cols="2"
 				colsRatio="1:1"
-				horizontalGap="large"
+				horizontalGap="medium"
 				verticalGap="medium"
 				contentWidth="medium"
 				animationType="appearance"

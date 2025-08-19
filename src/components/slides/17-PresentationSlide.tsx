@@ -21,7 +21,7 @@ const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       <CardsLayout
         cols="4"
         horizontalGap="large"
-        verticalGap="medium"
+        verticalGap="large"
         contentWidth="wide"
         animationType="appearance"
         animationDelay={150}

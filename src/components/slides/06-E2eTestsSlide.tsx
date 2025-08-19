@@ -23,7 +23,7 @@ const E2eTestsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         >
             <ThreeCardsLayout
                 colsRatio="2x2:3"
-                horizontalGap="large"
+                horizontalGap="medium"
                 verticalGap="medium"
                 contentWidth="narrow"
                 contentAlign="center"

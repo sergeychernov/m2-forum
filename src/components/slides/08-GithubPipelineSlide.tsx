@@ -20,7 +20,7 @@ const GithubPipelineSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         cols="2"
         colsRatio='2:3'
         horizontalGap="large"
-        verticalGap="medium"
+        verticalGap="large"
         contentWidth="narrow"
         animationType="appearance"
         animationDelay={150}

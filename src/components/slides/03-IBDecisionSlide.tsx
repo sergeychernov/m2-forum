@@ -24,7 +24,7 @@ const IBDecisionSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       <CardsLayout
         cols="3"
         horizontalGap="large"
-        verticalGap="medium"
+        verticalGap="large"
         animationType="grasshopper"
         contentWidth="narrow"
         animationDelay={150}
