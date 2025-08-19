@@ -69,18 +69,37 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
   const isFirstCard = index === 0;
   const isLastCard = index % 2 === 1;
 
-  // Кастомный компонент для изображений
+  // Ленивая загрузка — включаем разово при первом появлении активного слайда
+  const [shouldLoadImages, setShouldLoadImages] = useState(false);
+  useEffect(() => {
+    if (isActive && !shouldLoadImages) {
+      setShouldLoadImages(true);
+    }
+  }, [isActive, shouldLoadImages]);
+
+  // Кастомный компонент для изображений: используем shouldLoadImages вместо isActive
   const ImageComponent = ({ src, alt, ...props }: any) => {
     const handleImageClick = () => {
       setFullscreenImage(src);
     };
 
+    if (!shouldLoadImages) {
+      return (
+        <div
+          className={styles.markdownImage}
+          style={{ background: 'var(--color-background-secondary)' }}
+        />
+      );
+    }
+
     return (
       <img
+        key={src} // Добавить стабильный ключ
         src={src}
         alt={alt}
         className={styles.markdownImage}
         onClick={handleImageClick}
+        loading="lazy"
         {...props}
       />
     );

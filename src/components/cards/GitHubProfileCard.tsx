@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import CardWrapper from '../wrappers/CardWrapper';
 import styles from './GitHubProfileCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
@@ -49,25 +49,53 @@ const GitHubProfileCard: React.FC<GitHubProfileCardProps> = ({
     index: animationIndex
   });
 
+  // Флаг однократной загрузки и слежение за username
+  const userLoadedRef = useRef(false);
+  const lastUsernameRef = useRef<string | null>(null);
+
   useEffect(() => {
+    if (lastUsernameRef.current !== username) {
+      userLoadedRef.current = false;
+      lastUsernameRef.current = username;
+    }
+  }, [username]);
+
+  useEffect(() => {
+    if (!isActive || userLoadedRef.current) {
+      return;
+    }
+
+    let cancelled = false;
+
     const fetchUser = async () => {
       try {
         setLoading(true);
+        setError(null);
         const response = await fetch(`https://api.github.com/users/${username}`);
         if (!response.ok) {
           throw new Error('Пользователь не найден');
         }
         const userData = await response.json();
-        setUser(userData);
+        if (!cancelled) {
+          setUser(userData);
+          userLoadedRef.current = true;
+        }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Ошибка загрузки');
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : 'Ошибка загрузки');
+        }
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
     fetchUser();
-  }, [username]);
+    return () => {
+      cancelled = true;
+    };
+  }, [username, isActive]);
 
   const handleProfileClick = () => {
     if (user) {

@@ -49,6 +49,8 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             content={conclusion.content}
             index={index}
             background={conclusion.background}
+            isActive={isActive}
+            isVisited={isVisited}
           />
         ))}
       </CardsLayout>

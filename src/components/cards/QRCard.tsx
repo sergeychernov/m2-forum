@@ -121,6 +121,10 @@ const QRCard: React.FC<QRCardProps> = ({
     index: animationIndex
   });
 
+  // Флаги "однократной" загрузки для каждого источника
+  const downloadsLoadedRef = useRef(false);
+  const githubLoadedRef = useRef(false);
+  const habrLoadedRef = useRef(false);
   useEffect(() => {
     // Обычный QR код
     if (canvasRef.current) {
@@ -168,9 +172,7 @@ const QRCard: React.FC<QRCardProps> = ({
   // Загрузка weekly downloads (только для npm ссылок)
   useEffect(() => {
     let cancelled = false;
-    if (!npmPackageName) {
-      setWeeklyDownloads(null);
-      setDownloadsError(null);
+    if (!npmPackageName || !isActive || downloadsLoadedRef.current) {
       return;
     }
 
@@ -182,6 +184,7 @@ const QRCard: React.FC<QRCardProps> = ({
         const data: { downloads: number } = await resp.json();
         if (!cancelled) {
           setWeeklyDownloads(typeof data.downloads === 'number' ? data.downloads : null);
+          downloadsLoadedRef.current = true;
         }
       } catch (e: any) {
         if (!cancelled) {
@@ -193,13 +196,17 @@ const QRCard: React.FC<QRCardProps> = ({
 
     loadDownloads();
     return () => { cancelled = true; };
-  }, [npmPackageName]);
+  }, [npmPackageName, isActive]);
 
   // Загрузка GitHub stars:
   // - если URL — GitHub, парсим сразу
   // - если URL — npm, пытаемся найти репозиторий через npm registry
   useEffect(() => {
     let cancelled = false;
+
+    if (!isActive || githubLoadedRef.current) {
+      return;
+    }
 
     const resolveRepoAndLoadStars = async () => {
       setGithubError(null);
@@ -220,6 +227,7 @@ const QRCard: React.FC<QRCardProps> = ({
           const gh: { stargazers_count: number } = await ghResp.json();
           if (!cancelled) {
             setGithubStars(typeof gh.stargazers_count === 'number' ? gh.stargazers_count : null);
+            githubLoadedRef.current = true;
           }
         } else {
           if (!cancelled) setGithubStars(null);
@@ -234,11 +242,15 @@ const QRCard: React.FC<QRCardProps> = ({
 
     resolveRepoAndLoadStars();
     return () => { cancelled = true; };
-  }, [directGithubRepo, npmPackageName]);
+  }, [directGithubRepo, npmPackageName, isActive]);
 
-  // Загрузка метрик Habr (просмотры, лайки, дизлайки, закладки) — только JSON, без HTML-фолбэка
+  // Загрузка метрик Habr (просмотры, лайки, дизлайки, закладки) — только основной JSON без counters
   useEffect(() => {
     let cancelled = false;
+
+    if (!isActive || !habrArticleId || habrLoadedRef.current) {
+      return;
+    }
 
     async function tryFetchJson(urls: string[]) {
       for (const u of urls) {
@@ -282,7 +294,7 @@ const QRCard: React.FC<QRCardProps> = ({
         toNum(d?.favoritesCount) ??
         null;
 
-      // Оставляем агрегированную метрику голосов как бэкап (не показываем в UI)
+      // Бэкап: суммарные голоса (в UI не показываем)
       const votes =
         toNum(stats?.votesCount) ??
         toNum(d?.votesCount) ??
@@ -295,16 +307,9 @@ const QRCard: React.FC<QRCardProps> = ({
 
     const loadHabr = async () => {
       setHabrError(null);
-      setHabrViews(null);
-      setHabrVotes(null);
-      setHabrBookmarks(null);
-      setHabrLikes(null);
-      setHabrDislikes(null);
-
-      if (!habrArticleId) return;
 
       try {
-        // 1) Основной JSON
+        // Единственный запрос к основному эндпоинту
         const main = await tryFetchJson([
           `https://habr.com/kek/v2/articles/${habrArticleId}/`,
         ]);
@@ -317,26 +322,8 @@ const QRCard: React.FC<QRCardProps> = ({
             setHabrLikes(likes);
             setHabrDislikes(dislikes);
             setHabrBookmarks(bookmarks);
-            // на всякий случай сохраним суммарные голоса
             setHabrVotes(votes);
-            return;
-          }
-        }
-
-        // 2) Доп. counters JSON
-        const counters = await tryFetchJson([
-          `https://habr.com/kek/v2/articles/${habrArticleId}/counters/`,
-        ]);
-
-        if (counters) {
-          const { views, likes, dislikes, bookmarks, votes } = extractFromJson(counters);
-          const anyFound = [views, likes, dislikes, bookmarks].some(v => v != null);
-          if (!cancelled && anyFound) {
-            setHabrViews(views);
-            setHabrLikes(likes);
-            setHabrDislikes(dislikes);
-            setHabrBookmarks(bookmarks);
-            setHabrVotes(votes);
+            habrLoadedRef.current = true;
             return;
           }
         }
@@ -353,7 +340,7 @@ const QRCard: React.FC<QRCardProps> = ({
 
     loadHabr();
     return () => { cancelled = true; };
-  }, [habrArticleId]);
+  }, [habrArticleId, isActive]);
 
   return (
     <div style={{ position: 'relative', overflow: 'hidden' }}>

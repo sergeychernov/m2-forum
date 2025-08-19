@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import styles from './ImageCard.module.css';
 import { useCardAnimation, AnimationType } from '../../hooks/useCardAnimation';
 import cn from "classnames";
@@ -23,7 +23,7 @@ export interface ImageCardRef {
 	isFullscreenOpen: () => boolean;
 }
 
-const ImageCard = forwardRef<ImageCardRef, ImageCardProps>(({ 
+const ImageCard = React.memo(forwardRef<ImageCardRef, ImageCardProps>(({ 
 	src,
 	alt,
 	maxHeight = '400px',
@@ -45,6 +45,14 @@ const ImageCard = forwardRef<ImageCardRef, ImageCardProps>(({
 		delay: animationDelay,
 		index: animationIndex
 	});
+
+	// Ленивая загрузка: начинаем грузить изображение только когда карточка активна на текущем слайде
+	const [shouldLoadImage, setShouldLoadImage] = useState(false);
+	useEffect(() => {
+		if (isActive && !shouldLoadImage) {
+			setShouldLoadImage(true);
+		}
+	}, [isActive, shouldLoadImage]);
 
 	// Предоставляем методы через ref
 	useImperativeHandle(ref, () => ({
@@ -78,15 +86,26 @@ const ImageCard = forwardRef<ImageCardRef, ImageCardProps>(({
 	return (
 		<>
 			<div className={cn(styles.imageCard, animationClasses)}>
-				<img
-					alt={alt}
-					src={src}
-					className={cn(styles.image, className, {
-						[styles.clickable]: enableFullscreen
-					})}
-					style={{ maxHeight, objectFit }}
-					onClick={handleImageClick}
-				/>
+				{shouldLoadImage ? (
+					<img
+						alt={alt}
+						src={src}
+						className={cn(styles.image, className, {
+							[styles.clickable]: enableFullscreen
+						})}
+						style={{ maxHeight, objectFit }}
+						onClick={handleImageClick}
+						loading="lazy"
+					/>
+				) : (
+					<div
+						className={cn(styles.image, className)}
+						style={{
+							height: maxHeight,
+							background: 'var(--color-background-secondary)'
+						}}
+					/>
+				)}
 			</div>
 			
 			{isFullscreen && (
@@ -113,7 +132,7 @@ const ImageCard = forwardRef<ImageCardRef, ImageCardProps>(({
 			)}
 		</>
 	);
-});
+}));
 
 // Добавляем displayName для корректной работы с SlideWrapper
 ImageCard.displayName = 'ImageCard';
