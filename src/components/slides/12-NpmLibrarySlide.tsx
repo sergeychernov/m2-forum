@@ -3,7 +3,7 @@ import CardsLayout from '../layouts/CardsLayout';
 import SlideWrapper from "../wrappers/SlideWrapper";
 import PointsCard from '../cards/PointsCard';
 import GridSpan from '../wrappers/GridSpan';
-import NPMCard from '../cards/NPMCard';
+import QRCard from '../cards/QRCard';
 
 interface SlideProps {
   isActive: boolean;
@@ -26,10 +26,10 @@ const NpmLibrarySlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         isActive={isActive}
         isVisited={isVisited}
       >
-        <NPMCard
-          packageName="telegram-quiz"
+        <QRCard
           title="telegram-quiz"
           description="Простой и гибкий конструктор викторин для Telegram ботов"
+          url="https://www.npmjs.com/package/telegram-quiz"
           icon="🤖"
           animationType="appearance"
           animationIndex={0}
@@ -38,10 +38,10 @@ const NpmLibrarySlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           isVisited={isVisited}
         />
         {/* Заменяем на NPMCard */}
-        <NPMCard
-          packageName="fetch-retry-proxy"
+        <QRCard
           title="fetch-retry-proxy"
           description="NPM библиотека для HTTP запросов с повторными попытками и прокси"
+          url="https://www.npmjs.com/package/fetch-retry-proxy"
           icon="📦"
           animationType="appearance"
           animationIndex={1}

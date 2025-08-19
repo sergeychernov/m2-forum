@@ -30,7 +30,7 @@ const LogAnalysisSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
         
         <TaskCard
           title="1. Ручной анализ"
-          description="Чтение логов глазами, ручные догадки"
+          description="Окулярные фильтры, гадание скролом"
           tool="Медленно, высок риск ошибок"
           borderAccent="yellow"
           icon="👀"
