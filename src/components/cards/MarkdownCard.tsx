@@ -107,8 +107,6 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
           isFirstCard ? styles.firstCard : ''
         } ${isLastCard ? styles.lastCard : ''}`}
       >
-        {/* Убрать старую линию */}
-        {/* <div className={`${styles.markdownBorderLeft} ${styles.blue}`}></div> */}
         
         {/* Специальные эффекты для explosion анимации */}
         {showLightning && (

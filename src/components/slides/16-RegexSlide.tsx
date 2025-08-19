@@ -40,6 +40,7 @@ const RegexSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
                     alt="ИИ помогает в разработке пример регулярки"
                     maxHeight="400px"
                     objectFit="contain"
+                    enableFullscreen={true}
                 />
             </CardsLayout>
         </SlideWrapper>

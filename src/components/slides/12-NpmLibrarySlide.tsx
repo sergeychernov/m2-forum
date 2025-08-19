@@ -14,7 +14,7 @@ const NpmLibrarySlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
     <SlideWrapper
       title="NPM библиотека"
-      sign='👩'
+      sign='👩🎩'
     >
       <CardsLayout
         cols="4"
