@@ -11,6 +11,7 @@ interface SlideWrapperProps {
     sign?: string;
     cardVariant?: 'default' | 'elevated' | 'outlined' | 'minimal';
     onRegisterSlideActions?: (actions: { onNextAction: () => boolean }) => void;
+    onRegisterSlide?: (actions: { onNextAction: () => boolean }) => void; // Новое: регистрируем напрямую в Presentation
 }
 
 interface ImageCardProps {
@@ -26,7 +27,8 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
     className = '',
     sign,
     cardVariant = 'default',
-    onRegisterSlideActions
+    onRegisterSlideActions,
+    onRegisterSlide
 }, ref) => {
     const [actionStep, setActionStep] = useState(0);
     const imageCardRefs = useRef<(ImageCardRef | null)[]>([]);
@@ -163,7 +165,10 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
         if (onRegisterSlideActions) {
             onRegisterSlideActions({ onNextAction: handleNextAction });
         }
-    }, [children, onRegisterSlideActions, handleNextAction]);
+        if (onRegisterSlide) {
+            onRegisterSlide({ onNextAction: handleNextAction });
+        }
+    }, [children, onRegisterSlideActions, onRegisterSlide, handleNextAction]);
 
     const content = (
         <>

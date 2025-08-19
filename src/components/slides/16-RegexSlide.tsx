@@ -5,8 +5,8 @@ import SlideWrapper from "../wrappers/SlideWrapper";
 import CardsLayout from "../layouts/CardsLayout";
 import { SlideProps } from '../../types/KeyboardTypes';
 
-const RegexSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({ 
-    isActive, 
+const RegexSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
+    isActive,
     isVisited,
     onRegisterSlide,
     keyboardConfig,
@@ -32,7 +32,6 @@ const RegexSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
 
     return (
         <SlideWrapper
-            ref={slideWrapperRef}
             title="Регулярные выражения с ИИ"
             subtitle="Автоматическая генерация и оптимизация regex-паттернов"
             footerNote="ИИ помогает создавать сложные регулярные выражения быстро и без ошибок"
