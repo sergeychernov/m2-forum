@@ -1,20 +1,37 @@
-import React from 'react';
+// Импорт и компонент GithubPipelineSlide
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 import CardsLayout from '../layouts/CardsLayout';
 import SlideWrapper from "../wrappers/SlideWrapper";
 import PointsCard from '../cards/PointsCard';
 import ImageCard from '../cards/ImageCard';
+import { SlideProps } from '../../types/KeyboardTypes';
 
-interface SlideProps {
-  isActive: boolean;
-  isVisited: boolean;
-}
+const GithubPipelineSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
+  isActive,
+  isVisited,
+  onRegisterSlide,
+  keyboardConfig,
+  updateKeyboardConfig
+}, ref) => {
+  const slideWrapperRef = useRef<{ onNextAction: () => boolean }>(null);
 
-const GithubPipelineSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
+  useImperativeHandle(ref, () => ({
+    onNextAction: () => {
+      return slideWrapperRef.current?.onNextAction() || false;
+    }
+  }));
+
   return (
     <SlideWrapper
+      ref={slideWrapperRef}
       title="GitHub Pipeline"
       subtitle="Автоматизация процессов CI/CD с помощью Codex"
       sign='🎩'
+      onRegisterSlideActions={(actions) => {
+        if (onRegisterSlide) {
+          onRegisterSlide(actions);
+        }
+      }}
     >
       <CardsLayout
         cols="2"
@@ -48,6 +65,6 @@ const GithubPipelineSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       </CardsLayout>
     </SlideWrapper>
   );
-};
+});
 
 export default GithubPipelineSlide;

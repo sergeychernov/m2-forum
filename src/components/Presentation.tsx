@@ -38,9 +38,9 @@ const Presentation: React.FC = () => {
 
   const [keyboardConfig, setKeyboardConfig] = useState<KeyboardConfig>({
     'ArrowRight': 'nextSlide',
-    'Enter': 'nextSlide',
+    'Enter': 'nextAction',
     'ArrowLeft': 'previousSlide',
-    ' ': 'nextAction', // space
+    ' ': 'previousSlide', // space
   });
 
   // Определяем текущий слайд из URL или устанавливаем 1 по умолчанию

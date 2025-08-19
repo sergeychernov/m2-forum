@@ -26,7 +26,7 @@
 | `→` (Стрелка вправо) | Следующий слайд | Переход к следующему слайду |
 | `Enter` | Следующий слайд | Альтернативный способ перехода вперёд |
 | `←` (Стрелка влево) | Предыдущий слайд | Возврат к предыдущему слайду |
-| `Пробел` | Следующее действие | Выполнение действий внутри слайда или переход к следующему |
+| `Пробел` | Следующее действие | Выполнение следующего шага внутри текущего слайда (анимации, интерактив) или переход к следующему слайду, если действий больше нет |
 | `Home` | Первый слайд | Быстрый переход к началу презентации |
 | `End` | Последний слайд | Быстрый переход к концу презентации |
 
@@ -65,6 +65,71 @@ const keyboardConfig = {
   ' ': 'nextAction',             // Пробел следующее действие
 };
 ```
+
+### Как добавить действия на слайд (для разработчиков)
+
+Действия — это последовательные шаги внутри слайда, запускаемые событием `nextAction`; конкретная клавиша задаётся биндингом в `src/components/Presentation.tsx` (объект `keyboardConfig`). По умолчанию `nextAction` привязан к `Enter`, а `Пробел` — к `previousSlide`.  
+Чтобы слайд поддерживал действия:
+
+1) Оберните компонент слайда в `forwardRef` и пробросьте `ref` в `SlideWrapper`.  
+2) Внутри слайда делегируйте метод `onNextAction` в `SlideWrapper` через `useImperativeHandle`.  
+3) Передайте в `SlideWrapper` проп `onRegisterSlideActions`, который вызывает `onRegisterSlide` из пропсов слайда — так презентация узнаёт о доступных действий.  
+4) Используйте механизмы действий:
+   - Пошаговые анимации карточек задаются через `CardsLayout` (`animationType`, `animationDelay`, и пр.) — каждое появление считается отдельным действием.
+   - Полноэкранный режим у `ImageCard` включается `enableFullscreen={true}` — это добавляет действие открытия/закрытия изображения.
+
+Пример минимального слайда с поддержкой действий:
+
+```tsx
+// src/components/slides/MyInteractiveSlide.tsx
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import SlideWrapper from '../wrappers/SlideWrapper';
+import CardsLayout from '../layouts/CardsLayout';
+import ImageCard from '../cards/ImageCard';
+import { SlideProps } from '../../types/KeyboardTypes';
+
+const MyInteractiveSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
+  isActive, isVisited, onRegisterSlide, keyboardConfig, updateKeyboardConfig
+}, ref) => {
+  const slideWrapperRef = useRef<{ onNextAction: () => boolean }>(null);
+
+  useImperativeHandle(ref, () => ({
+    onNextAction: () => slideWrapperRef.current?.onNextAction() || false
+  }));
+
+  return (
+    <SlideWrapper
+      ref={slideWrapperRef}
+      title="Пример слайда с действиями"
+      onRegisterSlideActions={(actions) => onRegisterSlide?.(actions)}
+    >
+      <CardsLayout
+        animationType="appearance"  // карточки появляются по шагам (nextAction)
+        animationDelay={150}
+        isActive={isActive}
+        isVisited={isVisited}
+      >
+        {/* Появление элементов будет разбито на шаги nextAction */}
+        <ImageCard
+          src="/img/example.png"
+          alt="Пример"
+          enableFullscreen={true}  // добавляет действие fullscreen
+          maxHeight="400px"
+        />
+      </CardsLayout>
+    </SlideWrapper>
+  );
+});
+
+export default MyInteractiveSlide;
+```
+
+Чеклист:
+- forwardRef + slideWrapperRef + `useImperativeHandle` для делегирования `onNextAction`.  
+- Проброс `onRegisterSlideActions={(actions) => onRegisterSlide?.(actions)}` в `SlideWrapper`.  
+- Для пошаговых анимаций — настройте `CardsLayout.animationType`.  
+- Для полноэкранного изображения — `ImageCard` с `enableFullscreen={true}`.  
+- Если на слайде нет доступных действий — `Пробел` сразу переключает на следующий слайд.
 
 ---
 
