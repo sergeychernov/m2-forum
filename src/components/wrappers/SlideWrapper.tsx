@@ -94,7 +94,7 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
                     if (typeof originalRef === 'function') {
                         originalRef(node);
                     } else if (originalRef && typeof originalRef === 'object') {
-                        originalRef.current = node;
+                        (originalRef as any).current = node;
                     }
                 };
                 
@@ -126,6 +126,9 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
         return element;
     };
 
+    // ВАЖНО: собираем refs с нуля на каждый рендер и только потом присваиваем в imageCardRefs.current
+    const collectedRefs: (ImageCardRef | null)[] = [];
+
     const enhancedChildren = React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
             const childType = child.type as any;
@@ -139,26 +142,28 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
                 });
                 
                 // Ищем ImageCard внутри CardsLayout
-                return findImageCards(enhancedChild, imageCardRefs.current);
+                return findImageCards(enhancedChild, collectedRefs);
             }
             
             // Ищем ImageCard на верхнем уровне
-            return findImageCards(child, imageCardRefs.current);
+            return findImageCards(child, collectedRefs);
         }
         return child;
     });
 
-    // Подсчитываем общее количество действий и регистрируем слайд
+    // Перезаписываем refs после построения дерева, чтобы избежать накопления null
+    imageCardRefs.current = collectedRefs;
+
+    // Подсчитываем общее количество действий и регистрируем слайд после монтирования/обновления
     React.useEffect(() => {
         const validRefs = imageCardRefs.current.filter(ref => ref !== null);
         const newTotalActions = validRefs.length * 2;
         totalActions.current = newTotalActions;
-        
-        // Регистрируем действия слайда только если есть действия
-        if (onRegisterSlideActions && newTotalActions > 0) {
+
+        if (onRegisterSlideActions) {
             onRegisterSlideActions({ onNextAction: handleNextAction });
         }
-    }, []); // Убираем onRegisterSlideActions из зависимостей
+    }, [children, onRegisterSlideActions, handleNextAction]);
 
     const content = (
         <>

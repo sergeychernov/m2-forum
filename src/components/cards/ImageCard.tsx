@@ -115,4 +115,7 @@ const ImageCard = forwardRef<ImageCardRef, ImageCardProps>(({
 	);
 });
 
+// Добавляем displayName для корректной работы с SlideWrapper
+ImageCard.displayName = 'ImageCard';
+
 export default ImageCard;
