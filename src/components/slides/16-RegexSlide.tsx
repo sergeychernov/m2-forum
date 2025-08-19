@@ -12,16 +12,6 @@ const RegexSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
     keyboardConfig,
     updateKeyboardConfig
 }, ref) => {
-    const slideWrapperRef = useRef<{ onNextAction: () => boolean }>(null);
-
-    // Предоставляем методы через ref, чтобы Presentation мог вызывать действия
-    useImperativeHandle(ref, () => ({
-        onNextAction: () => {
-            // Делегируем вызов действия в SlideWrapper
-            return slideWrapperRef.current?.onNextAction() || false;
-        }
-    }));
-
     const features = [
         "🤖 ИИ анализирует контекст задачи",
         "📝 Генерирует точные регулярные выражения",
@@ -35,12 +25,6 @@ const RegexSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
             title="Регулярные выражения с ИИ"
             subtitle="Автоматическая генерация и оптимизация regex-паттернов"
             footerNote="ИИ помогает создавать сложные регулярные выражения быстро и без ошибок"
-            onRegisterSlideActions={(actions) => {
-                // Регистрируем действия SlideWrapper в Presentation
-                if (onRegisterSlide) {
-                    onRegisterSlide(actions);
-                }
-            }}
         >
             <CardsLayout
                 colsRatio="2:3"

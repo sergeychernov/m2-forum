@@ -22,6 +22,7 @@ import RegexSlide from './slides/16-RegexSlide';
 import PresentationSlide from './slides/17-PresentationSlide';
 import ConclusionsSlide from './slides/19-ConclusionsSlide';
 import QRCodesSlide from './slides/20-QRCodesSlide';
+import { SlideInstanceProvider } from './wrappers/SlideContext';
 
 const Presentation: React.FC = () => {
   const { slideNumber } = useParams<{ slideNumber?: string }>();
@@ -258,69 +259,71 @@ const Presentation: React.FC = () => {
 
   return (
     <div className={styles.presentationContainer}>
-      {/* Progress Bar */}
-      <div className={styles.progressBar}>
-        <div
-          className={styles.progressFill}
-          style={{ width: `${progressPercentage}%` }}
-        />
-      </div>
-
-      {/* Navigation */}
-      <nav className={styles.navigation}>
-        <button
-          className={styles.navBtn}
-          onClick={previousSlide}
-          disabled={currentSlide === 1}
-          style={{
-            opacity: currentSlide === 1 ? 0.5 : 1,
-            cursor: currentSlide === 1 ? 'not-allowed' : 'pointer'
-          }}
-        >
-          ← Назад
-        </button>
-        <span className={styles.slideCounter}>
-          <span>{currentSlide}</span> / <span>{totalSlides}</span>
-        </span>
-        <button
-          className={styles.navBtn}
-          onClick={nextSlide}
-          disabled={currentSlide === totalSlides}
-          style={{
-            opacity: currentSlide === totalSlides ? 0.5 : 1,
-            cursor: currentSlide === totalSlides ? 'not-allowed' : 'pointer'
-          }}
-        >
-          Вперед →
-        </button>
-      </nav>
-
-      {/* Slides Container */}
-      <div className={styles.slidesContainer}>
-        {slides.map((SlideComponent, index) => {
-          const slideId = index + 1;
-          return (
+        {/* Progress Bar */}
+        <div className={styles.progressBar}>
             <div
-              key={slideId}
-              className={`${styles.slide} ${slideId === currentSlide
-                  ? styles.active
-                  : slideId < currentSlide
-                    ? styles.prev
-                    : styles.next
-                }`}
-              data-slide={slideId}
+                className={styles.progressFill}
+                style={{ width: `${progressPercentage}%` }}
+            />
+        </div>
+
+        {/* Navigation */}
+        <nav className={styles.navigation}>
+            <button
+                className={styles.navBtn}
+                onClick={previousSlide}
+                disabled={currentSlide === 1}
+                style={{
+                    opacity: currentSlide === 1 ? 0.5 : 1,
+                    cursor: currentSlide === 1 ? 'not-allowed' : 'pointer'
+                }}
             >
-              <SlideComponent
-                isActive={slideId === currentSlide}
-                isVisited={visitedSlides.has(slideId)}
-                onRegisterSlide={(slideRef: SlideWithActions) => registerSlide(slideId, slideRef)}
-                keyboardConfig={keyboardConfig}
-                updateKeyboardConfig={updateKeyboardConfig}
-              />
-            </div>
-          );
-        })}
-      </div>
+                ← Назад
+            </button>
+            <span className={styles.slideCounter}>
+                <span>{currentSlide}</span> / <span>{totalSlides}</span>
+            </span>
+            <button
+                className={styles.navBtn}
+                onClick={nextSlide}
+                disabled={currentSlide === totalSlides}
+                style={{
+                    opacity: currentSlide === totalSlides ? 0.5 : 1,
+                    cursor: currentSlide === totalSlides ? 'not-allowed' : 'pointer'
+                }}
+            >
+                Вперед →
+            </button>
+        </nav>
+
+        {/* Slides Container */}
+        <div className={styles.slidesContainer}>
+            {slides.map((SlideComponent, index) => {
+                const slideId = index + 1;
+                return (
+                    <div
+                        key={slideId}
+                        className={`${styles.slide} ${slideId === currentSlide
+                            ? styles.active
+                            : slideId < currentSlide
+                                ? styles.prev
+                                : styles.next
+                            }`}
+                        data-slide={slideId}
+                    >
+                        <SlideInstanceProvider registerSlide={(actions: SlideWithActions) => registerSlide(slideId, actions)}>
+                            <SlideComponent
+                                isActive={slideId === currentSlide}
+                                isVisited={visitedSlides.has(slideId)}
+                                onRegisterSlide={(slideRef: SlideWithActions) => registerSlide(slideId, slideRef)}
+                                keyboardConfig={keyboardConfig}
+                                updateKeyboardConfig={updateKeyboardConfig}
+                            />
+                        </SlideInstanceProvider>
+                    </div>
+                );
+            })}
+        </div>
     </div>
   );
 };

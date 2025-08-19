@@ -13,25 +13,11 @@ const GithubPipelineSlide = forwardRef<{ onNextAction: () => boolean }, SlidePro
     keyboardConfig,
     updateKeyboardConfig
 }, ref) => {
-    const slideWrapperRef = useRef<{ onNextAction: () => boolean }>(null);
-
-    useImperativeHandle(ref, () => ({
-        onNextAction: () => {
-            return slideWrapperRef.current?.onNextAction() || false;
-        }
-    }));
-
-    // Удаляем slideWrapperRef и useImperativeHandle — регистрация через SlideWrapper
     return (
         <SlideWrapper
             title="CI/CD через GitHub Actions"
             subtitle="Автоматизация процессов CI/CD с помощью Codex"
             sign='🎩'
-            onRegisterSlideActions={(actions) => {
-                if (onRegisterSlide) {
-                    onRegisterSlide(actions);
-                }
-            }}
         >
             <CardsLayout
                 cols="2"

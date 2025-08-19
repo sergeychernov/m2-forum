@@ -1,6 +1,7 @@
 import React, { ReactNode, useRef, useCallback, forwardRef, useImperativeHandle, useState } from 'react';
 import styles from './SlideWrapper.module.css';
 import { ImageCardRef } from '../cards/ImageCard';
+import { useSlideInstance } from './SlideContext';
 
 interface SlideWrapperProps {
     title: string;
@@ -27,8 +28,7 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
     className = '',
     sign,
     cardVariant = 'default',
-    onRegisterSlideActions,
-    onRegisterSlide
+    onRegisterSlideActions
 }, ref) => {
     const [actionStep, setActionStep] = useState(0);
     const imageCardRefs = useRef<(ImageCardRef | null)[]>([]);
@@ -59,6 +59,9 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
         // Больше действий нет, переходим к следующему слайду
         return false;
     }, [actionStep]);
+
+    // Подключаем контекст регистрации слайда
+    const { registerSlide } = useSlideInstance();
 
     // Предоставляем методы через ref
     useImperativeHandle(ref, () => ({
@@ -165,10 +168,10 @@ const SlideWrapper = forwardRef<{ onNextAction: () => boolean }, SlideWrapperPro
         if (onRegisterSlideActions) {
             onRegisterSlideActions({ onNextAction: handleNextAction });
         }
-        if (onRegisterSlide) {
-            onRegisterSlide({ onNextAction: handleNextAction });
+        if (registerSlide) {
+            registerSlide({ onNextAction: handleNextAction });
         }
-    }, [children, onRegisterSlideActions, onRegisterSlide, handleNextAction]);
+    }, [children, onRegisterSlideActions, handleNextAction, registerSlide]);
 
     const content = (
         <>
