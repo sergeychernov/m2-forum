@@ -66,7 +66,7 @@ const NpmLibrarySlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           isVisited={isVisited}
           background="blue"
         /></GridSpan>
-        
+
 
 
       </CardsLayout>

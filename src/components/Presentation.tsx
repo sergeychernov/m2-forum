@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Presentation.module.css';
+import { KeyboardAction, KeyboardConfig, SlideWithActions } from '../types/KeyboardTypes';
 import TitleSlide from './slides/01-TitleSlide';
 import ToolsOverviewSlide from './slides/02-ToolsOverviewSlide';
 import IBDecisionSlide from './slides/03-IBDecisionSlide';
@@ -25,9 +26,17 @@ import QRCodesSlide from './slides/20-QRCodesSlide';
 const Presentation: React.FC = () => {
   const { slideNumber } = useParams<{ slideNumber?: string }>();
   const navigate = useNavigate();
-  
-  
+
   const [visitedSlides, setVisitedSlides] = useState(new Set([1]));
+  const [slideRefs, setSlideRefs] = useState<{ [key: number]: SlideWithActions }>({});
+
+  // Настройки клавиатуры по умолчанию
+  const [keyboardConfig, setKeyboardConfig] = useState<KeyboardConfig>({
+    'ArrowRight': 'nextSlide',
+    'Enter': 'nextSlide',
+    'ArrowLeft': 'previousSlide',
+    ' ': 'nextAction', // space
+  });
 
   // Определяем текущий слайд из URL или устанавливаем 1 по умолчанию
   const currentSlide = slideNumber ? parseInt(slideNumber, 10) : 1;
@@ -83,6 +92,16 @@ const Presentation: React.FC = () => {
     }
   }, [currentSlide, updateURL]);
 
+  const nextAction = useCallback(() => {
+    const currentSlideRef = slideRefs[currentSlide];
+    if (currentSlideRef && currentSlideRef.onNextAction) {
+      currentSlideRef.onNextAction();
+    } else {
+      // Если у слайда нет внутренних действий, переходим к следующему слайду
+      nextSlide();
+    }
+  }, [currentSlide, slideRefs, nextSlide]);
+
   const goToSlide = useCallback((slideNumber: number) => {
     if (slideNumber >= 1 && slideNumber <= totalSlides) {
       updateURL(slideNumber);
@@ -93,6 +112,24 @@ const Presentation: React.FC = () => {
       });
     }
   }, [totalSlides, updateURL]);
+
+  // Функция для обновления конфигурации клавиатуры
+  const updateKeyboardConfig = useCallback((newConfig: Partial<KeyboardConfig>) => {
+    setKeyboardConfig(prev => {
+      const updated = { ...prev };
+      Object.entries(newConfig).forEach(([key, action]) => {
+        if (action !== undefined) {
+          updated[key] = action;
+        }
+      });
+      return updated;
+    });
+  }, []);
+
+  // Функция для регистрации слайда с поддержкой действий
+  const registerSlide = useCallback((slideNumber: number, slideRef: SlideWithActions) => {
+    setSlideRefs(prev => ({ ...prev, [slideNumber]: slideRef }));
+  }, []);
 
   // Обновляем visitedSlides при изменении текущего слайда
   useEffect(() => {
@@ -112,20 +149,29 @@ const Presentation: React.FC = () => {
     }
   }, [slideNumber, currentSlide, totalSlides, navigate]);
 
+  // Обновленная обработка клавиатуры
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const action = keyboardConfig[e.key];
+
+      if (action) {
+        e.preventDefault();
+
+        switch (action) {
+          case 'nextSlide':
+            nextSlide();
+            break;
+          case 'previousSlide':
+            previousSlide();
+            break;
+          case 'nextAction':
+            nextAction();
+            break;
+        }
+      }
+
+      // Сохраняем специальные клавиши для навигации
       switch (e.key) {
-        case 'ArrowLeft':
-        case 'ArrowUp':
-          e.preventDefault();
-          previousSlide();
-          break;
-        case 'ArrowRight':
-        case 'ArrowDown':
-        case ' ':
-          e.preventDefault();
-          nextSlide();
-          break;
         case 'Home':
           if (!e.ctrlKey) {
             e.preventDefault();
@@ -143,7 +189,7 @@ const Presentation: React.FC = () => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [nextSlide, previousSlide, goToSlide, totalSlides]);
+  }, [keyboardConfig, nextSlide, previousSlide, nextAction, goToSlide, totalSlides]);
 
   // Touch support
   useEffect(() => {
@@ -190,21 +236,21 @@ const Presentation: React.FC = () => {
     <div className={styles.presentationContainer}>
       {/* Progress Bar */}
       <div className={styles.progressBar}>
-        <div 
-          className={styles.progressFill} 
+        <div
+          className={styles.progressFill}
           style={{ width: `${progressPercentage}%` }}
         />
       </div>
 
       {/* Navigation */}
       <nav className={styles.navigation}>
-        <button 
-          className={styles.navBtn} 
+        <button
+          className={styles.navBtn}
           onClick={previousSlide}
           disabled={currentSlide === 1}
-          style={{ 
-            opacity: currentSlide === 1 ? 0.5 : 1, 
-            cursor: currentSlide === 1 ? 'not-allowed' : 'pointer' 
+          style={{
+            opacity: currentSlide === 1 ? 0.5 : 1,
+            cursor: currentSlide === 1 ? 'not-allowed' : 'pointer'
           }}
         >
           ← Назад
@@ -212,13 +258,13 @@ const Presentation: React.FC = () => {
         <span className={styles.slideCounter}>
           <span>{currentSlide}</span> / <span>{totalSlides}</span>
         </span>
-        <button 
-          className={styles.navBtn} 
+        <button
+          className={styles.navBtn}
           onClick={nextSlide}
           disabled={currentSlide === totalSlides}
-          style={{ 
-            opacity: currentSlide === totalSlides ? 0.5 : 1, 
-            cursor: currentSlide === totalSlides ? 'not-allowed' : 'pointer' 
+          style={{
+            opacity: currentSlide === totalSlides ? 0.5 : 1,
+            cursor: currentSlide === totalSlides ? 'not-allowed' : 'pointer'
           }}
         >
           Вперед →
@@ -232,18 +278,22 @@ const Presentation: React.FC = () => {
           return (
             <div
               key={slideId}
-              className={`${styles.slide} ${
-                slideId === currentSlide 
-                  ? styles.active 
-                  : slideId < currentSlide 
-                    ? styles.prev 
+              className={`${styles.slide} ${slideId === currentSlide
+                  ? styles.active
+                  : slideId < currentSlide
+                    ? styles.prev
                     : styles.next
-              }`}
+                }`}
               data-slide={slideId}
             >
-              <SlideComponent 
-                isActive={slideId === currentSlide} 
-                isVisited={visitedSlides.has(slideId)} 
+              <SlideComponent
+                isActive={slideId === currentSlide}
+                isVisited={visitedSlides.has(slideId)}
+                {...(SlideComponent.length > 2 ? {
+                  onRegisterSlide: (slideRef: SlideWithActions) => registerSlide(slideId, slideRef),
+                  keyboardConfig,
+                  updateKeyboardConfig
+                } : {})}
               />
             </div>
           );

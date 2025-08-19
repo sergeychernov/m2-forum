@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import CardWrapper from '../wrappers/CardWrapper';
 import styles from './MarkdownCard.module.css';
@@ -31,6 +31,8 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
   background,
   borderAccent
 }) => {
+  const [showExplosion, setShowExplosion] = useState(false);
+  const [showLightning, setShowLightning] = useState(false);
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
   
   const { shouldAnimate, animationClasses } = useCardAnimation({
@@ -40,6 +42,29 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
     delay: animationDelay,
     index: animationIndex
   });
+
+  useEffect(() => {
+    if (shouldAnimate && animationType === 'explosion') {
+      const lightningTimer = setTimeout(() => {
+        setShowLightning(true);
+      }, 100);
+
+      const explosionTimer = setTimeout(() => {
+        setShowExplosion(true);
+      }, 200);
+
+      const cleanupTimer = setTimeout(() => {
+        setShowLightning(false);
+        setShowExplosion(false);
+      }, 2000);
+
+      return () => {
+        clearTimeout(lightningTimer);
+        clearTimeout(explosionTimer);
+        clearTimeout(cleanupTimer);
+      };
+    }
+  }, [shouldAnimate, animationType]);
 
   const isFirstCard = index === 0;
   const isLastCard = index % 2 === 1;
@@ -82,6 +107,24 @@ const MarkdownCard: React.FC<MarkdownCardProps> = ({
           isFirstCard ? styles.firstCard : ''
         } ${isLastCard ? styles.lastCard : ''}`}
       >
+        
+        {/* Специальные эффекты для explosion анимации */}
+        {showLightning && (
+          <div className={styles.lightningContainer}>
+            <div className={styles.lightning}></div>
+          </div>
+        )}
+        
+        {showExplosion && (
+          <div className={styles.explosionContainer}>
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className={styles.explosionParticle} style={{
+                '--particle-angle': `${i * 45}deg`
+              } as React.CSSProperties}></div>
+            ))}
+          </div>
+        )}
+        
         <div className={styles.textContent}>
           <div className={styles.markdownRenderer}>
             <ReactMarkdown
