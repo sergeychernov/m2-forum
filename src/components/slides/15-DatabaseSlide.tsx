@@ -12,7 +12,7 @@ const DatabaseSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   const cards = [
     {
       title: "Запросы к БД",
-      category: "MongoDB & SQL",
+      category: "MongoDB & YDB (SQL)",
       features: [
         { icon: "⚡", text: "Быстрая генерация точных запросов" },
         { icon: "💎", text: "Не ошибается в запросах" },
@@ -40,13 +40,13 @@ const DatabaseSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       title: "Миграции",
       category: "Сложности",
       features: [
-        { icon: "😩", text: "Проблемы с миграциями SQL" },
+        { icon: "😩", text: "Проблемы с миграциями YDB (SQL)" },
         { icon: "🚫", text: "Предлагал неправильный синтаксис" },
         { icon: "✋", text: "Приходилось делать вручную" }
       ],
       note: {
         type: "warning" as const,
-        text: "MongoDB миграции - неплохо, а c sql нужно быть осторожнее"
+        text: "MongoDB миграции - неплохо, а c YDB (SQL) нужно быть осторожнее"
       }
     },
   ];
