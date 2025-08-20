@@ -51,7 +51,6 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           <MarkdownCard
             key={index}
             content={conclusion.content}
-            index={index}
             background={conclusion.background}
             isActive={isActive}
             isVisited={isVisited}

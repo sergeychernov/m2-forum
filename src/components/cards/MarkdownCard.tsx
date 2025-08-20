@@ -10,7 +10,6 @@ import { InteractiveRef } from '../../types/Interactive';
 
 interface MarkdownCardProps {
   content: string;
-  index: number;
   chart?: React.ReactNode;
   animationType?: AnimationType;
   animationIndex?: number;
@@ -27,7 +26,6 @@ interface MarkdownCardProps {
 
 const MarkdownCard = forwardRef<InteractiveRef, MarkdownCardProps>(({ 
   content, 
-  index, 
   chart,
   animationType = 'none',
   animationIndex = 0,
@@ -75,9 +73,6 @@ const MarkdownCard = forwardRef<InteractiveRef, MarkdownCardProps>(({
       };
     }
   }, [shouldAnimate, animationType]);
-
-  const isFirstCard = index === 0;
-  const isLastCard = index % 2 === 1;
 
   // Ленивая загрузка — включаем разово при первом появлении активного слайда
   const [shouldLoadImages, setShouldLoadImages] = useState(false);
@@ -156,9 +151,7 @@ const MarkdownCard = forwardRef<InteractiveRef, MarkdownCardProps>(({
         hoverable={true}
         background={background}
         borderAccent={borderAccent}
-        className={`${styles.markdownContent} ${animationClasses} ${
-          isFirstCard ? styles.firstCard : ''
-        } ${isLastCard ? styles.lastCard : ''}`}
+        className={`${styles.markdownContent} ${animationClasses}`}
       >
         {/* Специальные эффекты для explosion анимации */}
         {showLightning && (

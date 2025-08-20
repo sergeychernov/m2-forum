@@ -2,6 +2,9 @@ import React from 'react';
 import CardsLayout from '../layouts/CardsLayout';
 import QRCard from '../cards/QRCard';
 import SlideWrapper from "../wrappers/SlideWrapper";
+import GridSpan from '../wrappers/GridSpan';
+import Markdown from 'react-markdown';
+import MarkdownCard from '../cards/MarkdownCard';
 
 interface SlideProps {
   isActive: boolean;
@@ -12,7 +15,6 @@ const QRCodesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   return (
     <SlideWrapper
       title="Ссылки для быстрого доступа"
-      footerNote="Отсканируйте QR-код камерой телефона для быстрого перехода"
     >
       <CardsLayout
         cols="2"
@@ -37,6 +39,9 @@ const QRCodesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           url="https://sergeychernov.github.io/m2-forum/"
           icon="🎯"
         />
+        <GridSpan cols={2}>
+          <MarkdownCard content='Ктати, знакомьтесь, **Богдан** - наш виртуальный помошник'></MarkdownCard>
+        </GridSpan>
       </CardsLayout>
     </SlideWrapper>
   );
