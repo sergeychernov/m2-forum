@@ -95,6 +95,7 @@ const PresentationSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
             src={`${process.env.PUBLIC_URL}/jokes/2025-08-14_16-36-44.png`}
             alt="Шутка о программировании"
             maxHeight="300px"
+            enableFullscreen={true}
           />
         </GridSpan>
         <StubCard/>

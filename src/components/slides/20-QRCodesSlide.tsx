@@ -40,7 +40,7 @@ const QRCodesSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
           icon="🎯"
         />
         <GridSpan cols={2}>
-          <MarkdownCard content='Ктати, знакомьтесь, **Богдан** - наш виртуальный помошник'></MarkdownCard>
+          <MarkdownCard content='Кстати, знакомьтесь, **Богдан** - наш виртуальный помощник'></MarkdownCard>
         </GridSpan>
       </CardsLayout>
     </SlideWrapper>
