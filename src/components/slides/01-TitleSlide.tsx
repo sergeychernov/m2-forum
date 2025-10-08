@@ -3,6 +3,7 @@ import styles from '../layouts/CardsLayout.module.css';
 import titleStyles from './TitleSlide.module.css';
 import ImageCard from '../cards/ImageCard';
 import { SlideProps } from '../../types/KeyboardTypes';
+import { buildPublicUrlPath } from '../../utils/url';
 
 export type TitleSlidePublicProps = {
   title: string;
@@ -48,7 +49,7 @@ const TitleSlide = forwardRef<{ onNextAction: () => boolean }, TitleSlideProps>(
     }
   }, [onRegisterSlide, handleClockClick]);
 
-  const publicUrl = process.env.PUBLIC_URL || '';
+
 
   return (
     <div className={`${styles.slideContent} ${titleStyles.titleSlide}`}>
@@ -80,7 +81,7 @@ const TitleSlide = forwardRef<{ onNextAction: () => boolean }, TitleSlideProps>(
           <div className={titleStyles.memeContainer}>
             <div className={titleStyles.memeImages}>
               <ImageCard
-                src={`${publicUrl}${meme1Src || '/01/meme01.png'}`}
+                src={buildPublicUrlPath(meme1Src)}
                 alt="AI мем 1"
                 className={titleStyles.memeImage}
                 objectFit="contain"
@@ -88,7 +89,7 @@ const TitleSlide = forwardRef<{ onNextAction: () => boolean }, TitleSlideProps>(
                 animationType="none"
               />
               <ImageCard
-                src={`${publicUrl}${meme2Src || '/01/meme02.png'}`}
+                src={buildPublicUrlPath(meme2Src)}
                 alt="AI мем 2"
                 className={titleStyles.memeImage}
                 objectFit="contain"
