@@ -22,13 +22,16 @@
     "react-router-dom": "^6.28.1",
     "react-scripts": "^5.0.1",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "ajv": "^8.17.1",
+    "ts-json-schema-generator": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "gen:slides": "tsx scripts/generate-slide-registry.ts",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "fork": "bash scripts/fork-own.sh",
@@ -39,6 +42,7 @@
   "devDependencies": {
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/react-webpack5": "^8.6.14",
+    "tsx": "^4.19.0",
     "storybook": "^8.6.14",
     "ts-loader": "^9.5.2"
   },

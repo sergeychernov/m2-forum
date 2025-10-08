@@ -4,12 +4,25 @@ import titleStyles from './TitleSlide.module.css';
 import ImageCard from '../cards/ImageCard';
 import { SlideProps } from '../../types/KeyboardTypes';
 
-const TitleSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({ 
-  isActive, 
-  isVisited, 
-  onRegisterSlide, 
-  keyboardConfig, 
-  updateKeyboardConfig 
+export type TitleSlidePublicProps = {
+  title: string;
+  subtitle?: string;
+  meme1Src?: string;
+  meme2Src?: string;
+};
+
+export type TitleSlideProps = SlideProps & TitleSlidePublicProps;
+
+const TitleSlide = forwardRef<{ onNextAction: () => boolean }, TitleSlideProps>(({
+  isActive,
+  isVisited,
+  onRegisterSlide,
+  keyboardConfig,
+  updateKeyboardConfig,
+  title,
+  subtitle,
+  meme1Src,
+  meme2Src,
 }, ref) => {
   const [showMeme, setShowMeme] = useState(false);
   const buildVersion = process.env.REACT_APP_BUILD_VERSION || 'dev';
@@ -35,10 +48,14 @@ const TitleSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
     }
   }, [onRegisterSlide, handleClockClick]);
 
+  const publicUrl = process.env.PUBLIC_URL || '';
+
   return (
     <div className={`${styles.slideContent} ${titleStyles.titleSlide}`}>
-      <h1>Использование AI инструментов в команде CMS</h1>
-      <p className={titleStyles.subtitle}>Опыт внедрения и анализ эффективности</p>
+      <h1>{title}</h1>
+      {subtitle && (
+        <p className={titleStyles.subtitle}>{subtitle}</p>
+      )}
 
       <div className={titleStyles.clockContainer} onClick={handleClockClick}>
         {!showMeme ? (
@@ -63,7 +80,7 @@ const TitleSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
           <div className={titleStyles.memeContainer}>
             <div className={titleStyles.memeImages}>
               <ImageCard
-                src={`${process.env.PUBLIC_URL}/01/meme01.png`}
+                src={`${publicUrl}${meme1Src || '/01/meme01.png'}`}
                 alt="AI мем 1"
                 className={titleStyles.memeImage}
                 objectFit="contain"
@@ -71,7 +88,7 @@ const TitleSlide = forwardRef<{ onNextAction: () => boolean }, SlideProps>(({
                 animationType="none"
               />
               <ImageCard
-                src={`${process.env.PUBLIC_URL}/01/meme02.png`}
+                src={`${publicUrl}${meme2Src || '/01/meme02.png'}`}
                 alt="AI мем 2"
                 className={titleStyles.memeImage}
                 objectFit="contain"

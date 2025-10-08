@@ -1,0 +1,65 @@
+[
+	{
+		"component": "TitleSlide",
+		"props": {
+			"title": "Использование AI инструментов в команде CMS",
+			"subtitle": "Опыт внедрения и анализ эффективности",
+			"meme1Src": "/01/meme01.png",
+			"meme2Src": "/01/meme02.png"
+		}
+	},
+	{
+		"component": "ToolsOverviewSlide"
+	},
+	{
+		"component": "IBDecisionSlide"
+	},
+	{
+		"component": "LogAnalysisSlide"
+	},
+	{
+		"component": "RegexSlide"
+	},
+	{
+		"component": "E2ETestingSlide"
+	},
+	{
+		"component": "UnitTestingSlide"
+	},
+	{
+		"component": "ProductPrototypeSlide"
+	},
+	{
+		"component": "GithubPipelineSlide"
+	},
+	{
+		"component": "TelegramBotSlide"
+	},
+	{
+		"component": "LibraryUpdatesSlide"
+	},
+	{
+		"component": "DatabaseSlide"
+	},
+	{
+		"component": "CodeReviewSlide"
+	},
+	{
+		"component": "BugFixingSlide"
+	},
+	{
+		"component": "NpmLibrarySlide"
+	},
+	{
+		"component": "DocumentationSlide"
+	},
+	{
+		"component": "PresentationSlide"
+	},
+	{
+		"component": "ConclusionsSlide"
+	},
+	{
+		"component": "QRCodesSlide"
+	}
+]
